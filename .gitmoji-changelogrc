@@ -1,0 +1,7 @@
+{
+  "project": {
+    "name": "__app_slug__",
+    "description": "__app_description__",
+    "version": "0.0.1"
+  }
+}
