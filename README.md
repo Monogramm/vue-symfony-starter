@@ -84,6 +84,10 @@ echo "[TODO] Describe how to execute Unit Tests"
 -   Website: <https://www.monogramm.io>
 -   Github: [@Monogramm](https://github.com/Monogramm)
 
+**Artur Khachaturyan**
+
+-   Github: [@Arky9782](https://github.com/orgs/Monogramm/people/Arky9782)
+
 ## :handshake: Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/Monogramm/vue-symfony-starter/issues).
