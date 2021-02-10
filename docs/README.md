@@ -1,6 +1,6 @@
-# **__app_name__** Documentation site
+# **Vue Symfony Starter** Documentation site
 
-This directory contains the code for the **__app_name__** docs site, [monogramm.github.io/**app_slug**](https://monogramm.github.io/__app_slug__).
+This directory contains the code for the **Vue Symfony Starter** docs site, [monogramm.github.io/vue-symfony-starter](https://monogramm.github.io/vue-symfony-starter).
 
 References:
 
@@ -8,4 +8,4 @@ References:
 
 ## Contributing
 
-For information about contributing, see the [Contributing page](https://github.com/Monogramm/__app_slug__/blob/master/CONTRIBUTING.md).
+For information about contributing, see the [Contributing page](https://github.com/Monogramm/vue-symfony-starter/blob/master/CONTRIBUTING.md).
