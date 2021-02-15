@@ -44,6 +44,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 See [Taiga.io](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-starter/ "Taiga.io monogrammbot-monogrammvue-symfony-starter")
 
+## :whale: Supported Docker tags
+
+[Dockerhub monogramm/vue-symfony-starter](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
+
+* `latest`
+* `debian`
+
 ## Docker Development environment
 
 You can build and run a development environment using Docker (recommended).
@@ -155,13 +162,6 @@ php vendor/bin/phpcs
 cd app
 php vendor/bin/psalm
 ```
-
-## :whale: Supported Docker tags
-
-[Dockerhub monogramm/vue-symfony-starter](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
-
-* `latest`
-* `debian`
 
 ## :bust_in_silhouette: Authors
 
