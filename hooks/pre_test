@@ -3,6 +3,13 @@
 # See documentation for details:
 # https://docs.docker.com/docker-hub/builds/advanced/
 
+if [ ! -f '.env' ]; then
+    log 'Init docker compose environment variables...'
+    cp .env_template .env.tmp
+
+    mv .env.tmp .env
+fi
+
 #echo 'Preparing persisted data...'
 #mkdir -p "/srv/app/data"
 #chown 777 "/srv/app/data"
