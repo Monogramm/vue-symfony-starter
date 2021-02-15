@@ -26,7 +26,6 @@
     </div>
 
     <!-- TODO -->
-
   </section>
 </template>
 

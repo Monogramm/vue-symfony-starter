@@ -27,20 +27,6 @@
       >
         {{ $t("home.title") }}
       </b-navbar-item>
-      <b-navbar-item
-        tag="router-link"
-        icon-left="gift"
-        :to="{ name: 'Offers' }"
-      >
-        {{ $t("offers.listing.link") }}
-      </b-navbar-item>
-      <b-navbar-item
-        tag="router-link"
-        icon-left="plugins"
-        :to="{ name: 'SelectApplications' }"
-      >
-        {{ $t("applications.title") }}
-      </b-navbar-item>
       <b-navbar-dropdown :label="$t('common.languages')">
         <b-navbar-item
           v-for="(option, idx) in languages"
