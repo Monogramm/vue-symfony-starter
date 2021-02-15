@@ -6,11 +6,7 @@ You can report bugs or request new features by creating an [issue](https://githu
 
 Here are a few rules to follow in order to ease code reviews and discussions before maintainers accept and merge your work.
 
-<!--
-    [TODO] Replace the best practices depending on the project's language and framework.
--->
-
-You MUST follow the [Best practices for this project language and framework](https://en.wikipedia.org/wiki/Best_coding_practices). If you don't know about any of them, you should really read the recommendations.
+You MUST follow the [PSR-1](http://www.php-fig.org/psr/1/) and [PSR-2](http://www.php-fig.org/psr/2/). If you don't know about any of them, you should really read the recommendations. Can't wait? Use the [PHP-CS-Fixertool](http://cs.sensiolabs.org/).
 
 You MUST run the CI test suite and ensure it is successful. If you haven't enabled it on your fork, it will be automatically triggered when opening/pushing a Pull Request (PR).
 

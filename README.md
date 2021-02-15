@@ -2,22 +2,18 @@
 [![Docs](https://img.shields.io/badge/Docs-Github%20Pages-blue)](https://monogramm.github.io/vue-symfony-starter/)
 [![gitmoji-changelog](https://img.shields.io/badge/Changelog-gitmoji-blue.svg)](https://github.com/frinyvonnick/gitmoji-changelog)
 [![Managed with Taiga.io](https://img.shields.io/badge/Managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-starter/ "Managed with Taiga.io")
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c05dda5cb328428aad5f3b8224a8f55b)](https://www.codacy.com/gh/Monogramm/vue-symfony-starter/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Monogramm/vue-symfony-starter&amp;utm_campaign=Badge_Grade)
 [![GitHub stars](https://img.shields.io/github/stars/Monogramm/vue-symfony-starter?style=social)](https://github.com/Monogramm/vue-symfony-starter)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Monogramm/vue-symfony-starter/Docker%20Image%20CI)](https://github.com/Monogramm/vue-symfony-starter/actions)
+[![Docker Automated buid](https://img.shields.io/docker/cloud/build/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
+[![Docker Version](https://images.microbadger.com/badges/version/monogramm/vue-symfony-starter.svg)](https://microbadger.com/images/monogramm/vue-symfony-starter)
+[![Docker Size](https://images.microbadger.com/badges/image/monogramm/vue-symfony-starter.svg)](https://microbadger.com/images/monogramm/vue-symfony-starter)
 
 <!--
 [TODO] If project uses Coveralls for code coverage:
 
 [![Coverage Status](https://coveralls.io/repos/github/Monogramm/vue-symfony-starter/badge.svg?branch=master)](https://coveralls.io/github/Monogramm/vue-symfony-starter?branch=master)
--->
-
-<!--
-[TODO] If project is deployed to DockerHub:
-
-[![Docker Automated buid](https://img.shields.io/docker/cloud/build/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
-[![Docker Version](https://images.microbadger.com/badges/version/monogramm/vue-symfony-starter.svg)](https://microbadger.com/images/monogramm/vue-symfony-starter)
-[![Docker Size](https://images.microbadger.com/badges/image/monogramm/vue-symfony-starter.svg)](https://microbadger.com/images/monogramm/vue-symfony-starter)
 -->
 
 # **Vue Symfony Starter**
@@ -130,6 +126,8 @@ Now go to <http://localhost:6006> to access locally the storybook.
 
 ## :white_check_mark: Run tests
 
+All tests are executed automatically when building the Docker production images, but it is possible to execute tests locally.
+
 ### Unit tests
 
 ```bash
@@ -158,16 +156,12 @@ cd app
 php vendor/bin/psalm
 ```
 
-<!--
-[TODO] If project is deployed to DockerHub:
-
 ## :whale: Supported Docker tags
 
 [Dockerhub monogramm/vue-symfony-starter](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
 
 * `latest`
-
--->
+* `debian`
 
 ## :bust_in_silhouette: Authors
 
