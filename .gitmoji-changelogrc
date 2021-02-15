@@ -1,7 +1,7 @@
 {
   "project": {
     "name": "vue-symfony-starter",
-    "description": "A "simple" starter project using Vue.js and Symfony.",
+    "description": "A 'simple' starter project using Vue.js and Symfony.",
     "version": "0.0.1"
   }
 }

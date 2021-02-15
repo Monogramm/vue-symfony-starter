@@ -22,7 +22,7 @@
 
 # **Vue Symfony Starter**
 
-> :alembic: A "simple" starter project using Vue.js and Symfony.
+> :alembic: A 'simple' starter project using Vue.js and Symfony.
 
 :construction: **This project is still in development!**
 
@@ -46,24 +46,116 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## :bookmark: Roadmap
 
-See [Taiga.io](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-starter/ "Taiga.io monogrammbot-monogramm\_\_app_slug\__")
+See [Taiga.io](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-starter/ "Taiga.io monogrammbot-monogrammvue-symfony-starter")
 
-## :construction: Install
+## Docker Development environment
 
-```sh
-echo "[TODO] Describe how to install application"
+You can build and run a development environment using Docker (recommended).
+
+### :construction: Install
+
+```bash
+./manage.sh dev:build
 ```
 
-## :rocket: Usage
+### :rocket: Usage
+
+```bash
+./manage.sh dev:start
+```
+
+Now go to <http://localhost:8000> to access development environment using docker.
+Go to <http://localhost:6006> to access the storybook.
+
+## Docker Production environment
+
+You can build and run a "_production-like_" environment using Docker.
+
+### :construction: Install
+
+```bash
+./manage.sh prod:build
+```
+
+### :rocket: Usage
+
+```bash
+./manage.sh prod:start
+```
+
+Now go to <http://localhost:8080> to access development environment using docker.
+
+## Local Development environment
+
+You can run the development environment locally (not recommened, prefer the Docker development environment).
+
+### :construction: Install
+
+Requires PHP 7.4 or higher, [Composer 2](https://getcomposer.org/), [Symfony 4.4](https://symfony.com/) and [yarn](https://yarnpkg.com/) installed.
+You can check your local requirements with the following command:
+
+```bash
+./manage.sh local:check
+```
+
+To install locally:
+
+```bash
+./manage.sh local:build
+```
+
+### :rocket: Usage
+
+To start frontend:
 
 ```sh
-echo "[TODO] Describe how to use application"
+./manage.sh local:start-front
 ```
+
+To start backend:
+
+```sh
+./manage.sh local:start-back
+```
+
+Now go to <http://localhost:8000> to access development environment using your local host.
+
+To start local storybook:
+
+```sh
+./manage.sh local:start-back
+```
+
+Now go to <http://localhost:6006> to access locally the storybook.
 
 ## :white_check_mark: Run tests
 
-```sh
-echo "[TODO] Describe how to execute Unit Tests"
+### Unit tests
+
+```bash
+cd app
+php bin/phpunit
+```
+
+### Unit tests with code coverage report in HTML format
+
+```bash
+cd app
+php bin/phpunit --coverage-html=./
+```
+
+### Code style check
+
+```bash
+cd app
+php vendor/bin/phpcs
+```
+
+### Static analysis tool
+
+```bash
+cd app
+php vendor/bin/psalm
 ```
 
 <!--
@@ -83,6 +175,10 @@ echo "[TODO] Describe how to execute Unit Tests"
 
 -   Website: <https://www.monogramm.io>
 -   Github: [@Monogramm](https://github.com/Monogramm)
+
+**Mathieu BRUNOT**
+
+-   GitHub: [@madmath03](https://github.com/madmath03)
 
 **Artur Khachaturyan**
 
