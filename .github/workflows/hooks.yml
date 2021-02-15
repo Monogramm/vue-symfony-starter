@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        variant: ['debian', 'alpine']
+        variant: ['alpine']
 
     steps:
       - name: Check Out Repo
