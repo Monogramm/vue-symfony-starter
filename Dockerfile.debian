@@ -146,6 +146,7 @@ RUN set -ex; \
     npx eslint --no-color ./assets/; \
     \
     rm -rf ./node_modules; \
+    mkdir -p /usr/src/symfony/.docker; \
     [ "${EXPORT_TESTS_RESULTS}" = "false" ] || cp -r /tmp/tests-* /usr/src/symfony/.docker/; \
     echo "${BUILD_DATE}" > '/usr/src/symfony/.docker/build-date'; \
     echo "${VERSION} ${VCS_REF} ${BUILD_DATE}" > '/usr/src/symfony/.docker/build'
