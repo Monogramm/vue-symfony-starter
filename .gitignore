@@ -1,13 +1,30 @@
-*.DS_Store
-Thumbs.db
+# misc
 *.swp
-.vscode
-.idea/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.session.sql
+
+# IDEs and other editors
+/.idea
 *.iml
-node_modules
+.project
+.eclipse
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 .kdev4/
 *.kdev4
-*debug.log
+
+# System Files
+*.DS_Store
+Thumbs.db
 
 # Codacy coverage
 .codacy-coverage
@@ -16,6 +33,7 @@ get.sh
 # Logs
 logs
 *.log
+*debug.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -71,3 +89,16 @@ typings/
 
 # next.js build output
 .next
+
+# Custom files
+.docker/
+build.date
+.docker-build
+.docker-build-date
+.docker-init-db-migrations
+.docker-init-admin
+.docker-init-app
+
+# docker-compose custom files
+/.env
+/.env.tmp

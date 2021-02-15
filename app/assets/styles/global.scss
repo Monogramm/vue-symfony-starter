@@ -1,0 +1,34 @@
+// Import variables
+@import "design-system";
+
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
+// Import fonts
+@import "fonts";
+
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+
+fieldset {
+  margin: 1rem 0.25rem;
+  padding: 1rem;
+  border: 1px solid rgba($white, 0.3);
+  border-radius: 15px;
+
+  legend {
+    padding: 0.25rem;
+    border-radius: 5px;
+  }
+}
+
+@include mediaPrint {
+  .no-print {
+    display: none;
+  }
+}

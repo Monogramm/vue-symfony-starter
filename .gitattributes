@@ -6,6 +6,10 @@
 
 # Definitively text files 
 *.txt text
+*.html text
+*.php text eol=lf
+*.js text
+*.css text
 *.svg text
 *.md text
 *.sh text eol=lf
