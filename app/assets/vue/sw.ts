@@ -17,7 +17,7 @@ if (!("serviceWorkerOption" in global)) {
     '/sw.js',
     '/manifest.json',
     require('./App')
-];
+  ];
 } else {
   const { assets } = ((global as any) as any).serviceWorkerOption;
   assetsToCache = [...assets.map((path: string) => pathPrefix + path), '../', '/manifest.json'];
