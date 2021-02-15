@@ -1,6 +1,6 @@
 {
   "name": "vue-symfony-starter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A 'simple' starter project using Vue.js and Symfony.",
   "license": "proprietary",
   "private": true,

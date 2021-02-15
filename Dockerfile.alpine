@@ -103,7 +103,7 @@ ARG STORIES=false
 # Arguments to label built container
 ARG VCS_REF=unknown
 ARG BUILD_DATE=unknown
-ARG VERSION=0.0.1
+ARG VERSION=0.1.0
 
 ARG APP_PUBLIC_URL=http://localhost:80
 ARG WEBSITE_PUBLIC_URL=http://localhost:80
@@ -274,7 +274,7 @@ WORKDIR /var/www/html/
 # Arguments to label built container
 ARG VCS_REF=unknown
 ARG BUILD_DATE=unknown
-ARG VERSION=0.0.1
+ARG VERSION=0.1.0
 
 ARG APP_PUBLIC_URL=http://localhost:8080
 

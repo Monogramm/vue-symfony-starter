@@ -10,7 +10,7 @@ services:
   app_backend:
     build:
       context: ./
-      dockerfile: Dockerfile.${VARIANT}
+      dockerfile: ${DOCKERFILE_PATH}
       args:
         - APP_PATH=./app
         - APP_PUBLIC_URL=${APP_PUBLIC_URL}

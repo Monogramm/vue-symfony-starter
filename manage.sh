@@ -214,12 +214,19 @@ lc-prepare-docker() {
 }
 
 init_compose() {
-	if [ ! -f '.env' ]; then
-		log 'Init docker compose environment variables...'
-		cp .env_template .env.tmp
+    if [ ! -f '.env' ]; then
+        log 'Init docker compose environment variables...'
+        cp .env_template .env.tmp
 
-		mv .env.tmp .env
-	fi
+        mv .env.tmp .env
+    fi
+    export VARIANT=alpine
+    export BASE=fpm
+
+    export DOCKER_REPO=monogramm/vue-symfony-starter
+    export DOCKERFILE_PATH=Dockerfile.${VARIANT}
+    export DOCKER_TAG=${VARIANT}
+    export IMAGE_NAME=${DOCKER_REPO}:${DOCKER_TAG}
 }
 
 dc() {
