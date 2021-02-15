@@ -3,7 +3,7 @@
 # See documentation for details:
 # https://docs.docker.com/docker-hub/builds/advanced/
 
-for file in "docker-compose.${BASE}"*.test.yml; do
+for file in "docker-compose.${BASE:-fpm}"*.test.yml; do
 
     echo "Starting Test in ${file}..."
 
