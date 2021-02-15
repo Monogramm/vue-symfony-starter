@@ -241,11 +241,6 @@ if [ -f /var/www/html/app/parameters.yml ]; then
         -e "s|mailer_host:.*|mailer_host: '${SF_MAIL_HOST}'|g" \
         -e "s|mailer_user:.*|mailer_user: '${SF_MAIL_USER}'|g" \
         -e "s|mailer_password:.*|mailer_password: '${SF_MAIL_PASSWORD}'|g" \
-        -e "s|ovh_endpoint_name:.*|ovh_endpoint_name: '${SF_PROVIDER_ENDPOINT}'|g" \
-        -e "s|ovh_application_key:.*|ovh_application_key: '${SF_PROVIDER_APP_KEY}'|g" \
-        -e "s|ovh_application_secret:.*|ovh_application_secret: '${SF_PROVIDER_APP_SECRET}'|g" \
-        -e "s|ovh_consumer_key:.*|ovh_consumer_key: '${SF_PROVIDER_CONSUMER_KEY}'|g" \
-        -e "s|ovh_subsidiary:.*|ovh_subsidiary: '${SF_PROVIDER_SUBSIDIARY}'|g" \
         /var/www/html/app/parameters.yml
 
     log "Symfony application parameters updated"

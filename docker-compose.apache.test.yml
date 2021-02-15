@@ -15,7 +15,7 @@ services:
         - APP_PATH=./app
         - APP_PUBLIC_URL=${APP_PUBLIC_URL}
         - WEBSITE_PUBLIC_URL=${APP_PUBLIC_URL}
-      #  - TAG=${TAG}
+      #  - VERSION=${TAG}
       #  - VCS_REF=${VCS_REF}
       #  - BUILD_DATE=${BUILD_DATE}
     image: ${IMAGE_NAME}

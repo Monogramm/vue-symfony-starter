@@ -340,34 +340,34 @@ case "${1}" in
     local:prepare-docker|prepare-docker) lc-prepare-docker "${@:2}";;
 
     # DEV env
-    dev:build|build-dev) build docker-compose_dev.yml "${@:2}";;
-    dev:start|start-dev) start docker-compose_dev.yml "${@:2}";;
-    dev:restart|restart-dev) restart docker-compose_dev.yml "${@:2}";;
-    dev:stop|stop-dev) stop docker-compose_dev.yml "${@:2}";;
-    dev:logs|logs-dev) logs docker-compose_dev.yml "${@:2}";;
-    dev:down|down-dev) down docker-compose_dev.yml "${@:2}";;
-    dev:reset|reset-dev) down docker-compose_dev.yml "${@:2}";
+    dev:build|build-dev) build docker-compose.yml "${@:2}";;
+    dev:start|start-dev) start docker-compose.yml "${@:2}";;
+    dev:restart|restart-dev) restart docker-compose.yml "${@:2}";;
+    dev:stop|stop-dev) stop docker-compose.yml "${@:2}";;
+    dev:logs|logs-dev) logs docker-compose.yml "${@:2}";;
+    dev:down|down-dev) down docker-compose.yml "${@:2}";;
+    dev:reset|reset-dev) down docker-compose.yml "${@:2}";
     . .env;
     sudo rm -rf "${APP_HOME:-/srv/app}_dev"
     ;;
-    dev:ps|ps-dev) dc-ps docker-compose_dev.yml "${@:2}";;
+    dev:ps|ps-dev) dc-ps docker-compose.yml "${@:2}";;
     dev:console|console-dev)
-    dc-console docker-compose_dev.yml app_dev_symfony "${@:2}";;
+    dc-console docker-compose.yml app_dev_symfony "${@:2}";;
 
     # PROD env
-    prod:build|build-prod|build) build docker-compose.yml "${@:2}";;
-    prod:start|start-prod|start) start docker-compose.yml "${@:2}";;
-    prod:restart|restart-prod|restart) restart docker-compose.yml "${@:2}";;
-    prod:stop|stop-prod|stop) stop docker-compose.yml "${@:2}";;
-    prod:logs|logs-prod|logs) logs docker-compose.yml "${@:2}";;
-    prod:down|down-prod|down) down docker-compose.yml "${@:2}";;
-    prod:reset|reset-prod|reset) down docker-compose.yml "${@:2}";
+    prod:build|build-prod|build) build "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:start|start-prod|start) start "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:restart|restart-prod|restart) restart "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:stop|stop-prod|stop) stop "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:logs|logs-prod|logs) logs "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:down|down-prod|down) down "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:reset|reset-prod|reset) down "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";
     . .env;
     sudo rm -rf "${APP_HOME:-/srv/app}"
     ;;
-    prod:ps|ps-prod|ps) dc-ps docker-compose.yml "${@:2}";;
+    prod:ps|ps-prod|ps) dc-ps "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
     prod:console|console-prod|console)
-    dc-console docker-compose.yml app_backend "${@:2}";;
+    dc-console "docker-compose.${BASE:-fpm}.test.yml" app_backend "${@:2}";;
 
     # Help
     *) usage;;
