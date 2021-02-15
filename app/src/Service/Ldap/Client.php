@@ -21,10 +21,14 @@ class Client
         'search_password'
     ];
 
-    /** @var Ldap */
+    /**
+     * @var Ldap
+     */
     private $ldap;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private $config;
 
     public function __construct(

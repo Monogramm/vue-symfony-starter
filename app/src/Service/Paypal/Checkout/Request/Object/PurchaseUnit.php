@@ -5,7 +5,9 @@ namespace App\Service\Paypal\Checkout\Request\Object;
 
 class PurchaseUnit implements \JsonSerializable
 {
-    /** @var Amount */
+    /**
+     * @var Amount
+     */
     private $amount;
 
     private $items;
@@ -44,7 +46,9 @@ class PurchaseUnit implements \JsonSerializable
         $data = [];
 
         $itemTotal = 0;
-        /** @var Item $item */
+        /**
+         * @var Item $item
+         */
         foreach ($this->items as $item) {
             $data['items'][] = $item->jsonSerialize();
             $itemTotal += $item->getQuantity() * $item->getUnitAmount()->getValue();

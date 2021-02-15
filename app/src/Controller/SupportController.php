@@ -21,7 +21,9 @@ class SupportController extends AbstractController
         MessageBusInterface $bus,
         ParameterRepository $parameterRepository
     ) {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = $this->getUser();
 
         $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);

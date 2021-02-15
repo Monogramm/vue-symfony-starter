@@ -111,7 +111,9 @@ class ParameterController extends AbstractController
         SerializerInterface $serializer,
         Encryptor $encryptor
     ) {
-        /** @var Parameter $dto */
+        /**
+         * @var Parameter $dto
+         */
         $dto = $serializer->deserialize(
             $request->getContent(),
             Parameter::class,

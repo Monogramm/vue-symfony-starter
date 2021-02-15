@@ -18,11 +18,17 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 {
     public const NO_PASSWORD = '!$';
 
-    /** @var UserPasswordEncoderInterface */
+    /**
+     * @var UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
-    /** @var AuthenticationSuccessHandler */
+    /**
+     * @var AuthenticationSuccessHandler
+     */
     private $successHandler;
-    /** @var UserRepository */
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     public function __construct(

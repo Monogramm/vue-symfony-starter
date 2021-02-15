@@ -10,7 +10,9 @@ class EmailFactory
 {
     public const SUBJECT_PREFIX = '[Vue Symfony Starter] ';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $mailerFrom;
 
     public function __construct(string $mailerFrom)

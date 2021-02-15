@@ -17,10 +17,14 @@ class LdapLoginCommand extends Command
 {
     protected static $defaultName = 'app:ldap:login';
 
-    /** @var Ldap */
+    /**
+     * @var Ldap
+     */
     private $ldap;
 
-    /** @var LoggerInterface */
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
     public function __construct(

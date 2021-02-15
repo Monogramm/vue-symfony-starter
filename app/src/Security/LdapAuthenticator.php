@@ -24,21 +24,37 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class LdapAuthenticator extends AbstractGuardAuthenticator
 {
-    /** @var AuthenticationSuccessHandler */
+    /**
+     * @var AuthenticationSuccessHandler
+     */
     private $successHandler;
-    /** @var UserRepository */
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
-    /** @var Client */
+    /**
+     * @var Client
+     */
     private $ldap;
-    /** @var EntityManagerInterface */
+    /**
+     * @var EntityManagerInterface
+     */
     private $em;
-    /** @var RouterInterface */
+    /**
+     * @var RouterInterface
+     */
     private $router;
-    /** @var array */
+    /**
+     * @var array
+     */
     private $ldapConfig;
-    /** @var ParameterRepository */
+    /**
+     * @var ParameterRepository
+     */
     private $parameterRepository;
-    /** @var LoggerInterface */
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
     public function __construct(
@@ -139,7 +155,9 @@ class LdapAuthenticator extends AbstractGuardAuthenticator
 
     private function getUserDefaultRole(): ?string
     {
-        /** @var Parameter|null $parameter */
+        /**
+         * @var Parameter|null $parameter
+         */
         $parameter = $this->parameterRepository->findByName('LDAP_USER_DEFAULT_ROLE');
 
         if (!$parameter) {

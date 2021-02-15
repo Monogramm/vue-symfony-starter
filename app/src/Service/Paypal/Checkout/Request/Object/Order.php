@@ -9,13 +9,19 @@ class Order implements \JsonSerializable
 
     public const INTENT_AUTHORIZE = 'AUTHORIZE';
 
-    /** @var Context|null */
+    /**
+     * @var Context|null
+     */
     private $context;
 
-    /** @var PurchaseUnit[]|null */
+    /**
+     * @var PurchaseUnit[]|null
+     */
     private $purchaseUnits;
 
-    /** @var string|null */
+    /**
+     * @var string|null
+     */
     private $intent;
 
     public function getContext(): ?Context

@@ -16,7 +16,9 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class ApiTokenAuthenticator extends AbstractGuardAuthenticator
 {
-    /** @var ApiTokenRepository */
+    /**
+     * @var ApiTokenRepository
+     */
     private $tokenRepository;
 
     public function __construct(

@@ -140,7 +140,9 @@ class UserController extends AbstractController
      */
     public function disableCurrentUser(EntityManagerInterface $em)
     {
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         $user = $this->getUser();
 
         $user->disable();
