@@ -21,6 +21,8 @@ pipeline {
         choice(name: 'WEBSITE_PUBLIC_URL', choices: ['https://www.example.com'], description: 'Website target domain name.')
 
         choice(name: 'STORIES', choices: ['true', 'false'], description: 'Build Storybook in build/storybook?')
+
+        choice(name: 'EXPORT_TESTS_RESULTS', choices: ['true', 'false'], description: 'Export tests results for future analysis?')
     }
     triggers {
         cron('H 6 * * 1-5')
@@ -47,7 +49,7 @@ pipeline {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", "${DOCKER_CREDENTIALS}") {
                         def customImage = docker.build(
                             "${DOCKER_REGISTRY}/${DOCKER_REPO}:${DOCKER_TAG}",
-                            "--build-arg TAG=${DOCKER_TAG} --build-arg STORIES=${STORIES} --build-arg APP_PUBLIC_URL=${APP_PUBLIC_URL} --build-arg WEBSITE_PUBLIC_URL=${WEBSITE_PUBLIC_URL} --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -f Dockerfile.${VARIANT} ."
+                            "--build-arg TAG=${DOCKER_TAG} --build-arg STORIES=${STORIES} --build-arg EXPORT_TESTS_RESULTS=${EXPORT_TESTS_RESULTS} --build-arg APP_PUBLIC_URL=${APP_PUBLIC_URL} --build-arg WEBSITE_PUBLIC_URL=${WEBSITE_PUBLIC_URL} --build-arg VCS_REF=$(git rev-parse --short HEAD) --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -f Dockerfile.${VARIANT} ."
                         )
 
                         customImage.push()

@@ -92,10 +92,6 @@ ARG APP_PATH=./app
 
 COPY ${APP_PATH} /usr/src/symfony
 
-ARG APP_ENV=prod
-ARG YARN_ENV=production
-ARG STORIES=false
-
 # Arguments to label built container
 ARG VCS_REF=unknown
 ARG BUILD_DATE=unknown
@@ -110,6 +106,12 @@ RUN set -ex; \
         /usr/src/symfony/.env.vue
 
 WORKDIR /usr/src/symfony
+
+ARG APP_ENV=prod
+ARG YARN_ENV=production
+
+ARG STORIES=false
+ARG EXPORT_TESTS_RESULTS=false
 
 # Install the project
 # Clear any cache that might still be remaining
@@ -132,13 +134,19 @@ RUN set -ex; \
     test "${STORIES}" = "false" || npm run build-storybook; \
     \
     php bin/console lint:twig --no-ansi --no-interaction ./templates; \
-    php bin/phpunit --do-not-cache-result --no-interaction --coverage-xml /tmp/coverage; \
+    php bin/phpunit --do-not-cache-result --no-interaction \
+        --testdox-html /tmp/tests-dox.html \
+        --testdox-text /tmp/tests-dox.txt \
+        --coverage-clover /tmp/tests-coverage-clover.xml \
+        --coverage-html /tmp/tests-coverage-html \
+        --coverage-xml /tmp/tests-coverage-xml \
+    ; \
     ./vendor/bin/phpcs --no-colors --warning-severity=0; \
     ./vendor/bin/psalm -m --no-file-cache --no-progress; \
     npx eslint --no-color ./assets/; \
     \
     rm -rf ./node_modules; \
-    mkdir -p /usr/src/symfony/.docker; \
+    [ "${EXPORT_TESTS_RESULTS}" = "false" ] || cp -r /tmp/tests-* /usr/src/symfony/.docker/; \
     echo "${BUILD_DATE}" > '/usr/src/symfony/.docker/build-date'; \
     echo "${VERSION} ${VCS_REF} ${BUILD_DATE}" > '/usr/src/symfony/.docker/build'
 

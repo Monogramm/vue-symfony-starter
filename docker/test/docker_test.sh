@@ -32,8 +32,20 @@ log 'Docker tests successful'
 # https://docs.docker.com/docker-hub/builds/automated-testing/
 ################################################################################
 
-log 'Checking Health API is responding...'
-curl --fail "http://${DOCKER_WEB_CONTAINER}:80/health" | grep -q -e 'UP' || exit 1
+if [ -n "${DOCKER_WEB_CONTAINER}" ]; then
+
+    if ! ping -c 10 -q "${DOCKER_WEB_CONTAINER}" ; then
+        log 'Web container is not responding!'
+        # TODO Display logs to help bug fixing
+        #log 'Check the following logs for details:'
+        #tail -n 100 logs/*.log
+        exit 2
+    fi
+
+    log 'Checking Health API is responding...'
+    curl "http://${DOCKER_WEB_CONTAINER}:80/health"
+    #curl --fail "http://${DOCKER_WEB_CONTAINER}:80/health" | grep -q -e 'UP' || exit 1
+fi
 
 
 ################################################################################

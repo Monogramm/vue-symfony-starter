@@ -2,6 +2,7 @@
 name: Docker Image CI
 
 on:
+  pull_request:
   push:
     #branches:
     #  - master
@@ -21,7 +22,15 @@ jobs:
       - name: Execute CI hooks
         id: docker_build
         run: |
+          export EXPORT_TESTS_RESULTS=true
           ./hooks/run ${{ matrix.variant }} 'fpm'
 
       - name: Display docker images
         run: docker images
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: .docker/app/html/.docker/tests-coverage-clover.xml
+          base-path: ./app

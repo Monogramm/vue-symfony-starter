@@ -28,6 +28,7 @@ This project uses the following technologies:
     -   [Jenkins](https://www.jenkins.io/) support with sample [Jenkinsfile](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/)
     -   [Codacy](https://www.codacy.com/) code quality review
     -   [Snyk](https://snyk.io/) security review
+    -   [Coveralls](https://coveralls.io/) code coverage review
 -   Source Code Management templates:
     -   GitHub [Issue and PR templates](https://docs.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
     -   GitLab [Issue and MR templates](https://docs.gitlab.com/ee/user/project/description_templates.html)
