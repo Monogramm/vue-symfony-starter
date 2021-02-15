@@ -33,8 +33,6 @@ RUN set -ex; \
         libpq-dev \
         librabbitmq-dev \
         libsodium-dev \
-        libssh-dev \
-        libssh2-1-dev \
         libxml2-dev \
         libzip-dev \
         unzip \
@@ -55,9 +53,7 @@ RUN set -ex; \
     docker-php-ext-enable gnupg; \
     echo "\n" | pecl install apcu; \
     docker-php-ext-enable apcu; \
-	docker-php-ext-configure zip; \
-	pecl install ssh2-1.2; \
-    docker-php-ext-enable ssh2; \
+    docker-php-ext-configure zip; \
     pecl install amqp; \
     docker-php-ext-enable amqp; \
     pecl install libsodium; \
@@ -161,7 +157,6 @@ RUN set -ex; \
         libpng \
         libpq \
         libsodium \
-        libssh2 \
         libzip \
         openssl \
         rabbitmq-c \
@@ -181,7 +176,6 @@ RUN set -ex; \
         libsodium-dev \
         libxml2-dev \
         libzip-dev \
-        libssh2-dev \
         make \
         oniguruma-dev \
         openldap-dev \
@@ -192,11 +186,9 @@ RUN set -ex; \
     docker-php-ext-configure ldap; \
     docker-php-ext-configure gd; \
     docker-php-ext-configure intl; \
-	docker-php-ext-configure zip; \
+    docker-php-ext-configure zip; \
     pecl install amqp; \
     docker-php-ext-enable amqp; \
-    pecl install ssh2-1.2; \
-    docker-php-ext-enable ssh2; \
     pecl install libsodium; \
     docker-php-ext-enable sodium; \
     docker-php-ext-install -j "$(nproc)" \

@@ -33,7 +33,6 @@ RUN set -ex; \
         libpq-dev \
         librabbitmq-dev \
         libsodium-dev \
-        libssh-dev \
         libxml2-dev \
         libzip-dev \
         unzip \
@@ -54,9 +53,7 @@ RUN set -ex; \
     docker-php-ext-enable gnupg; \
     echo "\n" | pecl install apcu; \
     docker-php-ext-enable apcu; \
-	docker-php-ext-configure zip; \
-	pecl install ssh2-1.2; \
-    docker-php-ext-enable ssh2; \
+    docker-php-ext-configure zip; \
     pecl install amqp; \
     docker-php-ext-enable amqp; \
     pecl install libsodium; \
@@ -167,7 +164,6 @@ RUN set -ex; \
         libpq5 \
         librabbitmq4 \
         libsodium23 \
-        libssh-4 \
         libxml2 \
         libzip4 \
         netcat \
@@ -189,7 +185,6 @@ RUN set -ex; \
         libpq-dev \
         librabbitmq-dev \
         libsodium-dev \
-        libssh-dev \
         libxml2-dev \
         libzip-dev \
         make \
@@ -199,7 +194,7 @@ RUN set -ex; \
     docker-php-ext-configure ldap --with-libdir="lib/$debMultiarch"; \
     docker-php-ext-configure gd; \
     docker-php-ext-configure intl; \
-	docker-php-ext-configure zip --with-libzip; \
+    docker-php-ext-configure zip --with-libzip; \
     pecl install amqp; \
     docker-php-ext-enable amqp; \
     pecl install libsodium; \

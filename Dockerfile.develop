@@ -29,8 +29,6 @@ RUN set -ex; \
         libpq-dev \
         librabbitmq-dev \
         libsodium-dev \
-        libssh-dev \
-        libssh2-1-dev \
         libxml2-dev \
         libzip-dev \
         make \
@@ -52,11 +50,9 @@ RUN set -ex; \
     docker-php-ext-configure ldap --with-libdir="lib/$debMultiarch"; \
     docker-php-ext-configure gd; \
     docker-php-ext-configure intl; \
-	docker-php-ext-configure zip; \
+    docker-php-ext-configure zip; \
     pecl install amqp; \
     docker-php-ext-enable amqp; \
-    pecl install ssh2-1.2; \
-    docker-php-ext-enable ssh2; \
     pecl install libsodium; \
     docker-php-ext-enable sodium; \
     yes | pecl install xdebug; \
