@@ -26,6 +26,8 @@ final class Version20200907143503 extends AbstractMigration
 
         $this->addSql('CREATE TABLE currency (id CHAR(36) NOT NULL --(DC2Type:uuid)
         , name VARCHAR(50) NOT NULL, iso_code VARCHAR(10) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE parameter (id CHAR(36) NOT NULL --(DC2Type:uuid)
+        , name VARCHAR(255) NOT NULL, value CLOB NOT NULL, description CLOB DEFAULT NULL, type VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE api_token (id CHAR(36) NOT NULL --(DC2Type:uuid)
         , user_id CHAR(36) DEFAULT NULL --(DC2Type:uuid)
         , token CLOB NOT NULL, expired_at DATETIME NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id))');
