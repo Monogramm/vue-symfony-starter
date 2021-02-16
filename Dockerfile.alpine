@@ -47,7 +47,7 @@ RUN set -ex; \
     ; \
     npm --version; \
     curl --silent --show-error "https://getcomposer.org/installer" -o composer-setup.php; \
-    php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION}; \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer "--version=${COMPOSER_VERSION}"; \
     composer --version; \
     pecl install gnupg; \
     docker-php-ext-enable gnupg; \

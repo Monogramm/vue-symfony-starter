@@ -47,7 +47,7 @@ RUN set -ex; \
     ; \
     npm --version; \
     curl --silent --show-error "https://getcomposer.org/installer" -o composer-setup.php; \
-    php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION}; \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer "--version=${COMPOSER_VERSION}"; \
     composer --version; \
     pecl install gnupg; \
     docker-php-ext-enable gnupg; \
@@ -203,7 +203,7 @@ RUN set -ex; \
     docker-php-ext-configure ldap --with-libdir="lib/$debMultiarch"; \
     docker-php-ext-configure gd; \
     docker-php-ext-configure intl; \
-    docker-php-ext-configure zip --with-libzip; \
+    docker-php-ext-configure zip; \
     pecl install amqp; \
     docker-php-ext-enable amqp; \
     pecl install libsodium; \

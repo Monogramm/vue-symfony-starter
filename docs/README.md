@@ -1,6 +1,8 @@
 # **Vue Symfony Starter** Documentation site
 
-This directory contains the documentation for the **Vue Symfony Starter** project, [monogramm.github.io/vue-symfony-starter](https://monogramm.github.io/vue-symfony-starter).
+**Vue Symfony Starter**: A 'simple' starter project using Vue.js and Symfony.
+
+The objective of the project is to provide a project template with full build / tests / deploy automation while providing as much "_standard_" features as usually found in recent web applications.
 
 ## Technologies
 

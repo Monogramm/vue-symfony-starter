@@ -20,7 +20,7 @@
 
 > :alembic: A 'simple' starter project using Vue.js and Symfony.
 
-:construction: **This project is still in development!**
+:construction: **This project is still in beta!**
 
 ## :blue_book: Docs
 

@@ -46,6 +46,18 @@ if [ -n "${DOCKER_WEB_CONTAINER}" ]; then
     curl --fail "http://${DOCKER_WEB_CONTAINER}:80/health" | grep -q -e 'UP' || exit 1
 fi
 
+if [ -n "${COVERALLS_REPO_TOKEN}" ]; then
+    log 'Installing PHP-Coveralls...'
+
+    composer global require php-coveralls/php-coveralls
+
+    if [ -f '/var/www/html/.docker/tests-coverage-clover.xml' ]; then
+        log 'Send tests coverage to Coveralls...'
+        php-coveralls --coverage_clover=/var/www/html/.docker/tests-coverage-clover.xml -v
+    else
+        log 'No tests coverage to send to Coveralls.'
+    fi
+fi
 
 ################################################################################
 # Success
