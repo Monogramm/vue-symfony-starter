@@ -47,13 +47,14 @@ if [ -n "${DOCKER_WEB_CONTAINER}" ]; then
 fi
 
 if [ -n "${COVERALLS_REPO_TOKEN}" ]; then
-    log 'Installing PHP-Coveralls...'
+    log 'Installing PHP-Coveralls locally...'
 
-    composer global require php-coveralls/php-coveralls
+    composer require --dev php-coveralls/php-coveralls
+    php vendor/bin/php-coveralls --help
 
     if [ -f '/var/www/html/.docker/tests-coverage-clover.xml' ]; then
         log 'Send tests coverage to Coveralls...'
-        php-coveralls --coverage_clover=/var/www/html/.docker/tests-coverage-clover.xml -v
+        php vendor/bin/php-coveralls --coverage_clover=/var/www/html/.docker/tests-coverage-clover.xml -v
     else
         log 'No tests coverage to send to Coveralls.'
     fi
