@@ -24,7 +24,7 @@ jobs:
         run: |
           export EXPORT_TESTS_RESULTS=true
           ./hooks/run ${{ matrix.variant }} 'fpm'
-          ls -al . ./.docker ./.docker/app ./.docker/app/.docker
+          ls -al . ./.docker ./.docker/app ./.docker/app/html ./.docker/app/html/.docker
 
       - name: Display docker images
         run: docker images
@@ -33,4 +33,4 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@0.2.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: .docker/app/.docker/tests-coverage-clover.xml
+          coverage-reports: .docker/app/html/.docker/tests-coverage-clover.xml
