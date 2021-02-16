@@ -55,11 +55,11 @@ if [ -n "${COVERALLS_REPO_TOKEN}" ]; then
     if [ -f '/var/www/html/.docker/tests-coverage-clover.xml' ]; then
         log 'TODO Send tests coverage to Coveralls...'
         # FIXME fatal: Failed to execute command git branch: not a git repository (or any of the parent directories): .git
-        #php vendor/bin/php-coveralls \
-        #    --json_path=/tmp/tests-coveralls-upload.json \
-        #    --root_dir=/var/www/html/ \
-        #    --coverage_clover=/var/www/html/.docker/tests-coverage-clover.xml \
-        #    -v
+        php vendor/bin/php-coveralls \
+            --json_path=/tmp/tests-coveralls-upload.json \
+            --root_dir=/var/www/html/ \
+            --coverage_clover=/var/www/html/.docker/tests-coverage-clover.xml \
+            -v
     else
         log 'No tests coverage to send to Coveralls.'
     fi

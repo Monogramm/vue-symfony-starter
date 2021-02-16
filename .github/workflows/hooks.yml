@@ -23,8 +23,18 @@ jobs:
         id: docker_build
         run: |
           export EXPORT_TESTS_RESULTS=true
-          export COVERALLS_REPO_TOKEN=${{ secrets.GITHUB_TOKEN }}
           ./hooks/run ${{ matrix.variant }} 'fpm'
 
       - name: Display docker images
         run: docker images
+
+      - name: Upload coverage results to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl --silent --show-error "https://getcomposer.org/installer" -o composer-setup.php
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          composer --version
+          composer global require php-coveralls/php-coveralls
+          php-coveralls --help
+          php-coveralls --coverage_clover=.docker/tests-coverage-clover.xml --json_path=.docker/tests-coveralls-upload.json -v
