@@ -135,11 +135,9 @@ RUN set -ex; \
     \
     php bin/console lint:twig --no-ansi --no-interaction ./templates; \
     php bin/phpunit --do-not-cache-result --no-interaction \
-        --testdox-html /tmp/tests-dox.html \
-        --testdox-text /tmp/tests-dox.txt \
         --coverage-clover /tmp/tests-coverage-clover.xml \
+        --coverage-cobertura /tmp/tests-coverage-cobertura.xml \
         --coverage-html /tmp/tests-coverage-html \
-        --coverage-xml /tmp/tests-coverage-xml \
     ; \
     ./vendor/bin/phpcs --no-colors --warning-severity=0; \
     ./vendor/bin/psalm -m --no-file-cache --no-progress; \

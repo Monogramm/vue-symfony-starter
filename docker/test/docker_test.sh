@@ -46,25 +46,6 @@ if [ -n "${DOCKER_WEB_CONTAINER}" ]; then
     curl --fail "http://${DOCKER_WEB_CONTAINER}:80/health" | grep -q -e 'UP' || exit 1
 fi
 
-if [ -n "${COVERALLS_REPO_TOKEN}" ]; then
-    log 'Installing PHP-Coveralls locally...'
-
-    composer require --dev php-coveralls/php-coveralls
-    php vendor/bin/php-coveralls --help
-
-    if [ -f '/var/www/html/.docker/tests-coverage-clover.xml' ]; then
-        log 'TODO Send tests coverage to Coveralls...'
-        # FIXME fatal: Failed to execute command git branch: not a git repository (or any of the parent directories): .git
-        php vendor/bin/php-coveralls \
-            --json_path=/tmp/tests-coveralls-upload.json \
-            --root_dir=/var/www/html/ \
-            --coverage_clover=/var/www/html/.docker/tests-coverage-clover.xml \
-            -v
-    else
-        log 'No tests coverage to send to Coveralls.'
-    fi
-fi
-
 ################################################################################
 # Success
 echo "Docker app '${DOCKER_TEST_CONTAINER}' tests finished"
