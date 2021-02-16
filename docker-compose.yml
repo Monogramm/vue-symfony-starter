@@ -33,6 +33,17 @@ services:
       - app_dev_db:database
       - app_dev_rabbitmq:rabbitmq
       - app_dev_mailer:mailer
+    networks:
+      - app_dev_external_network
+      - app_dev_internal_network
+    volumes:
+      # For DEV, mount local sources
+      - ./app:/var/www/html
+      # Mount local PHP conf files
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     environment:
       - SF_PROD=false
       - APP_ENV=dev
@@ -109,17 +120,6 @@ services:
       - PHP_IDE_CONFIG=serverName=first
       # Wait for it...
       - WAIT_FOR=database:5432
-    networks:
-      - app_dev_external_network
-      - app_dev_internal_network
-    volumes:
-      # For DEV, mount local sources
-      - ./app:/var/www/html
-      # Mount local PHP conf files
-      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
-      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
 
   app_dev_messenger:
     image: ${IMAGE_NAME}-dev
@@ -141,6 +141,16 @@ services:
       - app_dev_db:database
       - app_dev_rabbitmq:rabbitmq
       - app_dev_mailer:mailer
+    networks:
+      - app_dev_internal_network
+    volumes:
+      # For DEV, mount local sources
+      - ./app:/var/www/html
+      # Mount local PHP conf files
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     environment:
       - SF_PROD=false
       - APP_ENV=dev
@@ -204,16 +214,6 @@ services:
       # Wait for it...
       - WAIT_FILE=app db-migrations
       - WAIT_FOR=rabbitmq:5672 mailer:1025
-    networks:
-      - app_dev_internal_network
-    volumes:
-      # For DEV, mount local sources
-      - ./app:/var/www/html
-      # Mount local PHP conf files
-      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
-      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
 
   app_dev_encore:
     image: ${IMAGE_NAME}-dev
@@ -225,6 +225,12 @@ services:
         condition: service_started
     networks:
       - app_dev_internal_network
+    volumes:
+      # For DEV, mount local sources
+      - ./app:/var/www/html
+      # Mount local PHP conf files
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     environment:
       - SF_PROD=false
       - APP_ENV=dev
@@ -234,12 +240,6 @@ services:
       # Wait for it...
       - WAIT_FILE=app db-migrations
       - WAIT_FOR=app_dev_rabbitmq:5672 app_dev_mailer:1025
-    volumes:
-      # For DEV, mount local sources
-      - ./app:/var/www/html
-      # Mount local PHP conf files
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
 
   app_dev_storybook:
     image: ${IMAGE_NAME}-dev
