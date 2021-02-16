@@ -8,6 +8,7 @@ RUN set -ex; \
     chmod 755 /docker_test.sh; \
     apk add --update \
         curl \
+        git \
     ; \
     \
     curl --silent --show-error "https://getcomposer.org/installer" -o composer-setup.php; \
