@@ -4,16 +4,16 @@ name: Docker Image CI
 on:
   pull_request:
   push:
-    #branches:
-    #  - master
-    #  - develop
+    branches:
+      - master
+      - develop
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        variant: ['alpine']
+        variant: ['debian', 'alpine']
 
     steps:
       - name: Check Out Repo
