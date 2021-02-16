@@ -267,6 +267,11 @@ logs() {
     dc "${1}" logs -f "${@:2}"
 }
 
+dc-exec() {
+    log 'Executing container(s) command...'
+    dc "${1}" exec "${@:2}"
+}
+
 dc-ps() {
     log 'Checking container(s)...'
     dc "${1}" ps "${@:2}"
@@ -307,6 +312,7 @@ usage() {
         dev:restart, restart-dev                Retart Docker Dev env
         dev:stop, stop-dev                      Stop Docker Dev env
         dev:logs, logs-dev                      Follow logs of Docker Dev env
+        dev:exec, exec-dev                      Execute command in Docker Dev env
         dev:down, down-dev                      Stop and remove Docker Dev env
         dev:reset, reset-dev                    Stop and remove Docker Dev env, and remove all data
         dev:ps, ps-dev                          List Docker Prod env containers
@@ -318,6 +324,7 @@ usage() {
         prod:restart, restart-prod, restart     Retart Docker Prod env
         prod:stop, stop-prod, stop              Stop Docker Prod env
         prod:logs, logs-prod, logs              Follow logs of Docker Prod env
+        prod:exec, exec-prod, exec              Execute command in Docker Prod env
         prod:down, down-prod, down              Stop and remove Docker Prod env
         prod:reset, reset-prod, reset           Stop and remove Docker Prod env, and remove all data
         prod:ps, ps-prod, ps                    List Docker Prod env containers
@@ -352,6 +359,7 @@ case "${1}" in
     dev:restart|restart-dev) restart docker-compose.yml "${@:2}";;
     dev:stop|stop-dev) stop docker-compose.yml "${@:2}";;
     dev:logs|logs-dev) logs docker-compose.yml "${@:2}";;
+    dev:exec|exec-dev) dc-exec docker-compose.yml "${@:2}";;
     dev:down|down-dev) down docker-compose.yml "${@:2}";;
     dev:reset|reset-dev) down docker-compose.yml "${@:2}";
     . .env;
@@ -367,6 +375,7 @@ case "${1}" in
     prod:restart|restart-prod|restart) restart "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
     prod:stop|stop-prod|stop) stop "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
     prod:logs|logs-prod|logs) logs "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:exec|exec-prod|exec) dc-exec "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
     prod:down|down-prod|down) down "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
     prod:reset|reset-prod|reset) down "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";
     . .env;
