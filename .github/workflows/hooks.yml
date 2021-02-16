@@ -35,6 +35,6 @@ jobs:
           curl --silent --show-error "https://getcomposer.org/installer" -o composer-setup.php
           php composer-setup.php --install-dir=/usr/local/bin --filename=composer
           composer --version
-          composer global require php-coveralls/php-coveralls
+          composer require --dev php-coveralls/php-coveralls
           php-coveralls --help
           php-coveralls --coverage_clover=.docker/tests-coverage-clover.xml --json_path=.docker/tests-coveralls-upload.json -v
