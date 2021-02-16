@@ -440,7 +440,6 @@ services:
     environment:
       - DOCKER_TEST_CONTAINER=app_backend
       - DOCKER_WEB_CONTAINER=app_backend
-      - COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}
     volumes_from:
       - app_backend
     # If you want, you can sync time & timezone with host

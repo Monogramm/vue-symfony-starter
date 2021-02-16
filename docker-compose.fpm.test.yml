@@ -472,7 +472,6 @@ services:
     environment:
       - DOCKER_TEST_CONTAINER=app_backend
       - DOCKER_WEB_CONTAINER=app_web
-      - COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}
     volumes_from:
       - app_backend
       - app_web

@@ -23,8 +23,14 @@ jobs:
         id: docker_build
         run: |
           export EXPORT_TESTS_RESULTS=true
-          export COVERALLS_REPO_TOKEN=${{ secrets.GITHUB_TOKEN }}
           ./hooks/run ${{ matrix.variant }} 'fpm'
+          ls -al . ./.docker ./.docker/app ./.docker/app/html ./.docker/app/html/.docker
 
       - name: Display docker images
         run: docker images
+
+      - name: Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@0.2.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: .docker/app/html/.docker/tests-coverage-cobertura.xml
