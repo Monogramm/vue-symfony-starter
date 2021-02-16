@@ -54,7 +54,10 @@ if [ -n "${COVERALLS_REPO_TOKEN}" ]; then
 
     if [ -f '/var/www/html/.docker/tests-coverage-clover.xml' ]; then
         log 'Send tests coverage to Coveralls...'
-        php vendor/bin/php-coveralls --coverage_clover=/var/www/html/.docker/tests-coverage-clover.xml -v
+        php vendor/bin/php-coveralls \
+            --json_path /tmp/tests-coveralls-upload.json \
+            --coverage_clover=/var/www/html/.docker/tests-coverage-clover.xml \
+            -v
     else
         log 'No tests coverage to send to Coveralls.'
     fi
