@@ -130,13 +130,15 @@ ENTRYPOINT ["/entrypoint.sh"]
 ARG APP_PATH=./app
 COPY ${APP_PATH} /var/www/html/
 
-# Install the project
-# Clear any cache that might still be remaining
-# Compile assets for production
+# Install of the project (can also be done at runtime if mounted as volume)
 RUN set -ex; \
-    composer --no-interaction \
+    composer \
+        --prefer-dist \
+        --no-interaction \
         --optimize-autoloader --apcu-autoloader \
-        install
-
-RUN set -ex; \
-    npm install
+        install \
+    ; \
+    \
+    npm install \
+        --non-interactive \
+    ;

@@ -176,8 +176,20 @@ fi
 
 if [ ! -d '/usr/src/symfony' ] && [ -d '/var/www/html' ]; then
 
+    log "Application running from sources. Installing dependencies..."
+
+    composer \
+        --prefer-dist \
+        --no-interaction \
+        --no-ansi \
+        --optimize-autoloader --apcu-autoloader \
+        install
+
+    npm install \
+        --non-interactive
+
     init_file 'app'
-    log "Application already initialized (running from sources)"
+    log "Application initialization complete (running from sources)"
 
 elif ! init_file_exists 'app' || date_greater "$image_build_date" "$installed_build_date"; then
     log "Symfony initialization..."

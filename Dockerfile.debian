@@ -117,15 +117,21 @@ ARG EXPORT_TESTS_RESULTS=false
 # Clear any cache that might still be remaining
 # Compile assets for production
 RUN set -ex; \
-    composer --prefer-dist \
+    composer \
+        --prefer-dist \
         --no-interaction \
         --no-ansi --no-progress \
         --optimize-autoloader --apcu-autoloader \
-        install; \
+        install \
+    ; \
     \
-    yarn install --no-progress \
-        --non-interactive; \
-    npm install; \
+    yarn install \
+        --no-progress \
+        --non-interactive \
+    ; \
+    npm install \
+        --non-interactive \
+    ; \
     \
     php bin/console cache:clear --env=${APP_ENV}; \
     php bin/console cache:warmup --env=${APP_ENV}; \
