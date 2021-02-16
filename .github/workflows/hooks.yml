@@ -28,13 +28,8 @@ jobs:
       - name: Display docker images
         run: docker images
 
-      - name: Upload coverage results to Coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl --silent --show-error "https://getcomposer.org/installer" -o composer-setup.php
-          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-          composer --version
-          composer require --dev php-coveralls/php-coveralls
-          php-coveralls --help
-          php-coveralls --coverage_clover=.docker/tests-coverage-clover.xml --json_path=.docker/tests-coveralls-upload.json -v
+      - name: Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@0.2.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: .docker/tests-coverage-clover.xml
