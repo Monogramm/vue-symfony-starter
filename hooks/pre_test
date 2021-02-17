@@ -4,7 +4,7 @@
 # https://docs.docker.com/docker-hub/builds/advanced/
 
 if [ ! -f '.env' ]; then
-    log 'Init docker compose environment variables...'
+    echo 'Init docker compose environment variables...'
     cp .env_template .env.tmp
 
     mv .env.tmp .env
