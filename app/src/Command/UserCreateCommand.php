@@ -73,18 +73,18 @@ class UserCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $ioStyle = new SymfonyStyle($input, $output);
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
         $email = $input->getArgument('email');
 
         // Checking input format
-        if ($this->isInvalid($io, $username, $email, $password)) {
+        if ($this->isInvalid($ioStyle, $username, $email, $password)) {
             return 1;
         }
 
         // Checking conflicts
-        if ($this->isInConflict($io, $username, $email)) {
+        if ($this->isInConflict($ioStyle, $username, $email)) {
             return 0;
         }
 
@@ -108,7 +108,7 @@ class UserCreateCommand extends Command
         $this->em->persist($user);
         $this->em->flush();
 
-        $io->success("User '$username' created");
+        $ioStyle->success("User '$username' created");
 
         return 0;
     }
