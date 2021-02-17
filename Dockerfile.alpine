@@ -144,6 +144,7 @@ RUN set -ex; \
         --coverage-clover /tmp/coverage-phpunit-clover.xml \
         --coverage-cobertura /tmp/coverage-phpunit-cobertura.xml \
         --coverage-html /tmp/coverage-phpunit-html \
+        --coverage-text --colors=never \
     ; \
     ./vendor/bin/phpcs --no-colors --warning-severity=0; \
     ./vendor/bin/psalm -m --no-file-cache --no-progress; \
