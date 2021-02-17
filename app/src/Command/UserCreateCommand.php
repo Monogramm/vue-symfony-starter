@@ -113,20 +113,20 @@ class UserCreateCommand extends Command
         return 0;
     }
 
-    protected function isInvalid(SymfonyStyle $io, String $username, String $email, String $password): bool
+    protected function isInvalid(SymfonyStyle $ioStyle, String $username, String $email, String $password): bool
     {
         $invalid = false;
 
         if (empty($username)) {
-            $io->error('Username cannot be empty');
+            $ioStyle->error('Username cannot be empty');
             $invalid = true;
         }
         if (empty($email)) {
-            $io->error('Email cannot be empty');
+            $ioStyle->error('Email cannot be empty');
             $invalid = true;
         }
         if (empty($password)) {
-            $io->error('Password cannot be empty');
+            $ioStyle->error('Password cannot be empty');
             $invalid = true;
             // TODO Generate random password if empty?
         }
@@ -136,16 +136,16 @@ class UserCreateCommand extends Command
         return $invalid;
     }
 
-    protected function isInConflict(SymfonyStyle $io, String $username, String $email): bool
+    protected function isInConflict(SymfonyStyle $ioStyle, String $username, String $email): bool
     {
         $conflict = false;
 
         if ($this->findByUsername($username)) {
-            $io->warning('This username is already taken');
+            $ioStyle->warning('This username is already taken');
             $conflict = true;
         }
         if ($this->findByEmail($email)) {
-            $io->warning('This email address is already taken');
+            $ioStyle->warning('This email address is already taken');
             $conflict = true;
         }
 
