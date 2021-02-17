@@ -143,7 +143,6 @@ RUN set -ex; \
     php bin/phpunit --do-not-cache-result --no-interaction \
         --coverage-clover /tmp/coverage-phpunit-clover.xml \
         --coverage-cobertura /tmp/coverage-phpunit-cobertura.xml \
-        --coverage-text /tmp/coverage-phpunit-text.txt \
         --coverage-html /tmp/coverage-phpunit-html \
     ; \
     ./vendor/bin/phpcs --no-colors --warning-severity=0; \

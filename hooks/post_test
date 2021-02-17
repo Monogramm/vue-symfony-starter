@@ -8,7 +8,7 @@ if [ ! -d ./coverage ]; then
 fi
 
 # Update Code Coverage Reports container path with local path
-for f in cobertura.xml clover.xml text.txt; do
+for f in cobertura.xml clover.xml; do
     if [ -f "${APP_HOME:-.docker/app}/html/.docker/coverage-phpunit-$f" ]; then
         sed -e "s|/usr/src/symfony/src|$(pwd)/app/src|g" "${APP_HOME:-.docker/app}/html/.docker/coverage-phpunit-$f" > "./coverage/coverage-phpunit-$f"
     fi
