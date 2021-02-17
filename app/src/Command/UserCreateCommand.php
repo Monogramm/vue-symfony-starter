@@ -79,39 +79,12 @@ class UserCreateCommand extends Command
         $email = $input->getArgument('email');
 
         // Checking input format
-        $invalid = false;
-        if (empty($username)) {
-            $io->error('Username cannot be empty');
-            $invalid = true;
-        }
-        if (empty($email)) {
-            $io->error('Email cannot be empty');
-            $invalid = true;
-        }
-        if (empty($password)) {
-            $io->error('Password cannot be empty');
-            $invalid = true;
-            // TODO Generate random password if empty?
-        }
-        // TODO Check password security?
-
-        if ($invalid) {
+        if ($this->isInvalid($io, $username, $email, $password)) {
             return 1;
         }
 
         // Checking conflicts
-        $conflict = false;
-
-        if ($this->findByUsername($username)) {
-            $io->warning('This username is already taken');
-            $conflict = true;
-        }
-        if ($this->findByEmail($email)) {
-            $io->warning('This email address is already taken');
-            $conflict = true;
-        }
-
-        if ($conflict) {
+        if ($this->isInConflict($io, $username, $email)) {
             return 0;
         }
 
@@ -138,6 +111,45 @@ class UserCreateCommand extends Command
         $io->success("User '$username' created");
 
         return 0;
+    }
+
+    protected function isInvalid(SymfonyStyle $io, String $username, String $email, String $password): boolean
+    {
+        $invalid = false;
+
+        if (empty($username)) {
+            $io->error('Username cannot be empty');
+            $invalid = true;
+        }
+        if (empty($email)) {
+            $io->error('Email cannot be empty');
+            $invalid = true;
+        }
+        if (empty($password)) {
+            $io->error('Password cannot be empty');
+            $invalid = true;
+            // TODO Generate random password if empty?
+        }
+
+        // TODO Check password security?
+
+        return $invalid;
+    }
+
+    protected function isInConflict(SymfonyStyle $io, String $username, String $email): boolean
+    {
+        $conflict = false;
+
+        if ($this->findByUsername($username)) {
+            $io->warning('This username is already taken');
+            $conflict = true;
+        }
+        if ($this->findByEmail($email)) {
+            $io->warning('This email address is already taken');
+            $conflict = true;
+        }
+
+        return $conflict;
     }
 
     protected function findByUsername(String $username): ?User
