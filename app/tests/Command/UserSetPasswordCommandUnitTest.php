@@ -54,7 +54,7 @@ class UserSetPasswordCommandUnitTest extends KernelTestCase
 
         $passwordGeneratorMock = $this->createMock(PasswordGenerator::class);
 
-        $passwordGeneratorMock->expects($this->once())
+        $passwordGeneratorMock->expects($this->exactly(0))
             ->method('generate')
             ->willReturn($password);
 
@@ -189,7 +189,7 @@ class UserSetPasswordCommandUnitTest extends KernelTestCase
 
         $passwordGeneratorMock = $this->createMock(PasswordGenerator::class);
 
-        $passwordGeneratorMock->expects($this->once())
+        $passwordGeneratorMock->expects($this->exactly(0))
             ->method('generate')
             ->willReturn($password);
 
