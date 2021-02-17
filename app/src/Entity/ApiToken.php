@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -51,6 +52,16 @@ class ApiToken
         $this->expiredAt = $expiredAt;
 
         return $this;
+    }
+
+    public function isNowExpired(): bool
+    {
+        return $this->isExpiredAt(Carbon::now());
+    }
+
+    public function isExpiredAt(\DateTimeInterface $reference): bool
+    {
+        return $this->getExpiredAt() <= $reference;
     }
 
     public function getUser(): UserInterface

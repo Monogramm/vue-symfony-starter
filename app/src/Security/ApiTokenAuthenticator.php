@@ -54,7 +54,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
             'token' => $credentials
         ]);
 
-        if (!$token || $token->getExpiredAt() <= Carbon::now()) {
+        if (!$token || $token->isNowExpired()) {
             return;
         }
 
