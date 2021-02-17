@@ -113,7 +113,7 @@ class UserCreateCommand extends Command
         return 0;
     }
 
-    protected function isInvalid(SymfonyStyle $io, String $username, String $email, String $password): boolean
+    protected function isInvalid(SymfonyStyle $io, String $username, String $email, String $password): bool
     {
         $invalid = false;
 
@@ -136,7 +136,7 @@ class UserCreateCommand extends Command
         return $invalid;
     }
 
-    protected function isInConflict(SymfonyStyle $io, String $username, String $email): boolean
+    protected function isInConflict(SymfonyStyle $io, String $username, String $email): bool
     {
         $conflict = false;
 
