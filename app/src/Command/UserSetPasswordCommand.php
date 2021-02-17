@@ -18,12 +18,24 @@ class UserSetPasswordCommand extends Command
 {
     protected static $defaultName = 'app:users:set-password';
 
+    /**
+     * @var EntityManagerInterface
+     */
     private $em;
 
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
+    /**
+     * @var UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
 
+    /**
+     * @var PasswordGenerator
+     */
     private $passwordGenerator;
 
     public function __construct(

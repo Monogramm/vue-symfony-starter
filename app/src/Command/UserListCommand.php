@@ -17,8 +17,14 @@ class UserListCommand extends Command
 {
     protected static $defaultName = 'app:users:list';
 
+    /**
+     * @var EntityManagerInterface
+     */
     private $em;
 
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     public function __construct(

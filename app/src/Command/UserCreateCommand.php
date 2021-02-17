@@ -17,10 +17,19 @@ class UserCreateCommand extends Command
 {
     protected static $defaultName = 'app:users:create';
 
+    /**
+     * @var EntityManagerInterface
+     */
     private $em;
 
+    /**
+     * @var UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
 
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     public function __construct(
