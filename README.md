@@ -135,6 +135,8 @@ Now go to <http://localhost:6006> to access locally the storybook.
 
 All tests are executed automatically when building the Docker production images, but it is possible to execute tests locally.
 
+Code coverage results will be stored in `./coverage` directory at the end of CI builds.
+
 ### Unit tests
 
 ```bash

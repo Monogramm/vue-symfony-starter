@@ -141,9 +141,9 @@ RUN set -ex; \
     \
     php bin/console lint:twig --no-ansi --no-interaction ./templates; \
     php bin/phpunit --do-not-cache-result --no-interaction \
-        --coverage-clover /tmp/tests-coverage-clover.xml \
-        --coverage-cobertura /tmp/tests-coverage-cobertura.xml \
-        --coverage-html /tmp/tests-coverage-html \
+        --coverage-clover /tmp/coverage-phpunit-clover.xml \
+        --coverage-cobertura /tmp/coverage-phpunit-cobertura.xml \
+        --coverage-html /tmp/coverage-phpunit-html \
     ; \
     ./vendor/bin/phpcs --no-colors --warning-severity=0; \
     ./vendor/bin/psalm -m --no-file-cache --no-progress; \
@@ -151,7 +151,7 @@ RUN set -ex; \
     \
     rm -rf ./node_modules; \
     mkdir -p /usr/src/symfony/.docker; \
-    [ "${EXPORT_TESTS_RESULTS}" = "false" ] || cp -r /tmp/tests-* /usr/src/symfony/.docker/; \
+    [ "${EXPORT_TESTS_RESULTS}" = "false" ] || cp -r /tmp/coverage-* /usr/src/symfony/.docker/; \
     echo "${BUILD_DATE}" > '/usr/src/symfony/.docker/build-date'; \
     echo "${VERSION} ${VCS_REF} ${BUILD_DATE}" > '/usr/src/symfony/.docker/build'
 
