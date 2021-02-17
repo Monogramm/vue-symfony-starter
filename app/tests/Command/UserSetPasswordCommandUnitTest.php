@@ -76,8 +76,7 @@ class UserSetPasswordCommandUnitTest extends KernelTestCase
         $commandTester->execute([
             'command' => $command->getName(),
             'username' => $username,
-        ], [
-            'password' => $password,
+            '--password' => $password,
         ]);
 
         $code = $commandTester->getStatusCode();
@@ -212,8 +211,7 @@ class UserSetPasswordCommandUnitTest extends KernelTestCase
         $commandTester->execute([
             'command' => $command->getName(),
             'username' => $username,
-        ], [
-            'password' => $password,
+            '--password' => $password,
         ]);
 
         $code = $commandTester->getStatusCode();

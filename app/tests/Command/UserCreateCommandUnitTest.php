@@ -70,9 +70,8 @@ class UserCreateCommandUnitTest extends KernelTestCase
             'username' => $username,
             'email' => $email,
             'password' => $password,
-        ], [
-            'role' => 'ROLE_ADMIN',
-            'verified' => true
+            '--role' => 'ADMIN',
+            '--verified' => true
         ]);
 
         $code = $commandTester->getStatusCode();
@@ -135,9 +134,8 @@ class UserCreateCommandUnitTest extends KernelTestCase
             'username' => $username,
             'email' => $email,
             'password' => $password,
-        ], [
-            'role' => 'ROLE_ADMIN',
-            'verified' => true
+            '--role' => 'ADMIN',
+            '--verified' => true
         ]);
 
         $code = $commandTester->getStatusCode();
@@ -200,9 +198,8 @@ class UserCreateCommandUnitTest extends KernelTestCase
             'username' => $username,
             'email' => $email,
             'password' => $password,
-        ], [
-            'role' => 'ROLE_ADMIN',
-            'verified' => true
+            '--role' => 'ADMIN',
+            '--verified' => true
         ]);
 
         $code = $commandTester->getStatusCode();

@@ -129,7 +129,7 @@ class LdapLoginCommand extends Command
         }
 
         if ($invalid) {
-            return 1;
+            return 2;
         }
 
         // Creating LDAP config
