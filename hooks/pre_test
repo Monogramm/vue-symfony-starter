@@ -11,5 +11,5 @@ if [ ! -f '.env' ]; then
 fi
 
 #echo 'Preparing persisted data...'
-#mkdir -p "/srv/app/data"
-#chown 777 "/srv/app/data"
+#mkdir -p "${APP_HOME:-.docker/app}"
+#chown 777 "${APP_HOME:-.docker/app}"

@@ -12,26 +12,17 @@ branches:
 
 before_install:
   - env | sort
-  - export VCS_REF=$(git rev-parse --short HEAD)
-  - export BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-  - export DOCKER_TAG=${VERSION}-${VARIANT}-travis
-  - export DOCKER_REPO=monogramm/vue-symfony-starter
-  - export DOCKERFILE_PATH=Dockerfile.${VARIANT}
-  - export DOCKER_TAG=${VARIANT}
-  - export IMAGE_NAME=${DOCKER_REPO}:${DOCKER_TAG}
 
 install:
   # Build project
-  - ./hooks/build
+  - ./hooks/run build "${VARIANT}" 'fpm'
 
 before_script:
   - docker images
 
 script:
   # Execute project CI Tests
-  - ./hooks/pre_test
-  - ./hooks/test
-  - ./hooks/post_test
+  - ./hooks/run test "${VARIANT}" 'fpm'
 
 notifications:
   email: false

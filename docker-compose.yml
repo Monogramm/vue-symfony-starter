@@ -49,6 +49,7 @@ services:
       - APP_ENV=dev
       - APP_DEBUG=true
       - SF_CLEAR_CACHE=true
+      - SF_INIT_DB=true
       # Admin configuration
       - SF_ADMIN_LOGIN=${APP_ADMIN_LOGIN}
       - SF_ADMIN_EMAIL=${APP_ADMIN_EMAIL}
@@ -212,8 +213,8 @@ services:
       - XDEBUG_CONFIG=remote_host=172.17.0.1 remote_enable=1 remote_autostart=1 remote_connect_back=1 remote_port=9008
       - PHP_IDE_CONFIG=serverName=first
       # Wait for it...
-      - WAIT_FILE=app db-migrations
-      - WAIT_FOR=rabbitmq:5672 mailer:1025
+      - WAIT_FILE=app,db-migrations
+      - WAIT_FOR=rabbitmq:5672,mailer:1025
 
   app_dev_encore:
     image: ${IMAGE_NAME}-dev
@@ -223,6 +224,10 @@ services:
     depends_on:
       app_dev_symfony:
         condition: service_started
+    links:
+      - app_dev_db:database
+      - app_dev_rabbitmq:rabbitmq
+      - app_dev_mailer:mailer
     networks:
       - app_dev_internal_network
     volumes:
@@ -238,8 +243,8 @@ services:
       # Disable database configuration
       - SF_DB_TYPE=
       # Wait for it...
-      - WAIT_FILE=app db-migrations
-      - WAIT_FOR=app_dev_rabbitmq:5672 app_dev_mailer:1025
+      - WAIT_FILE=app,db-migrations
+      - WAIT_FOR=rabbitmq:5672,mailer:1025
 
   app_dev_storybook:
     image: ${IMAGE_NAME}-dev
@@ -251,6 +256,10 @@ services:
     depends_on:
       app_dev_encore:
         condition: service_started
+    links:
+      - app_dev_db:database
+      - app_dev_rabbitmq:rabbitmq
+      - app_dev_mailer:mailer
     networks:
       - app_dev_external_network
       - app_dev_internal_network
@@ -261,8 +270,8 @@ services:
       # Disable database configuration
       - SF_DB_TYPE=
       # Wait for it...
-      - WAIT_FILE=app db-migrations
-      - WAIT_FOR=app_dev_rabbitmq:5672 app_dev_mailer:1025
+      - WAIT_FILE=app,db-migrations
+      - WAIT_FOR=rabbitmq:5672,mailer:1025
     volumes:
       # For DEV, mount local sources
       - ./app:/var/www/html

@@ -67,7 +67,7 @@ wait_init_files() {
         exit 1
     fi
 
-    for F in ${WAIT_FILES}; do
+    for F in $(echo "$WAIT_FILES" | tr ',' ' '); do
         wait_for_file "${F}" "${WAIT_STEP}" "${WAIT_TIMEOUT}"
     done
 }
@@ -109,7 +109,7 @@ wait_for_it() {
         exit 1
     fi
 
-    for H in ${WAIT_FOR_HOSTS}; do
+    for H in $(echo "$WAIT_FOR_HOSTS" | tr ',' ' '); do
         WAIT_FOR_ADDR=$(echo "${H}" | cut -d: -f1)
         WAIT_FOR_PORT=$(echo "${H}" | cut -d: -f2)
 
@@ -328,20 +328,24 @@ if [ -n "${SF_CLEAR_CACHE}" ]; then
     log "Application cache cleared"
 else
     log "Wait application cache to be cleared..."
-    sleep "${WAIT_STEP}"
+    wait_init_files 'cache'
 fi
 
 if [ -n "${DATABASE_URL}" ]; then
     log "Checking application's database status..."
     php bin/console doctrine:migrations:status
 
-    if ! php bin/console doctrine:migrations:up-to-date; then
-        log "Executing application's database migration..."
-        php bin/console doctrine:migrations:migrate --no-interaction
-        init_file 'db-migrations'
-        log "Application's database migrations applied."
-    elif ! init_file_exists 'db-migrations'; then
-        init_file 'db-migrations'
+    if [ -n "${SF_INIT_DB}" ]; then
+        if ! php bin/console doctrine:migrations:up-to-date; then
+            log "Executing application's database migration..."
+            php bin/console doctrine:migrations:migrate --no-interaction
+            init_file 'db-migrations'
+            log "Application's database migrations applied."
+        elif ! init_file_exists 'db-migrations'; then
+            init_file 'db-migrations'
+        fi
+    else
+        wait_init_files 'db-migrations'
     fi
 
     # Generate default admin account if never done before

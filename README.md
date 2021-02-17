@@ -2,7 +2,7 @@
 [![Docs](https://img.shields.io/badge/Docs-Github%20Pages-blue)](https://monogramm.github.io/vue-symfony-starter/)
 [![gitmoji-changelog](https://img.shields.io/badge/Changelog-gitmoji-blue.svg)](https://github.com/frinyvonnick/gitmoji-changelog)
 [![Managed with Taiga.io](https://img.shields.io/badge/Managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-starter/ "Managed with Taiga.io")
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c05dda5cb328428aad5f3b8224a8f55b)](https://www.codacy.com/gh/Monogramm/vue-symfony-starter/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Monogramm/vue-symfony-starter&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c05dda5cb328428aad5f3b8224a8f55b)](https://www.codacy.com/gh/Monogramm/vue-symfony-starter/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Monogramm/vue-symfony-starter&utm_campaign=Badge_Grade)
 [![GitHub stars](https://img.shields.io/github/stars/Monogramm/vue-symfony-starter?style=social)](https://github.com/Monogramm/vue-symfony-starter)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Monogramm/vue-symfony-starter/Docker%20Image%20CI)](https://github.com/Monogramm/vue-symfony-starter/actions)
 [![Docker Automated buid](https://img.shields.io/docker/cloud/build/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
@@ -31,6 +31,7 @@ See GitHub Pages at [monogramm.github.io/vue-symfony-starter](https://monogramm.
 All notable changes to this project will be documented in [CHANGELOG](./CHANGELOG.md) file.
 
 This CHANGELOG is generated with :heart: by [gitmoji-changelog](https://github.com/frinyvonnick/gitmoji-changelog).
+
 <!--
 To generate new changelog:
 * update `.gitmoji-changelogrc`
@@ -48,20 +49,20 @@ See [Taiga.io](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-s
 
 [Dockerhub monogramm/vue-symfony-starter](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
 
-* `latest`
-* `debian`
+-   `latest`
+-   `debian`
 
 ## Docker Development environment
 
 You can build and run a development environment using Docker (recommended).
 
-### :construction: Install
+### :construction: Docker Development Install
 
 ```bash
 ./manage.sh dev:build
 ```
 
-### :rocket: Usage
+### :rocket: Docker Development Usage
 
 ```bash
 ./manage.sh dev:start
@@ -74,13 +75,13 @@ Go to <http://localhost:6006> to access the storybook.
 
 You can build and run a "_production-like_" environment using Docker.
 
-### :construction: Install
+### :construction: Docker Production Install
 
 ```bash
 ./manage.sh prod:build
 ```
 
-### :rocket: Usage
+### :rocket: Docker Production Usage
 
 ```bash
 ./manage.sh prod:start
@@ -92,7 +93,7 @@ Now go to <http://localhost:8080> to access development environment using docker
 
 You can run the development environment locally (not recommened, prefer the Docker development environment).
 
-### :construction: Install
+### :construction: Local Development Install
 
 Requires PHP 7.4 or higher, [Composer 2](https://getcomposer.org/), [Symfony 4.4](https://symfony.com/) and [yarn](https://yarnpkg.com/) installed.
 You can check your local requirements with the following command:
@@ -107,7 +108,7 @@ To install locally:
 ./manage.sh local:build
 ```
 
-### :rocket: Usage
+### :rocket: Local Development Usage
 
 To start frontend:
 

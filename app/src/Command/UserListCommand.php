@@ -68,11 +68,11 @@ class UserListCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->comment("List of users:");
 
-        // Filter users
-        $username = $input->getOption('username');
-        $email = $input->getOption('email');
-        $role = $input->getOption('role');
-        $isVerified = $input->getOption('verified');
+        // TODO Filter users
+        // $username = $input->getOption('username');
+        // $email = $input->getOption('email');
+        // $role = $input->getOption('role');
+        // $isVerified = $input->getOption('verified');
 
         $users = $this->userRepository->findAll();
         $rows = [];

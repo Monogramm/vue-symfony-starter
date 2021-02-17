@@ -73,45 +73,18 @@ class UserCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $ioStyle = new SymfonyStyle($input, $output);
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
         $email = $input->getArgument('email');
 
         // Checking input format
-        $invalid = false;
-        if (empty($username)) {
-            $io->error('Username cannot be empty');
-            $invalid = true;
-        }
-        if (empty($email)) {
-            $io->error('Email cannot be empty');
-            $invalid = true;
-        }
-        if (empty($password)) {
-            $io->error('Password cannot be empty');
-            $invalid = true;
-            // TODO Generate random password if empty?
-        }
-        // TODO Check password security?
-
-        if ($invalid) {
+        if ($this->isInvalid($ioStyle, $username, $email, $password)) {
             return 1;
         }
 
         // Checking conflicts
-        $conflict = false;
-
-        if ($this->findByUsername($username)) {
-            $io->warning('This username is already taken');
-            $conflict = true;
-        }
-        if ($this->findByEmail($email)) {
-            $io->warning('This email address is already taken');
-            $conflict = true;
-        }
-
-        if ($conflict) {
+        if ($this->isInConflict($ioStyle, $username, $email)) {
             return 0;
         }
 
@@ -135,9 +108,48 @@ class UserCreateCommand extends Command
         $this->em->persist($user);
         $this->em->flush();
 
-        $io->success("User '$username' created");
+        $ioStyle->success("User '$username' created");
 
         return 0;
+    }
+
+    protected function isInvalid(SymfonyStyle $ioStyle, String $username, String $email, String $password): bool
+    {
+        $invalid = false;
+
+        if (empty($username)) {
+            $ioStyle->error('Username cannot be empty');
+            $invalid = true;
+        }
+        if (empty($email)) {
+            $ioStyle->error('Email cannot be empty');
+            $invalid = true;
+        }
+        if (empty($password)) {
+            $ioStyle->error('Password cannot be empty');
+            $invalid = true;
+            // TODO Generate random password if empty?
+        }
+
+        // TODO Check password security?
+
+        return $invalid;
+    }
+
+    protected function isInConflict(SymfonyStyle $ioStyle, String $username, String $email): bool
+    {
+        $conflict = false;
+
+        if ($this->findByUsername($username)) {
+            $ioStyle->warning('This username is already taken');
+            $conflict = true;
+        }
+        if ($this->findByEmail($email)) {
+            $ioStyle->warning('This email address is already taken');
+            $conflict = true;
+        }
+
+        return $conflict;
     }
 
     protected function findByUsername(String $username): ?User
