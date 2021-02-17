@@ -57,6 +57,7 @@ services:
       - SF_PROD=true
       - APP_ENV=prod
       - SF_CLEAR_CACHE=true
+      - SF_INIT_DB=true
       - SHELL_VERBOSITY=3
       # Admin configuration
       - SF_ADMIN_LOGIN=${APP_ADMIN_LOGIN}
@@ -232,8 +233,8 @@ services:
       - PHP_MEMORY_LIMIT=256M
       - PHP_INI_DATE_TIMEZONE=${APP_TIMEZONE}
       # Wait for it...
-      - WAIT_FILE=app db-migrations
-      - WAIT_FOR=rabbitmq:5672 mail:1025
+      - WAIT_FILE=app,db-migrations
+      - WAIT_FOR=rabbitmq:5672,mail:1025
 
   app_cron:
     image: ${IMAGE_NAME}
@@ -333,8 +334,8 @@ services:
       - PHP_MEMORY_LIMIT=256M
       - PHP_INI_DATE_TIMEZONE=${APP_TIMEZONE}
       # Wait for it...
-      - WAIT_FILE=app db-migrations
-      - WAIT_FOR=database:5432 mail:1025
+      - WAIT_FILE=app,db-migrations
+      - WAIT_FOR=database:5432,mail:1025
 
   app_db:
     image: postgres:${APP_DB_VERSION}-alpine
