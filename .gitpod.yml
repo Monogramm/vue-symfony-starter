@@ -1,0 +1,10 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 8000
+    onOpen: open-preview
+
+tasks:
+  - init: ./manage.sh local:build
+    command: ./manage.sh local:start
