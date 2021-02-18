@@ -4,20 +4,14 @@
 [![Managed with Taiga.io](https://img.shields.io/badge/Managed%20with-TAIGA.io-709f14.svg)](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-starter/ "Managed with Taiga.io")
 [![GitHub stars](https://img.shields.io/github/stars/Monogramm/vue-symfony-starter?style=social)](https://github.com/Monogramm/vue-symfony-starter)
 
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Monogramm/vue-symfony-starter)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c05dda5cb328428aad5f3b8224a8f55b)](https://www.codacy.com/gh/Monogramm/vue-symfony-starter/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Monogramm/vue-symfony-starter&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/c05dda5cb328428aad5f3b8224a8f55b)](https://www.codacy.com/gh/Monogramm/vue-symfony-starter/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Monogramm/vue-symfony-starter&amp;utm_campaign=Badge_Coverage)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Monogramm/vue-symfony-starter/Docker%20Image%20CI)](https://github.com/Monogramm/vue-symfony-starter/actions)
 
 [![Docker Automated buid](https://img.shields.io/docker/cloud/build/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
-[![Docker Version](https://images.microbadger.com/badges/version/monogramm/vue-symfony-starter.svg)](https://microbadger.com/images/monogramm/vue-symfony-starter)
-[![Docker Size](https://images.microbadger.com/badges/image/monogramm/vue-symfony-starter.svg)](https://microbadger.com/images/monogramm/vue-symfony-starter)
-
-<!--
-[TODO] If project uses Coveralls for code coverage:
-
-[![Coverage Status](https://coveralls.io/repos/github/Monogramm/vue-symfony-starter/badge.svg?branch=master)](https://coveralls.io/github/Monogramm/vue-symfony-starter?branch=master)
--->
+[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/monogramm/vue-symfony-starter/latest)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
 
 # **Vue Symfony Starter**
 
@@ -54,6 +48,8 @@ See [Taiga.io](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-s
 
 -   `latest`
 -   `debian`
+-   `develop`
+-   `gitpod`
 
 ## Docker Development environment
 
@@ -94,7 +90,9 @@ Now go to <http://localhost:8080> to access development environment using docker
 
 ## Local Development environment
 
-You can run the development environment locally (not recommened, prefer the Docker development environment).
+You can run the development environment locally.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/gitpod-io/symfony-demo)
 
 ### :construction: Local Development Install
 
@@ -113,16 +111,10 @@ To install locally:
 
 ### :rocket: Local Development Usage
 
-To start frontend:
+To start frontend and backend:
 
 ```sh
-./manage.sh local:start-front
-```
-
-To start backend:
-
-```sh
-./manage.sh local:start-back
+./manage.sh local:start
 ```
 
 Now go to <http://localhost:8000> to access development environment using your local host.

@@ -23,13 +23,13 @@ function ask_field() {
 lc-check() {
     symfony check:requirements --dir=app
     symfony check:security --dir=app
+    symfony server:ca:install
 }
 
 lc-build() {
     # Backend install
     log "Backend install..."
     composer install --working-dir=app
-    symfony server:ca:install
 
     if [ ! -f 'app/.env.local' ]; then
         log "Init local environment..."
@@ -45,6 +45,29 @@ JWT_PASSPHRASE=P@ssw0rd
 JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
 JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
 ###< lexik/jwt-authentication-bundle ###
+
+###> symfony/mailer ###
+MAILER_DSN=smtp://localhost:1025
+###< symfony/mailer ###
+
+###> symfony/messenger ###
+#MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
+###< symfony/messenger ###
+
+###> symfony/ldap ###
+#LDAP_AUTH_HOST=localhost
+#LDAP_AUTH_PORT=10389
+#LDAP_AUTH_ENCRYPTION=none
+#LDAP_AUTH_USERNAME_ATTRIBUTE=uid
+#LDAP_AUTH_EMAIL_ATTRIBUTE=mail
+#LDAP_AUTH_BASE_DN=ou=people,dc=planetexpress,dc=com
+#LDAP_AUTH_IS_AD=0
+#LDAP_AUTH_AD_DOMAIN=planetexpress.com
+#LDAP_AUTH_USER_QUERY=(objectClass=inetOrgPerson)
+#LDAP_BIND_DN=cn=admin,dc=planetexpress,dc=com
+#LDAP_BIND_SECRET=GoodNewsEveryone
+#LDAP_AUTH_ENABLED=0
+###< symfony/ldap ###
 
 # Paypal configuration
 PAYPAL_CLIENT_ID=client_id
@@ -88,17 +111,22 @@ EOF
 
 }
 
-lc-start-front() {
-    yarn run --cwd=app encore dev --watch
+lc-start() {
+    lc-start-back -d
+    lc-start-front
+    #lc-start-story
 }
 
-lc-start-back() {
-    symfony server:start --dir=app --port=8000
+lc-start-front() {
+    yarn run --cwd=app encore dev --watch "$@"
 }
 
 lc-start-story() {
-    cd app
-    npm run storybook
+    yarn run --cwd=app storybook "$@"
+}
+
+lc-start-back() {
+    symfony server:start --dir=app --port=8000 "$@"
 }
 
 lc-stop-back() {
@@ -293,6 +321,7 @@ usage() {
       local
         local:check, check-local                Check Local env requirements and security
         local:build, build-local                Build Local env
+        local:start, start-local                Start Local env (backend in background)
         local:start-front, start-local-front    Start Local env frontend
         local:start-back, start-local-back      Start Local env backend
         local:start-story, start-local-story    Start Local Storybook
@@ -340,9 +369,10 @@ case "${1}" in
     # Local env
     local:check|check-local) lc-check;;
     local:build|build-local) lc-build;;
-    local:start-front|start-local-front) lc-start-front;;
-    local:start-back|start-local-back) lc-start-back;;
-    local:start-story|start-local-story) lc-start-story;;
+    local:start|start-local) lc-start;;
+    local:start-front|start-local-front) lc-start-front "${@:2}";;
+    local:start-back|start-local-back) lc-start-back "${@:2}";;
+    local:start-story|start-local-story) lc-start-story "${@:2}";;
     local:stop-back|stop-local-back) lc-stop-back "${@:2}";;
     local:test-back|test-back-local) lc-test-back "${@:2}";;
     local:logs|logs-local) lc-log-back "${@:2}";;
