@@ -1,4 +1,4 @@
-FROM gitpod/workspace-postgres
+FROM gitpod/workspace-full:latest
 
 # Install custom tools, runtimes, etc.
 # For example "bastet", a command-line tetris clone:
@@ -7,7 +7,14 @@ FROM gitpod/workspace-postgres
 # More information: https://www.gitpod.io/docs/config-docker/
 
 RUN set -ex; \
-    brew install mailhog openldap rabbitmq; \
+    brew install \
+        mailhog \
+        openldap \
+        postgresql \
+        rabbitmq \
+    ;
+
+RUN set -ex; \
     sudo apt-get install -y --no-install-recommends \
         php-ldap \
     ;
