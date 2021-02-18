@@ -13,6 +13,7 @@ This project uses the following technologies:
     -   [Messenger component](https://symfony.com/doc/4.4/components/messenger.html) to send messages to background workers
     -   Custom [Console Commands](https://symfony.com/doc/current/console.html) for support and cron jobs automation
     -   Code quality tools: [PHPUnit](https://phpunit.de/), [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer), [Psalm](https://psalm.dev/)
+
 -   [Vue.js](https://vuejs.org/) frontend with:
     -   full [TypeScript](https://www.typescriptlang.org/) support
     -   full [Sass](https://sass-lang.com/) support
@@ -20,19 +21,25 @@ This project uses the following technologies:
     -   [WebPack](https://webpack.js.org/) to build efficiently assets
     -   [StoryBook](https://storybook.js.org/) to help development of the UI components
     -   [ESLint](https://eslint.org/) for code quality
+
 -   [Docker](https://docs.docker.com/engine/) and [Docker-Compose](https://docs.docker.com/compose/) for building development and production environment with:
     -   [RabbitMQ](https://www.rabbitmq.com/) for delegating long tasks to background workers
     -   Mail sending with [MailCatcher](https://mailcatcher.me/) for simple mail debug with GUI
     -   LDAP Authentication with [rroemhild/docker-test-openldap](https://github.com/rroemhild/docker-test-openldap) for simple LDAP test server
+
 -   CI tools:
     -   DockerHub [Advanced Automated Build](https://docs.docker.com/docker-hub/builds/advanced/)
     -   [GitHub Actions](https://docs.github.com/en/actions) using DockerHub Advanced Automated Build hooks
     -   [Jenkins](https://www.jenkins.io/) support with sample [Jenkinsfile](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/)
     -   [Codacy](https://www.codacy.com/) code quality and code coverage review
     -   [Snyk](https://snyk.io/) security review
+
 -   Source Code Management templates:
     -   GitHub [Issue and PR templates](https://docs.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
     -   GitLab [Issue and MR templates](https://docs.gitlab.com/ee/user/project/description_templates.html)
+
+-   Ready to Code:
+    -   [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/gitpod-io/symfony-demo)
 
 ## Architecture diagram
 
