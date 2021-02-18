@@ -5,6 +5,26 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
+    /*
+     * Expected Parameters to create the Pipeline in Jenkins
+     *  - gitlabSourceRepoURL:
+     *      - https://scm.example.com/owner/project.git
+     *      - The GitLab Source repository URL.
+     *        If you use login / password credentials, this is expected to be a HTTPS URL, as in https://scm.example.com/path/to/project.git
+     *        If you use SSH key credentials, this is expected to be a SSH URL, as in ssh://scm.example.com/path/to/project.git
+     *        This is expected to be a HTTPS URL, as in https://scm.example.com/path/to/project.git, if you use login / password credentials.
+     *  - sourceBranch:
+     *      - heads/develop
+     *      - The GitLab Source branch.
+     *        Will be overriden by $gitlabSourceBranch in case of GitLab hook, pulling refs/heads/${gitlabSourceBranch}.
+     *        
+     *        The repository will be pulled from refs/${sourceBranch}. You can use the following formats:
+     *        .  heads/<branchName>
+     *            * Tracks/checks out the specified branch. E.g. heads/master, heads/feature1/something
+     *        
+     *        .  tags/<tagName>
+     *            * Tracks/checks out the specified tag. E.g. tags/git-2.3.0
+     */
     parameters {
         string(name: 'DOCKER_REPO', defaultValue: 'monogramm/vue-symfony-starter', description: 'Docker Image name.')
 
