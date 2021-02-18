@@ -16,4 +16,5 @@ RUN set -ex; \
     wget 'https://get.symfony.com/cli/installer' -O - | bash; \
     export PATH="$HOME/.symfony/bin:$PATH"; \
     symfony -V; \
-    sudo mv "$HOME/.symfony/bin/symfony" /usr/local/bin/symfony
+    sudo mv "$HOME/.symfony/bin/symfony" /usr/local/bin/symfony; \
+    symfony server:ca:install

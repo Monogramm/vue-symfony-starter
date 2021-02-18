@@ -23,13 +23,13 @@ function ask_field() {
 lc-check() {
     symfony check:requirements --dir=app
     symfony check:security --dir=app
+    symfony server:ca:install
 }
 
 lc-build() {
     # Backend install
     log "Backend install..."
     composer install --working-dir=app
-    symfony server:ca:install
 
     if [ ! -f 'app/.env.local' ]; then
         log "Init local environment..."
