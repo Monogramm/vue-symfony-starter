@@ -48,6 +48,8 @@ See [Taiga.io](https://tree.taiga.io/project/monogrammbot-monogrammvue-symfony-s
 
 -   `latest`
 -   `debian`
+-   `develop`
+-   `gitpod`
 
 ## Docker Development environment
 
