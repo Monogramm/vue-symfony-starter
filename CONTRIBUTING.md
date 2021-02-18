@@ -8,6 +8,8 @@ Here are a few rules to follow in order to ease code reviews and discussions bef
 
 You MUST follow the [PSR-1](http://www.php-fig.org/psr/1/) and [PSR-2](http://www.php-fig.org/psr/2/). If you don't know about any of them, you should really read the recommendations. Can't wait? Use the [PHP-CS-Fixertool](http://cs.sensiolabs.org/).
 
+You MUST follow the [Symfony Framework Best Practices](https://symfony.com/doc/current/best_practices.html).
+
 You MUST run the CI test suite and ensure it is successful. If you haven't enabled it on your fork, it will be automatically triggered when opening/pushing a Pull Request (PR).
 
 You SHOULD write documentation.
