@@ -17,7 +17,10 @@ class PurchaseUnit implements \JsonSerializable
         return $this->amount;
     }
 
-    public function setAmount(?Amount $amount)
+    /**
+     * @return static
+     */
+    public function setAmount(?Amount $amount): self
     {
         $this->amount = $amount;
         return $this;

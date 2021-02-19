@@ -96,10 +96,6 @@ class UserSetPasswordCommandUnitTest extends KernelTestCase
         $username = '';
         $password = '';
         $encodedPassword = '';
-        $user = (new User())
-            ->setUsername($username)
-            ->setPassword($password)
-            ->setLanguage('en');
 
         $userRepositoryMock->expects($this->exactly(0))
             ->method('findOneBy')
@@ -164,11 +160,6 @@ class UserSetPasswordCommandUnitTest extends KernelTestCase
         $email = 'firstname.lastname@yopmail.com';
         $password = 'S&cur3P@ssW0rd';
         $encodedPassword = '**************';
-        $user = (new User())
-            ->setUsername($username)
-            ->setPassword($password)
-            ->setEmail($email)
-            ->setLanguage('en');
 
         $userRepositoryMock->expects($this->once())
             ->method('findOneBy')

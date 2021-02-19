@@ -17,21 +17,25 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ParameterController extends AbstractController
 {
     /**
-     * @Route("/api/admin/parameter/types", name="parameter_types", methods={"GET"})
+     * @Route ("/api/admin/parameter/types", name="parameter_types", methods={"GET"})
+     *
+     * @return JsonResponse
      */
-    public function parameterTypes()
+    public function parameterTypes(): JsonResponse
     {
         return new JsonResponse(Parameter::types());
     }
 
     /**
-     * @Route("/api/admin/parameter", name="get_parameters", methods={"GET"})
+     * @Route ("/api/admin/parameter", name="get_parameters", methods={"GET"})
+     *
+     * @return JsonResponse
      */
     public function getParameters(
         ParameterRepository $repository,
         Request $request,
         SerializerInterface $serializer
-    ) {
+    ): JsonResponse {
         $page = (int) $request->get('page', 1);
         $itemsPerPage = (int) $request->get('size', 50);
 
@@ -50,13 +54,15 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route("/api/admin/parameter/{parameter}", name="get_parameter", methods={"GET"})
+     * @Route ("/api/admin/parameter/{parameter}", name="get_parameter", methods={"GET"})
+     *
+     * @return JsonResponse
      */
     public function getParameterById(
         Parameter $parameter,
         SerializerInterface $serializer,
         Encryptor $encryptor
-    ) {
+    ): JsonResponse {
         if ($parameter->isSecret() && $parameter->getValue()) {
             $parameter->setValue(
                 $encryptor->decryptAsText(
@@ -71,14 +77,16 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route("/api/admin/parameter", name="create_parameter", methods={"POST"})
+     * @Route ("/api/admin/parameter", name="create_parameter", methods={"POST"})
+     *
+     * @return JsonResponse
      */
     public function createParameter(
         Request $request,
         SerializerInterface $serializer,
         EntityManagerInterface $em,
         Encryptor $encryptor
-    ) {
+    ): JsonResponse {
         $dto = $serializer->deserialize(
             $request->getContent(),
             Parameter::class,
@@ -102,7 +110,9 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route("/api/admin/parameter/{parameter}", name="edit_parameter", methods={"PUT"})
+     * @Route ("/api/admin/parameter/{parameter}", name="edit_parameter", methods={"PUT"})
+     *
+     * @return JsonResponse
      */
     public function editParameterById(
         Parameter $parameter,
@@ -110,7 +120,7 @@ class ParameterController extends AbstractController
         Request $request,
         SerializerInterface $serializer,
         Encryptor $encryptor
-    ) {
+    ): JsonResponse {
         /**
          * @var Parameter $dto
          */
@@ -138,12 +148,14 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route("/api/admin/parameter/{parameter}", name="delete_parameter", methods={"DELETE"})
+     * @Route ("/api/admin/parameter/{parameter}", name="delete_parameter", methods={"DELETE"})
+     *
+     * @return JsonResponse
      */
     public function deleteParameter(
         Parameter $parameter,
         EntityManagerInterface $em
-    ) {
+    ): JsonResponse {
         $em->remove($parameter);
         $em->flush();
 

@@ -70,10 +70,16 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
         return true;
     }
 
+    /**
+     * @return void
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
     }
 
+    /**
+     * @return void
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
     }
@@ -83,6 +89,9 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
         return new JsonResponse([], Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * @return void
+     */
     public function supportsRememberMe()
     {
     }

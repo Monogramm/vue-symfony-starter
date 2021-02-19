@@ -30,7 +30,10 @@ class Context implements \JsonSerializable
         return $this->returnUrl;
     }
 
-    public function setReturnUrl(?string $returnUrl)
+    /**
+     * @return static
+     */
+    public function setReturnUrl(?string $returnUrl): self
     {
         $this->returnUrl = $returnUrl;
         return $this;
@@ -41,7 +44,10 @@ class Context implements \JsonSerializable
         return $this->cancelUrl;
     }
 
-    public function setCancelUrl(?string $cancelUrl)
+    /**
+     * @return static
+     */
+    public function setCancelUrl(?string $cancelUrl): self
     {
         $this->cancelUrl = $cancelUrl;
         return $this;
@@ -52,7 +58,10 @@ class Context implements \JsonSerializable
         return $this->locale;
     }
 
-    public function setLocale(?string $locale)
+    /**
+     * @return static
+     */
+    public function setLocale(?string $locale): self
     {
         if ($locale && isset(self::LOCALES_BCP_47[$locale])) {
             $this->locale = $locale;
@@ -65,7 +74,10 @@ class Context implements \JsonSerializable
         return $this->landingPage;
     }
 
-    public function setLandingPage(?string $landingPage)
+    /**
+     * @return static
+     */
+    public function setLandingPage(?string $landingPage): self
     {
         $this->landingPage = $landingPage;
         return $this;

@@ -15,13 +15,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class PasswordResetController extends AbstractController
 {
     /**
-     * @Route("/api/password/reset", name="create_password_reset", methods={"POST"})
+     * @Route ("/api/password/reset", name="create_password_reset", methods={"POST"})
+     *
+     * @return JsonResponse
      */
     public function createPasswordResetCode(
         Request $request,
         UserRepository $userRepository,
         CreatePasswordResetCodeHandler $handler
-    ) {
+    ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
         $user = $userRepository->findOneBy(['email' => $data['email']]);
@@ -36,13 +38,15 @@ class PasswordResetController extends AbstractController
     }
 
     /**
-     * @Route("/api/password/reset/{code}", name="password_reset", methods={"GET"})
+     * @Route ("/api/password/reset/{code}", name="password_reset", methods={"GET"})
+     *
+     * @return Response
      */
     public function resetPassword(
         string $code,
         PasswordResetCodeRepository $codeRepository,
         PasswordResetHandler $handler
-    ) {
+    ): Response {
         $code = $codeRepository->findOneBy([
             'code' => $code
         ]);

@@ -86,10 +86,16 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
         return $this->successHandler->onAuthenticationSuccess($request, $token);
     }
 
+    /**
+     * @return void
+     */
     public function start(Request $request, AuthenticationException $authException = null)
     {
     }
 
+    /**
+     * @return void
+     */
     public function supportsRememberMe()
     {
     }

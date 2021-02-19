@@ -20,30 +20,33 @@ class UserCreateCommand extends Command
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $_em;
 
     /**
      * @var UserPasswordEncoderInterface
      */
-    private $passwordEncoder;
+    private $_passwordEncoder;
 
     /**
      * @var UserRepository
      */
-    private $userRepository;
+    private $_userRepository;
 
     public function __construct(
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
         UserRepository $userRepository
     ) {
-        $this->userRepository = $userRepository;
-        $this->em = $em;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->_userRepository = $userRepository;
+        $this->_em = $em;
+        $this->_passwordEncoder = $passwordEncoder;
 
         parent::__construct(self::$defaultName);
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this
@@ -104,7 +107,7 @@ class UserCreateCommand extends Command
         $user = new User();
         $user->setUsername($username)
             ->setPassword(
-                $this->passwordEncoder
+                $this->_passwordEncoder
                     ->encodePassword($user, $password)
             )
             ->setEmail($email)
@@ -114,8 +117,8 @@ class UserCreateCommand extends Command
             $user->verify();
         }
 
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->_em->persist($user);
+        $this->_em->flush();
 
         $ioStyle->success("User '$username' created");
 
@@ -163,11 +166,11 @@ class UserCreateCommand extends Command
 
     protected function findByUsername(String $username): ?User
     {
-        return $this->userRepository->findOneBy(['username' => $username]);
+        return $this->_userRepository->findOneBy(['username' => $username]);
     }
 
     protected function findByEmail(String $email): ?User
     {
-        return $this->userRepository->findOneBy(['email' => $email]);
+        return $this->_userRepository->findOneBy(['email' => $email]);
     }
 }

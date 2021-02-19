@@ -21,10 +21,15 @@ class ParameterRepository extends ServiceEntityRepository
         parent::__construct($registry, Parameter::class);
     }
 
+    /**
+     * @return Paginator
+     *
+     * @psalm-return Paginator<mixed>
+     */
     public function findAllByPage(
         int $page,
         int $itemsPerPage
-    ) {
+    ): Paginator {
         $offset = ($page - 1) * $itemsPerPage;
 
         $query = $this->createQueryBuilder('p')
@@ -47,7 +52,12 @@ class ParameterRepository extends ServiceEntityRepository
         }
     }
 
-    public function findParametersByNames(array $names)
+    /**
+     * @return Parameter[]
+     *
+     * @psalm-return array<array-key, Parameter>
+     */
+    public function findParametersByNames(array $names): array
     {
         return $this->findBy(['name' => $names]);
     }

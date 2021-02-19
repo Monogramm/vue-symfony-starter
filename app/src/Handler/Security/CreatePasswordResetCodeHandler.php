@@ -28,7 +28,7 @@ class CreatePasswordResetCodeHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handle(User $user)
+    public function handle(User $user): void
     {
         $data = [
             'userId' => (string) $user->getId(),

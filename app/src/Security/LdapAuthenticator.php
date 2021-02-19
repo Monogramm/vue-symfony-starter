@@ -77,6 +77,9 @@ class LdapAuthenticator extends AbstractGuardAuthenticator
         $this->logger = $logger;
     }
 
+    /**
+     * @return void
+     */
     public function start(Request $request, AuthenticationException $authException = null)
     {
     }
@@ -149,6 +152,9 @@ class LdapAuthenticator extends AbstractGuardAuthenticator
         return $this->successHandler->onAuthenticationSuccess($request, $token);
     }
 
+    /**
+     * @return void
+     */
     public function supportsRememberMe()
     {
     }

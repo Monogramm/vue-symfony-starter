@@ -37,7 +37,7 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
         return $this->handleAuthenticationSuccess($token->getUser());
     }
 
-    public function handleAuthenticationSuccess(User $user, $jwt = null)
+    public function handleAuthenticationSuccess(User $user, $jwt = null): JWTAuthenticationSuccessResponse
     {
         if (null === $jwt) {
             $jwt = $this->jwtManager->create($user);

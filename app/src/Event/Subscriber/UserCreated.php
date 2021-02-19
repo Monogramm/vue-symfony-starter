@@ -46,7 +46,7 @@ class UserCreated implements EventSubscriberInterface
         ];
     }
 
-    public function onUserCreated(UserCreatedEvent $event)
+    public function onUserCreated(UserCreatedEvent $event): void
     {
         $code = new VerificationCode();
         $code->setCode(

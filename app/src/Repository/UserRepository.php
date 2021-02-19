@@ -20,10 +20,15 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @return Paginator
+     *
+     * @psalm-return Paginator<mixed>
+     */
     public function findAllByPage(
         int $page,
         int $itemsPerPage
-    ) {
+    ): Paginator {
         $offset = ($page - 1) * $itemsPerPage;
 
         $query = $this->createQueryBuilder('p')

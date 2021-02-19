@@ -20,19 +20,22 @@ class PasswordResetCodesDeleteExpiredCommand extends Command
 
     private const TIME_IN_HOURS_BEFORE_EXPIRATION = 1;
 
-    private $em;
+    private $_em;
 
-    private $codeRepository;
+    private $_codeRepository;
 
     public function __construct(
         EntityManagerInterface $em,
         PasswordResetCodeRepository $codeRepository
     ) {
-        $this->em = $em;
-        $this->codeRepository = $codeRepository;
+        $this->_em = $em;
+        $this->_codeRepository = $codeRepository;
 
         parent::__construct(self::$defaultName);
     }
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this
@@ -48,12 +51,12 @@ class PasswordResetCodesDeleteExpiredCommand extends Command
         $backgroundJob->init(self::$defaultName);
 
         $backgroundJob->running();
-        $this->em->persist($backgroundJob);
-        $this->em->flush();
+        $this->_em->persist($backgroundJob);
+        $this->_em->flush();
 
         $expired = CarbonImmutable::now()->subHours(self::TIME_IN_HOURS_BEFORE_EXPIRATION);
 
-        $codes = $this->codeRepository->createQueryBuilder('c')
+        $codes = $this->_codeRepository->createQueryBuilder('c')
             ->andWhere('c.createdAt <= :expired')
             ->setParameter('expired', $expired)
             ->getQuery()
@@ -62,10 +65,10 @@ class PasswordResetCodesDeleteExpiredCommand extends Command
         $count = sizeof($codes);
         if ($count) {
             foreach ($codes as $code) {
-                $this->em->remove($code);
+                $this->_em->remove($code);
                 $io->text('Deleting:' . $code->getId());
             }
-            $this->em->flush();
+            $this->_em->flush();
     
             $io->success("$count expired password reset code(s) deleted");
         } else {
@@ -73,8 +76,8 @@ class PasswordResetCodesDeleteExpiredCommand extends Command
         }
 
         $backgroundJob->success();
-        $this->em->persist($backgroundJob);
-        $this->em->flush();
+        $this->_em->persist($backgroundJob);
+        $this->_em->flush();
 
         return 0;
     }

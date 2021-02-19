@@ -31,7 +31,7 @@ class Encryptor
         return json_decode($json, true);
     }
 
-    public function encryptText(string $text)
+    public function encryptText(string $text): string
     {
         $nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
         $ciphertext = sodium_crypto_secretbox($text, $nonce, $this->key);
@@ -39,6 +39,9 @@ class Encryptor
         return base64_encode($nonce . $ciphertext);
     }
 
+    /**
+     * @return false|string
+     */
     public function decryptAsText(string $encryptedText)
     {
         $encryptedText = base64_decode($encryptedText);

@@ -36,7 +36,7 @@ class OrderApi
         return $this->client->execute($request);
     }
 
-    public function getDetails(string $orderId)
+    public function getDetails(string $orderId): HttpResponse
     {
         $request = new OrdersGetRequest($orderId);
 

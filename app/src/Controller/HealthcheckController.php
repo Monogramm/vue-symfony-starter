@@ -10,18 +10,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class HealthcheckController extends AbstractController
 {
     /**
-     * @Route("/ping", name="ping", methods={"GET"},)
+     * @Route ("/ping", name="ping", methods={"GET"},)
+     *
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return new JsonResponse('pong');
     }
 
     /**
-     * @Route("/health", name="health", methods={"GET"},)
+     * @Route ("/health", name="health", methods={"GET"},)
+     *
+     * @return JsonResponse
      */
-    public function health()
-    {
+    public function health(): JsonResponse {
         $health = true;
         // TODO Execute all existing healtcheck
         // TODO Return KO if any healthcheck is false

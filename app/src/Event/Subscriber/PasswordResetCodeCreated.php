@@ -42,7 +42,7 @@ class PasswordResetCodeCreated implements EventSubscriberInterface
         ];
     }
 
-    public function onPasswordResetCodeCreated(PasswordResetCodeCreatedEvent $event)
+    public function onPasswordResetCodeCreated(PasswordResetCodeCreatedEvent $event): void
     {
         $url = $this->generateUrlWithResetCode(
             $event

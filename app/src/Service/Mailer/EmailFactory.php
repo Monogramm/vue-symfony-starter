@@ -31,13 +31,16 @@ class EmailFactory
             ->context($email->payload());
     }
 
+    /**
+     * @return TemplatedEmail
+     */
     public function createEmailFromData(
         string $recipient,
         string $subject,
         array $payload,
         string $template,
         ?string $from = null
-    ) {
+    ): self {
         return (new TemplatedEmail())
             ->from($from ?? $this->mailerFrom)
             ->to($recipient)

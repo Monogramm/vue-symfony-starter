@@ -31,6 +31,9 @@ class FileUploader
         return $this->imagesDirectory;
     }
 
+    /**
+     * @return false|string
+     */
     public function transliterate(string $filename)
     {
         return transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $filename);

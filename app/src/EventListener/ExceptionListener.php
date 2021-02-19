@@ -23,6 +23,9 @@ class ExceptionListener
         $this->translator = $translator;
     }
 
+    /**
+     * @return void
+     */
     public function onKernelException(ExceptionEvent $event)
     {
         // You get the exception object from the received event

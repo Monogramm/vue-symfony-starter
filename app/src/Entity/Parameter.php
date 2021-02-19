@@ -79,13 +79,21 @@ class Parameter
         return $this->type;
     }
 
-    public function setType(string $type)
+    /**
+     * @return static
+     */
+    public function setType(string $type): self
     {
         $this->type = $type;
         return $this;
     }
 
-    public static function types()
+    /**
+     * @return string[]
+     *
+     * @psalm-return array{0: string, 1: string, 2: string}
+     */
+    public static function types(): array
     {
         return [
             self::STRING_TYPE,

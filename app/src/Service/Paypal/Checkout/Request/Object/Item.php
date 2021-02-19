@@ -16,7 +16,10 @@ class Item implements \JsonSerializable
         return $this->unitAmount;
     }
 
-    public function setUnitAmount(?Amount $unitAmount)
+    /**
+     * @return static
+     */
+    public function setUnitAmount(?Amount $unitAmount): self
     {
         $this->unitAmount = $unitAmount;
         return $this;
@@ -27,7 +30,10 @@ class Item implements \JsonSerializable
         return $this->name;
     }
 
-    public function setName(?string $name)
+    /**
+     * @return static
+     */
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
@@ -38,7 +44,10 @@ class Item implements \JsonSerializable
         return $this->quantity;
     }
 
-    public function setQuantity(?int $quantity)
+    /**
+     * @return static
+     */
+    public function setQuantity(?int $quantity): self
     {
         $this->quantity = $quantity;
         return $this;
@@ -60,7 +69,7 @@ class Item implements \JsonSerializable
         int $quantity,
         string $price,
         string $currencyCode
-    ) {
+    ): self {
         $item = new self();
 
         $amount = (new Amount())

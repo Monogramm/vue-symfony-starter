@@ -26,7 +26,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/api/user", name="user-create", methods={"POST"})
+     * @Route ("/api/user", name="user-create", methods={"POST"})
+     *
+     * @return Response
      */
     public function createUserAccount(
         Request $request,
@@ -34,7 +36,7 @@ class UserController extends AbstractController
         ValidatorInterface $validator,
         UserRegistrationHandler $registrationHandler,
         EventDispatcherInterface $dispatcher
-    ) {
+    ): Response {
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
 
         $errors = $validator->validate($user);
@@ -53,9 +55,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/verify", methods={"POST"})
+     * @Route ("/api/user/verify", methods={"POST"})
+     *
+     * @return JsonResponse
      */
-    public function verifyUser(Request $request, EntityManagerInterface $em)
+    public function verifyUser(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $user = $this->getUser();
@@ -79,13 +83,15 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/verify/resend", methods={"POST"})
+     * @Route ("/api/user/verify/resend", methods={"POST"})
+     *
+     * @return JsonResponse
      */
     public function resendVerificationCode(
         MessageBusInterface $bus,
         TranslatorInterface $translator,
         string $mailerFrom
-    ) {
+    ): JsonResponse {
         $user = $this->getUser();
 
         $code = $user->getVerificationCode();
@@ -120,9 +126,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user", methods={"GET"})
+     * @Route ("/api/user", methods={"GET"})
+     *
+     * @return JsonResponse
      */
-    public function getCurrentUser()
+    public function getCurrentUser(): JsonResponse
     {
         $user = $this->getUser();
 
@@ -136,9 +144,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/disable", methods={"PUT"})
+     * @Route ("/api/user/disable", methods={"PUT"})
+     *
+     * @return JsonResponse
      */
-    public function disableCurrentUser(EntityManagerInterface $em)
+    public function disableCurrentUser(EntityManagerInterface $em): JsonResponse
     {
         /**
          * @var User $user
@@ -154,9 +164,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/admin/users", methods={"GET"})
+     * @Route ("/api/admin/users", methods={"GET"})
+     *
+     * @return JsonResponse
      */
-    public function findAllByUsername(UserRepository $userRepository, Request $request)
+    public function findAllByUsername(UserRepository $userRepository, Request $request): JsonResponse
     {
         if (!$request->get('username')) {
             return new JsonResponse();
@@ -170,13 +182,15 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/admin/user", name="get_users", methods={"GET"})
+     * @Route ("/api/admin/user", name="get_users", methods={"GET"})
+     *
+     * @return JsonResponse
      */
     public function getAllWithPagination(
         UserRepository $userRepository,
         SerializerInterface $serializer,
         Request $request
-    ) {
+    ): JsonResponse {
         $page = (int) $request->get('page', 1);
         $itemsPerPage = (int) $request->get('size', 20);
 

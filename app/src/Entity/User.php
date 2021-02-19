@@ -120,6 +120,9 @@ class User implements UserInterface
         return null;
     }
 
+    /**
+     * @return void
+     */
     public function eraseCredentials()
     {
     }
