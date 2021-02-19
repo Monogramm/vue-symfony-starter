@@ -2,7 +2,7 @@
   <div class="back-button no-print">
     <b-button
       v-if="notExcluded"
-      type="is-white"
+      type="is-primary"
       icon-left="angle-left"
       @click="clicked"
     >

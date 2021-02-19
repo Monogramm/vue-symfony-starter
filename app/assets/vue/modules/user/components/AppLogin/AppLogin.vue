@@ -1,6 +1,6 @@
 <template>
   <form
-    class="section"
+    class="section box"
     @submit.prevent
   >
     <div class="inputs">

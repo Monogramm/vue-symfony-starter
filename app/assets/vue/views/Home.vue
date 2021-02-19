@@ -8,9 +8,9 @@
 
     <div class="columns">
       <div class="column is-8">
-        <section class="section">
+        <section class="section box">
           <h2 class="subtitle">
-            {{ $t("home.instances.title") }}
+            {{ $t("home.welcome") }}
           </h2>
 
           <!-- TODO -->
@@ -18,7 +18,7 @@
       </div>
 
       <div class="column">
-        <section class="section is-centered">
+        <section class="section box is-centered">
           <div class="has-text-centered">
             <h2 class="subtitle">
               {{ $t("home.profile.manage") }}

@@ -7,6 +7,7 @@
     />
     <app-nav-bar
       :authenticated="isLoggedIn"
+      :admin="isAdmin"
       :languages="locales"
       @languageChanged="localeSwitch"
     />
@@ -44,7 +45,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("auth", ["isLoggedIn", "isLoading"])
+    ...mapGetters("auth", ["isLoggedIn", "isLoading", "authUser"]),
+    isAdmin() {
+      return this.authUser && !!this.authUser.roles.includes("ROLE_ADMIN");
+    },
   },
   metaInfo: {
     title: "App",

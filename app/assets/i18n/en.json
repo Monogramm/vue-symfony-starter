@@ -6,7 +6,7 @@
       "slogan": "A 'simple' starter project using Vue.js and Symfony.",
       "keywords": "cloud hosting services, open source application, open source software, progressive web app, pwa",
       "start-here": "Start here",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       "copyright": "Copyright %n Monogramm."
     }
   },
@@ -153,6 +153,10 @@
   "home": {
     "title": "Home",
     "welcome": "Welcome to Vue Symfony Starter",
+    "profile": {
+      "manage": "Manage your profile",
+      "description": "Access you profile page and information"
+    },
     "account": "User account",
     "contact": "Contact"
   },
@@ -207,7 +211,7 @@
     }
   },
   "admin": {
-    "dashboard": "Administration dashboard",
+    "dashboard": "Administration",
     "users": "Users",
     "parameters": "Parameters",
     "background-jobs": "Background jobs"

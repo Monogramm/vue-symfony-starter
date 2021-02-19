@@ -27,6 +27,14 @@
       >
         {{ $t("home.title") }}
       </b-navbar-item>
+      <b-navbar-item
+        v-if="authenticated && admin"
+        tag="router-link"
+        icon-left="wrench"
+        :to="{ name: 'AdminDashboard' }"
+      >
+        {{ $t("admin.dashboard") }}
+      </b-navbar-item>
       <b-navbar-dropdown :label="$t('common.languages')">
         <b-navbar-item
           v-for="(option, idx) in languages"
@@ -74,6 +82,12 @@ export default {
       }
     },
     authenticated: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    },
+    admin: {
       type: Boolean,
       default() {
         return false;
