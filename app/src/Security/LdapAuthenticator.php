@@ -96,6 +96,7 @@ class LdapAuthenticator extends AbstractGuardAuthenticator
      *
      * @param Request $request The request
      * @param AuthenticationException $authException An authentication exception
+     *
      * @return void
      */
     public function start(Request $request, AuthenticationException $authException = null)

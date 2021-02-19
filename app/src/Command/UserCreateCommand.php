@@ -46,6 +46,7 @@ class UserCreateCommand extends Command
 
     /**
      * Configures the current command.
+     *
      * @return void
      */
     protected function configure()

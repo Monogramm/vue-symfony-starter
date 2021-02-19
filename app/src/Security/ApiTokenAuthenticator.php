@@ -71,13 +71,17 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * Called when authentication executed, but failed (e.g. wrong username password).
+     * Called when authentication executed, but failed (e.g. wrong login password).
      *
      * This should return the Response sent back to the user, like a
      * RedirectResponse to the login page or a 401 response.
      *
      * If you return null, the request will continue, but the user will
      * not be authenticated. This is probably not what you want to do.
+     *
+     * @param Request $request The request
+     * @param AuthenticationException $authException An authentication exception
+     *
      *
      * @return void
      */
@@ -121,6 +125,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      *
      * @param Request $request The request
      * @param AuthenticationException $authException An authentication exception
+     *
      * @return Response|void
      */
     public function start(Request $request, AuthenticationException $authException = null)

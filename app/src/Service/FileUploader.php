@@ -33,6 +33,9 @@ class FileUploader
 
     /**
      * Transliterate the filename for upload.
+     *
+     * @param string $filename filename to transliterate in latin.
+     *
      * @return string
      */
     public function transliterate(string $filename)

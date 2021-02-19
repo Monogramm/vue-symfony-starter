@@ -22,8 +22,9 @@ class ParameterRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $page Page number (starting at 1).
-     * @param $size Page size.
+     * @param int $page Page number (starting at 1).
+     * @param int $size Page size.
+     *
      * @return Paginator
      *
      * @psalm-return Paginator<mixed>

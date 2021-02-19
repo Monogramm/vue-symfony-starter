@@ -28,7 +28,9 @@ class Encryptor
 
     /**
      * Encrypt text.
+     *
      * @param string $text text to encrypt.
+     *
      * @return string
      */
     public function encryptText(string $text): string
@@ -41,7 +43,9 @@ class Encryptor
 
     /**
      * Decrypt an encrypted text message.
+     *
      * @param string $text text to encrypt.
+     *
      * @return string
      */
     public function decryptText(string $encryptedText)
