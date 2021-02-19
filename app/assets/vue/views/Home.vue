@@ -26,7 +26,7 @@
             <p>{{ $t("home.profile.description") }}</p>
           </div>
 
-          <div class="my-4 has-text-centered">
+          <div class="has-text-centered">
             <b-button
               type="is-primary"
               icon-left="magic"
@@ -38,7 +38,7 @@
             </b-button>
           </div>
 
-          <div class="my-4 has-text-centered">
+          <div class="has-text-centered">
             <b-button
               icon-left="envelope"
               type="is-info"
