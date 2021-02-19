@@ -15,14 +15,16 @@ vscode:
   extensions:
     - felixfbecker.php-debug@1.13.0:WX8Y3EpQk3zgahy41yJtNQ==
 
-    # Requires VSCode ^1.52
-    #- octref.vetur@0.32.0:03mwRhlVpWDul4qBChcVUA==
+    - felixfbecker.php-pack@1.0.2:2V0NCoZNF9GELURKXgdHeQ==
 
     - syler.sass-indented@1.8.15:OWaLl5oCHRK7fCfvhwK3og==
 
-    - felixfbecker.php-pack@1.0.2:2V0NCoZNF9GELURKXgdHeQ==
-
     - dbaeumer.vscode-eslint@2.1.8:02aHhbJ0Q4aGdjHXlTdVKg==
+
+    # Requires VSCode ^1.52
+    #- octref.vetur@0.32.0:03mwRhlVpWDul4qBChcVUA==
+
+    - hollowtree.vue-snippets@0.1.12:R8kIKADMUL4rp+KMfYtsHg==
 
 github:
   prebuilds:
