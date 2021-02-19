@@ -6,7 +6,7 @@
       </h1>
     </div>
 
-    <section class="section modules">
+    <section class="section box modules">
       <b-button
         tag="router-link"
         to="/admin/users"
