@@ -25,45 +25,49 @@
         :aria-current-label="currentPageLabel"
         @page-change="onPageChange"
       >
-        <template slot-scope="props">
-          <b-table-column
-            field="name"
-            :label="nameColumnLabel"
-          >
-            {{ props.row.name }}
-          </b-table-column>
+        <b-table-column
+          v-slot="props"
+          field="name"
+          :label="nameColumnLabel"
+        >
+          {{ props.row.name }}
+        </b-table-column>
 
-          <b-table-column
-            field="value"
-            :label="valueColumnLabel"
-          >
-            {{ formatValue(props.row.value, props.row.type) }}
-          </b-table-column>
+        <b-table-column
+          v-slot="props"
+          field="value"
+          :label="valueColumnLabel"
+        >
+          {{ formatValue(props.row.value, props.row.type) }}
+        </b-table-column>
 
-          <b-table-column
-            field="description"
-            :label="descriptionColumnLabel"
-          >
-            {{ props.row.description | shorten(60) }}
-          </b-table-column>
+        <b-table-column
+          v-slot="props"
+          field="description"
+          :label="descriptionColumnLabel"
+        >
+          {{ props.row.description | shorten(60) }}
+        </b-table-column>
 
-          <b-table-column field="buttons">
-            <div class="buttons">
-              <b-button
-                type="is-warning"
-                @click="edit(props.row.id)"
-              >
-                {{ $t("common.edit") }}
-              </b-button>
-              <b-button
-                type="is-danger"
-                @click="deleteParameter(props.row.id)"
-              >
-                {{ $t("common.delete") }}
-              </b-button>
-            </div>
-          </b-table-column>
-        </template>
+        <b-table-column
+          v-slot="props"
+          field="buttons"
+        >
+          <div class="buttons">
+            <b-button
+              type="is-warning"
+              @click="edit(props.row.id)"
+            >
+              {{ $t("common.edit") }}
+            </b-button>
+            <b-button
+              type="is-danger"
+              @click="deleteParameter(props.row.id)"
+            >
+              {{ $t("common.delete") }}
+            </b-button>
+          </div>
+        </b-table-column>
       </b-table>
     </div>
   </section>

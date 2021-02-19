@@ -13,38 +13,40 @@
       :aria-current-label="currentPageLabel"
       @page-change="onPageChange"
     >
-      <template slot-scope="props">
-        <b-table-column
-          field="username"
-          :label="usernameLabel"
-        >
-          {{ props.row.username }}
-        </b-table-column>
+      <b-table-column
+        v-slot="props"
+        field="username"
+        :label="usernameLabel"
+      >
+        {{ props.row.username }}
+      </b-table-column>
 
-        <b-table-column
-          field="email"
-          :label="emailLabel"
-        >
-          {{ props.row.email }}
-        </b-table-column>
+      <b-table-column
+        v-slot="props"
+        field="email"
+        :label="emailLabel"
+      >
+        {{ props.row.email }}
+      </b-table-column>
 
-        <b-table-column
-          field="language"
-          :label="languageLabel"
-        >
-          {{ props.row.language }}
-        </b-table-column>
+      <b-table-column
+        v-slot="props"
+        field="language"
+        :label="languageLabel"
+      >
+        {{ props.row.language }}
+      </b-table-column>
 
-        <b-table-column
-          field="verified"
-          :label="verifiedLabel"
-        >
-          <b-icon
-            :icon="props.row.isVerified ? 'check' : 'times'"
-            :type="props.row.isVerified ? 'is-success': 'is-danger'"
-          />
-        </b-table-column>
-      </template>
+      <b-table-column
+        v-slot="props"
+        field="verified"
+        :label="verifiedLabel"
+      >
+        <b-icon
+          :icon="props.row.isVerified ? 'check' : 'times'"
+          :type="props.row.isVerified ? 'is-success': 'is-danger'"
+        />
+      </b-table-column>
     </b-table>
   </div>
 </template>

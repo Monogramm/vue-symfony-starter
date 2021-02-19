@@ -13,28 +13,29 @@
       :aria-current-label="currentPageLabel"
       @page-change="onPageChange"
     >
-      <template slot-scope="props">
-        <b-table-column
-          field="name"
-          label="Name"
-        >
-          {{ props.row.name }}
-        </b-table-column>
+      <b-table-column
+        v-slot="props"
+        field="name"
+        label="Name"
+      >
+        {{ props.row.name }}
+      </b-table-column>
 
-        <b-table-column
-          field="last_execution"
-          label="Last Execution"
-        >
-          {{ props.row.lastExecution }}
-        </b-table-column>
+      <b-table-column
+        v-slot="props"
+        field="last_execution"
+        label="Last Execution"
+      >
+        {{ props.row.lastExecution }}
+      </b-table-column>
 
-        <b-table-column
-          field="status"
-          label="Status"
-        >
-          {{ props.row.status }}
-        </b-table-column>
-      </template>
+      <b-table-column
+        v-slot="props"
+        field="status"
+        label="Status"
+      >
+        {{ props.row.status }}
+      </b-table-column>
     </b-table>
   </div>
 </template>
