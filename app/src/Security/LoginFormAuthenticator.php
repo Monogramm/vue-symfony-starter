@@ -87,6 +87,25 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
+     * Returns a response that directs the user to authenticate.
+     *
+     * This is called when an anonymous request accesses a resource that
+     * requires authentication. The job of this method is to return some
+     * response that "helps" the user start into the authentication process.
+     *
+     * Examples:
+     *
+     * - For a form login, you might redirect to the login page
+     *
+     *     return new RedirectResponse('/login');
+     *
+     * - For an API token authentication system, you return a 401 response
+     *
+     *     return new Response('Auth header required', 401);
+     *
+     * @param Request $request The request
+     * @param AuthenticationException $authException An authentication exception
+     *
      * @return void
      */
     public function start(Request $request, AuthenticationException $authException = null)
@@ -94,6 +113,17 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
+     * Does this method support remember me cookies?
+     *
+     * Remember me cookie will be set if *all* of the following are met:
+     *  A) This method returns true
+     *  B) The remember_me key under your firewall is configured
+     *  C) The "remember me" functionality is activated. This is usually
+     *      done by having a _remember_me checkbox in your form, but
+     *      can be configured by the "always_remember_me" and "remember_me_parameter"
+     *      parameters under the "remember_me" firewall key
+     *  D) The onAuthenticationSuccess method returns a Response object
+     *
      * @return void
      */
     public function supportsRememberMe()

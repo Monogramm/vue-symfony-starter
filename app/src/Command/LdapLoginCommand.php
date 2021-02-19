@@ -20,23 +20,24 @@ class LdapLoginCommand extends Command
     /**
      * @var Ldap
      */
-    private $_ldap;
+    private $ldap;
 
     /**
      * @var LoggerInterface
      */
-    private $_logger;
+    private $logger;
 
     public function __construct(
         Ldap $ldap,
         LoggerInterface $logger
     ) {
-        $this->_ldap = $ldap;
-        $this->_logger = $logger;
+        $this->ldap = $ldap;
+        $this->logger = $logger;
         parent::__construct(self::$defaultName);
     }
 
     /**
+     * Configures the current command.
      * @return void
      */
     protected function configure()
@@ -154,7 +155,7 @@ class LdapLoginCommand extends Command
             'search_dn' => $searchDn,
             'search_password' => $searchPassword
         ];
-        $ldapClient = new Client($this->_ldap, $config);
+        $ldapClient = new Client($this->ldap, $config);
 
         // LDAP login
         try {

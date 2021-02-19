@@ -21,22 +21,22 @@ class UserSetPasswordCommand extends Command
     /**
      * @var EntityManagerInterface
      */
-    private $_em;
+    private $em;
 
     /**
      * @var UserRepository
      */
-    private $_userRepository;
+    private $userRepository;
 
     /**
      * @var UserPasswordEncoderInterface
      */
-    private $_passwordEncoder;
+    private $passwordEncoder;
 
     /**
      * @var PasswordGenerator
      */
-    private $_passwordGenerator;
+    private $passwordGenerator;
 
     public function __construct(
         EntityManagerInterface $em,
@@ -44,15 +44,16 @@ class UserSetPasswordCommand extends Command
         UserPasswordEncoderInterface $passwordEncoder,
         PasswordGenerator $passwordGenerator
     ) {
-        $this->_em = $em;
-        $this->_userRepository = $userRepository;
-        $this->_passwordEncoder = $passwordEncoder;
-        $this->_passwordGenerator = $passwordGenerator;
+        $this->em = $em;
+        $this->userRepository = $userRepository;
+        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordGenerator = $passwordGenerator;
 
         parent::__construct(self::$defaultName);
     }
 
     /**
+     * Configures the current command.
      * @return void
      */
     protected function configure()
@@ -87,7 +88,7 @@ class UserSetPasswordCommand extends Command
             $invalid = true;
         }
         if (empty($password)) {
-            $password = $this->_passwordGenerator->generate(12);
+            $password = $this->passwordGenerator->generate(12);
             $io->warning("No password provided. Randomly generating a new password: $password");
         }
         // TODO Check password security?
@@ -104,12 +105,12 @@ class UserSetPasswordCommand extends Command
         }
 
         $user->setPassword(
-            $this->_passwordEncoder
+            $this->passwordEncoder
                     ->encodePassword($user, $password)
         );
 
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $this->em->persist($user);
+        $this->em->flush();
 
         $io->success("User '$username' password reset");
 
@@ -118,6 +119,6 @@ class UserSetPasswordCommand extends Command
 
     protected function findByUsername(String $username): ?User
     {
-        return $this->_userRepository->findOneBy(['username' => $username]);
+        return $this->userRepository->findOneBy(['username' => $username]);
     }
 }

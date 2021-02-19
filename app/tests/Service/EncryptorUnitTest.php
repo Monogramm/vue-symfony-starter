@@ -17,7 +17,7 @@ class EncryptorUnitTest extends TestCase
         $this->assertIsString($encrypted);
         $this->assertNotEquals($testText, $encrypted);
 
-        $decrypted = $encryptor->decryptAsText($encrypted);
+        $decrypted = $encryptor->decryptText($encrypted);
 
         $this->assertEquals($decrypted, $testText);
     }

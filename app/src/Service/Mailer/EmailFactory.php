@@ -22,13 +22,13 @@ class EmailFactory
 
     public function createEmailFromMessage(EmailNotification $email): TemplatedEmail
     {
-        return (new TemplatedEmail())
-            ->from($email->sender() ?? $this->mailerFrom)
-            ->to($email->recipient())
-            ->subject(EmailFactory::SUBJECT_PREFIX . $email->subject())
-            ->htmlTemplate('emails/'.$email->template().'.html.twig')
-            ->textTemplate('emails/'.$email->template().'.txt.twig')
-            ->context($email->payload());
+        $this->createEmailFromData(
+            $email->sender(),
+            $email->recipient(),
+            $email->subject(),
+            $email->template(),
+            $email->payload()
+        );
     }
 
     /**
@@ -40,7 +40,7 @@ class EmailFactory
         array $payload,
         string $template,
         ?string $from = null
-    ): self {
+    ): TemplatedEmail {
         return (new TemplatedEmail())
             ->from($from ?? $this->mailerFrom)
             ->to($recipient)

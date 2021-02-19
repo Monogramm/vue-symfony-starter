@@ -65,7 +65,7 @@ class ParameterController extends AbstractController
     ): JsonResponse {
         if ($parameter->isSecret() && $parameter->getValue()) {
             $parameter->setValue(
-                $encryptor->decryptAsText(
+                $encryptor->decryptText(
                     $parameter->getValue()
                 )
             );
@@ -95,7 +95,7 @@ class ParameterController extends AbstractController
 
         if ($dto->isSecret()) {
             $dto->setValue(
-                $encryptor->decryptAsText(
+                $encryptor->decryptText(
                     $dto->getValue()
                 )
             );

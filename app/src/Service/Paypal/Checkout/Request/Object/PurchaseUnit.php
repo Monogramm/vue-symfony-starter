@@ -18,6 +18,7 @@ class PurchaseUnit implements \JsonSerializable
     }
 
     /**
+     * @param Amount|null $amount Purchase amount
      * @return static
      */
     public function setAmount(?Amount $amount): self
@@ -70,6 +71,9 @@ class PurchaseUnit implements \JsonSerializable
     }
 
     /**
+     * @param string $totalPrice Purchase total price
+     * @param string $currencyCode Purchase currency code
+     * @param array $items Purchase items
      * @return static
      */
     public static function create(

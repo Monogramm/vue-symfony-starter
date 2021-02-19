@@ -31,6 +31,7 @@ class Context implements \JsonSerializable
     }
 
     /**
+     * @param string|null $returnUrl Return URL on payment success
      * @return static
      */
     public function setReturnUrl(?string $returnUrl): self
@@ -45,6 +46,7 @@ class Context implements \JsonSerializable
     }
 
     /**
+     * @param string|null $cancelUrl Return URL on payment cancel
      * @return static
      */
     public function setCancelUrl(?string $cancelUrl): self
@@ -59,6 +61,7 @@ class Context implements \JsonSerializable
     }
 
     /**
+     * @param string|null $locale Locale
      * @return static
      */
     public function setLocale(?string $locale): self
@@ -75,6 +78,7 @@ class Context implements \JsonSerializable
     }
 
     /**
+     * @param string|null $landingPage Landing pageURL
      * @return static
      */
     public function setLandingPage(?string $landingPage): self

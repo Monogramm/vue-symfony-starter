@@ -20,24 +20,25 @@ class UserListCommand extends Command
     /**
      * @var EntityManagerInterface
      */
-    private $_em;
+    private $em;
 
     /**
      * @var UserRepository
      */
-    private $_userRepository;
+    private $userRepository;
 
     public function __construct(
         EntityManagerInterface $em,
         UserRepository $userRepository
     ) {
-        $this->_userRepository = $userRepository;
-        $this->_em = $em;
+        $this->userRepository = $userRepository;
+        $this->em = $em;
 
         parent::__construct(self::$defaultName);
     }
 
     /**
+     * Configures the current command.
      * @return void
      */
     protected function configure()
@@ -83,7 +84,7 @@ class UserListCommand extends Command
         // $role = $input->getOption('role');
         // $isVerified = $input->getOption('verified');
 
-        $users = $this->_userRepository->findAll();
+        $users = $this->userRepository->findAll();
         $rows = [];
         foreach ($users as $key => $user) {
             $rows[$key] = [$user->getUsername(),

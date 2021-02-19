@@ -15,22 +15,22 @@ class Encryptor
     public function encrypt(array $data): string
     {
         $json = json_encode($data);
-        $nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
-        $ciphertext = sodium_crypto_secretbox($json, $nonce, $this->key);
 
-        return base64_encode($nonce . $ciphertext);
+        return $this->encryptText($json);
     }
 
     public function decrypt(string $encryptedText): array
     {
-        $encryptedText = base64_decode($encryptedText);
-        $nonce = mb_substr($encryptedText, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
-        $ciphertext = mb_substr($encryptedText, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
-        $json = sodium_crypto_secretbox_open($ciphertext, $nonce, $this->key);
+        $json = $this->decryptText($encryptedText);
 
         return json_decode($json, true);
     }
 
+    /**
+     * Encrypt text.
+     * @param string $text text to encrypt.
+     * @return string
+     */
     public function encryptText(string $text): string
     {
         $nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
@@ -40,9 +40,11 @@ class Encryptor
     }
 
     /**
-     * @return false|string
+     * Decrypt an encrypted text message.
+     * @param string $text text to encrypt.
+     * @return string
      */
-    public function decryptAsText(string $encryptedText)
+    public function decryptText(string $encryptedText)
     {
         $encryptedText = base64_decode($encryptedText);
         $nonce = mb_substr($encryptedText, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');

@@ -32,7 +32,8 @@ class FileUploader
     }
 
     /**
-     * @return false|string
+     * Transliterate the filename for upload.
+     * @return string
      */
     public function transliterate(string $filename)
     {
