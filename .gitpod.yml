@@ -3,7 +3,6 @@ image:
 
 ports:
   - port: 8000
-    onOpen: open-preview
   - port: 6006
 
 tasks:
@@ -11,6 +10,10 @@ tasks:
     command: ./manage.sh local:start-back
   - command: ./manage.sh local:start-front
   - command: ./manage.sh local:start-story
+
+vscode:
+  extensions:
+    - felixfbecker.php-debug@1.13.0:WX8Y3EpQk3zgahy41yJtNQ==
 
 github:
   prebuilds:
