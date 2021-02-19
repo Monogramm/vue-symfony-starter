@@ -71,9 +71,12 @@ class PurchaseUnit implements \JsonSerializable
     }
 
     /**
+     * Set purchase unit information.
+     *
      * @param string $totalPrice Purchase total price
      * @param string $currencyCode Purchase currency code
      * @param array $items Purchase items
+     *
      * @return static
      */
     public static function create(

@@ -79,9 +79,8 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      * If you return null, the request will continue, but the user will
      * not be authenticated. This is probably not what you want to do.
      *
-     * @param Request $request The request
-     * @param AuthenticationException $authException An authentication exception
-     *
+     * @param Request                 $request The request.
+     * @param AuthenticationException $exception An authentication exception.
      *
      * @return void
      */
@@ -98,7 +97,8 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      * If you return null, the current request will continue, and the user
      * will be authenticated. This makes sense, for example, with an API.
      *
-     * @param string $providerKey The provider (i.e. firewall) key
+     * @param Request $request The request.
+     * @param string  $providerKey The provider (i.e. firewall) key.
      *
      * @return void
      */
@@ -123,8 +123,8 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      *
      *     return new Response('Auth header required', 401);
      *
-     * @param Request $request The request
-     * @param AuthenticationException $authException An authentication exception
+     * @param Request                 $request The request.
+     * @param AuthenticationException $authException An authentication exception.
      *
      * @return Response|void
      */

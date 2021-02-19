@@ -32,6 +32,12 @@ class EmailFactory
     }
 
     /**
+     * @param string $recipient The recipient.
+     * @param string $subject The subject.
+     * @param array $payload The email content.
+     * @param string $template The email template to use.
+     * @param string $from The email sender.
+     *
      * @return TemplatedEmail
      */
     public function createEmailFromData(

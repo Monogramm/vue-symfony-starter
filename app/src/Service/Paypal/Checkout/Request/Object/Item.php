@@ -17,6 +17,10 @@ class Item implements \JsonSerializable
     }
 
     /**
+     * Set item amount.
+     *
+     * @param Amount $unitAmount the amount of the item.
+     *
      * @return static
      */
     public function setUnitAmount(?Amount $unitAmount): self
@@ -31,6 +35,10 @@ class Item implements \JsonSerializable
     }
 
     /**
+     * Set item name.
+     *
+     * @param string $name the item name.
+     *
      * @return static
      */
     public function setName(?string $name): self
@@ -45,6 +53,10 @@ class Item implements \JsonSerializable
     }
 
     /**
+     * Set item quantity.
+     *
+     * @param string $quantity the item quantity.
+     *
      * @return static
      */
     public function setQuantity(?int $quantity): self

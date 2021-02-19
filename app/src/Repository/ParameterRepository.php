@@ -56,6 +56,8 @@ class ParameterRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param array $names Array of names requested.
+     *
      * @return Parameter[]
      *
      * @psalm-return array<array-key, Parameter>

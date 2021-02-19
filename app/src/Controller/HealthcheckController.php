@@ -29,11 +29,18 @@ class HealthcheckController extends AbstractController
      */
     public function health(
         Request $request,
-        EntityManagerInterface $em
+        EntityManagerInterface $emi
     ): JsonResponse {
-        $health = true;
+        $health = !empty($request) && !empty($emi);
         // TODO Execute all existing healtcheck
         // TODO Return KO if any healthcheck is false
-        return new JsonResponse('UP');
+
+        if ($health) {
+            $response = new JsonResponse('UP');
+        } else {
+            $response = new JsonResponse('KO');
+        }
+
+        return $response;
     }
 }
