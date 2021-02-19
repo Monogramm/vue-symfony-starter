@@ -120,10 +120,13 @@ class Context implements \JsonSerializable
         return $data;
     }
 
+    /**
+     * @return static
+     */
     public static function create(
         string $returnUrl,
         string $cancelUrl
-    ) {
+    ): self {
         return (new self())
             ->setReturnUrl($returnUrl)
             ->setCancelUrl($cancelUrl);

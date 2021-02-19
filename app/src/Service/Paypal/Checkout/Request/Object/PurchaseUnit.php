@@ -69,11 +69,14 @@ class PurchaseUnit implements \JsonSerializable
         return $data;
     }
 
+    /**
+     * @return static
+     */
     public static function create(
         string $totalPrice,
         string $currencyCode,
         array $items
-    ) {
+    ): self {
         $amount = (new Amount())
             ->setValue($totalPrice)
             ->setCurrencyCode($currencyCode);
