@@ -15,9 +15,8 @@ vscode:
   extensions:
     - felixfbecker.php-debug@1.13.0:WX8Y3EpQk3zgahy41yJtNQ==
 
-    - ms-vscode.vscode-typescript-tslint-plugin@1.2.2:0nQ3PEEA0NPEt3UcbCYiIQ==
-
-    - octref.vetur@0.32.0:03mwRhlVpWDul4qBChcVUA==
+    # Requires VSCode ^1.52
+    #- octref.vetur@0.32.0:03mwRhlVpWDul4qBChcVUA==
 
     - syler.sass-indented@1.8.15:OWaLl5oCHRK7fCfvhwK3og==
 
