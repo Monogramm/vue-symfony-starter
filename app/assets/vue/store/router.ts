@@ -11,7 +11,8 @@ import Install from "../views/Install.vue";
 import NotFound from "../views/NotFound/NotFound.vue";
 import Error from "../views/Error/Error.vue";
 
-const AdminDashboard = () => import(/* webpackChunkName: "AdminUsers" */ "../views/admin/Dashboard.vue").then((m: any) => m.default);
+import AdminDashboard from "../views/admin/Dashboard.vue";
+//const AdminDashboard = () => import(/* webpackChunkName: "AdminUsers" */ "../views/admin/Dashboard.vue").then((m: any) => m.default);
 
 import { AuthRoutes } from "../modules/auth/routes";
 import { UserRoutes } from "../modules/user/routes";

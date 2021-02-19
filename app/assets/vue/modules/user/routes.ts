@@ -8,7 +8,8 @@ import UserProfile from "./views/UserProfile.vue";
 import VerifyAccount from "./views/VerifyAccount.vue";
 import ResetPassword from "./views/ResetPassword.vue";
 
-const AdminUsers = () => import(/* webpackChunkName: "AdminUsers" */ "./views/admin/Users.vue").then((m: any) => m.default);
+import AdminUsers from "./views/admin/Users.vue";
+//const AdminUsers = () => import(/* webpackChunkName: "AdminUsers" */ "./views/admin/Users.vue").then((m: any) => m.default);
 
 export const UserRoutes: RouteConfig[] = [
   {

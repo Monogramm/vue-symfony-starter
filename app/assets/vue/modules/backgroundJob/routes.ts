@@ -1,6 +1,7 @@
 import { RouteConfig } from "@/vue/interfaces/router";
 
-const BackgroundJobs = () => import(/* webpackChunkName: "AdminUsers" */ "./views/admin/BackgroundJobs.vue").then((m: any) => m.default);
+import BackgroundJobs from "./views/admin/BackgroundJobs.vue";
+//const BackgroundJobs = () => import(/* webpackChunkName: "AdminUsers" */ "./views/admin/BackgroundJobs.vue").then((m: any) => m.default);
 
 export const BackgroundJobRoutes: RouteConfig[] = [
   {

@@ -1,7 +1,9 @@
 import { RouteConfig } from "@/vue/interfaces/router";
 
-const AdminParameters = () => import(/* webpackChunkName: "AdminParameters" */ "./views/admin/Parameters.vue").then((m: any) => m.default);
-const AdminParameter = () => import(/* webpackChunkName: "AdminParameter" */ "./views/admin/Parameter.vue").then((m: any) => m.default);
+import AdminParameters from "./views/admin/Parameters.vue";
+import AdminParameter from "./views/admin/Parameter.vue";
+//const AdminParameters = () => import(/* webpackChunkName: "AdminParameters" */ "./views/admin/Parameters.vue").then((m: any) => m.default);
+//const AdminParameter = () => import(/* webpackChunkName: "AdminParameter" */ "./views/admin/Parameter.vue").then((m: any) => m.default);
 
 export const ParameterRoutes: RouteConfig[] = [
   {
