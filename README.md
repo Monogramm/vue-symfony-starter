@@ -133,32 +133,10 @@ All tests are executed automatically when building the Docker production images,
 
 Code coverage results will be stored in `./coverage` directory at the end of CI builds.
 
-### Unit tests
+### Backend tests and code quality analysis
 
 ```bash
-cd app
-php bin/phpunit
-```
-
-### Unit tests with code coverage report in HTML format
-
-```bash
-cd app
-php bin/phpunit --coverage-html=./
-```
-
-### Code style check
-
-```bash
-cd app
-php vendor/bin/phpcs
-```
-
-### Static analysis tool
-
-```bash
-cd app
-php vendor/bin/psalm
+./manage.sh local:test-back
 ```
 
 ## :bust_in_silhouette: Authors

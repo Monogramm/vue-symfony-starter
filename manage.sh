@@ -135,17 +135,17 @@ lc-stop-back() {
 
 lc-test-back() {
     cd app
-    php ./bin/phpunit --coverage-xml ./var/tests/ "$@"
+    php ./bin/phpunit --coverage-text "$@"
     #log "PHPStan..."
     #vendor/bin/phpstan analyse src tests
-    log "PHP Copy/Paste detector..."
-    vendor/bin/phpcpd src
     log "PHP_CodeSniffer bug fixer..."
     vendor/bin/phpcbf src
+    log "Psalm..."
+    vendor/bin/psalm --alter --issues=MissingReturnType,InvalidReturnType,InvalidNullableReturnType
+    log "PHP Copy/Paste detector..."
+    vendor/bin/phpcpd src
     log "PHP_CodeSniffer..."
     vendor/bin/phpcs src
-    #log "Psalm..."
-    #vendor/bin/psalm --alter --issues=MissingReturnType,InvalidReturnType,InvalidNullableReturnType --dry-run
     log "PHPMD..."
     vendor/bin/phpmd src text cleancode,controversial,codesize,naming,design,unusedcode
     #vendor/bin/phpmd src xml phpmd.xml
