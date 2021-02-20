@@ -19,7 +19,9 @@
     "open": "Open",
     "close": "Close",
     "cancel": "Cancel",
+    "confirm": "Confirm",
     "validate": "Validate",
+    "continue": "Continue",
     "yes": "Yes",
     "no": "No",
     "ok": "Ok",
@@ -51,7 +53,7 @@
       "empty": "Password cannot be empty",
       "confirm": "Confirm password"
     },
-    "confirm": {
+    "confirmation": {
       "create": "Confirm creation?",
       "edit": "Confirm update?",
       "update": "Confirm update?",

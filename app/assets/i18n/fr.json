@@ -19,7 +19,9 @@
     "open": "Ouvrir",
     "close": "Fermer",
     "cancel": "Annuler",
+    "confirm": "Confirmer",
     "validate": "Valider",
+    "continue": "Continuer",
     "yes": "Oui",
     "no": "Non",
     "ok": "Ok",
@@ -51,7 +53,7 @@
       "empty": "Le mot de passe ne peut pas être vide",
       "confirm": "Confirmer mot de passe"
     },
-    "confirm": {
+    "confirmation": {
       "create": "Confirmer création ?",
       "edit": "Confirmer édition ?",
       "update": "Confirmer mise à jour ?",

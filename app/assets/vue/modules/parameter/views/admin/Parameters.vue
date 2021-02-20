@@ -45,15 +45,15 @@ export default {
     },
     onDelete(id: string) {
       this.$buefy.dialog.confirm({
-        title: this.$t("common.confirm.delete"),
-        message: this.$t("common.confirm.delete-message"),
+        title: this.$t("common.confirmation.delete"),
+        message: this.$t("common.confirmation.delete-message"),
         cancelText: this.$t("common.cancel"),
         confirmText: this.$t("common.delete"),
         type: "is-danger",
         hasIcon: true,
         onConfirm: () => {
           this.$store.dispatch("parameter/delete", id);
-          this.$buefy.toast.open(this.$t("common.confirm.deleted"));
+          this.$buefy.toast.open(this.$t("common.confirmation.deleted"));
         }
       });
     }
