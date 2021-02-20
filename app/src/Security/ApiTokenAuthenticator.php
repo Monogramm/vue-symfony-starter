@@ -97,7 +97,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      * will be authenticated. This makes sense, for example, with an API.
      *
      * @param Request        $request     The request.
-     * @param TokenInterface $token       The token generated on successful authentication.
+     * @param TokenInterface $token       The token generated on success.
      * @param string         $providerKey The provider (i.e. firewall) key.
      *
      * @return void
@@ -123,7 +123,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      *
      *     return new Response('Auth header required', 401);
      *
-     * @param Request                 $request The request.
+     * @param Request                 $request       The request.
      * @param AuthenticationException $authException An authentication exception.
      *
      * @return Response|void
