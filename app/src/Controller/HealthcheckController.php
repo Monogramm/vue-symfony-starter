@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,13 +33,11 @@ class HealthcheckController extends AbstractController
         $health = !empty($request) && !empty($emi);
         // TODO Execute all existing healtcheck
         // TODO Return KO if any healthcheck is false
+        // TODO Return detailed info if user as ADMIN role
 
         if ($health) {
-            $response = new JsonResponse('UP');
-        } else {
-            $response = new JsonResponse('KO');
+            return new JsonResponse('UP');
         }
-
-        return $response;
+        return new JsonResponse('KO');
     }
 }

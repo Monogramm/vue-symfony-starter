@@ -22,21 +22,21 @@ class EmailFactory
 
     public function createEmailFromMessage(EmailNotification $email): TemplatedEmail
     {
-        $this->createEmailFromData(
-            $email->sender(),
+        return $this->createEmailFromData(
             $email->recipient(),
             $email->subject(),
+            $email->payload(),
             $email->template(),
-            $email->payload()
+            $email->sender(),
         );
     }
 
     /**
      * @param string $recipient The recipient.
-     * @param string $subject The subject.
-     * @param array $payload The email content.
-     * @param string $template The email template to use.
-     * @param string $from The email sender.
+     * @param string $subject   The subject.
+     * @param array  $payload   The email content.
+     * @param string $template  The email template to use.
+     * @param string $from      The email sender.
      *
      * @return TemplatedEmail
      */

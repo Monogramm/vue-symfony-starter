@@ -94,7 +94,7 @@ class LdapAuthenticator extends AbstractGuardAuthenticator
      *
      *     return new Response('Auth header required', 401);
      *
-     * @param Request                 $request The request.
+     * @param Request                 $request       The request.
      * @param AuthenticationException $authException An authentication exception.
      *
      * @return void

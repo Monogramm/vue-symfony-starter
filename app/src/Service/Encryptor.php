@@ -44,7 +44,7 @@ class Encryptor
     /**
      * Decrypt an encrypted text message.
      *
-     * @param string $text text to encrypt.
+     * @param string $encryptedText text to decrypt.
      *
      * @return string
      */
