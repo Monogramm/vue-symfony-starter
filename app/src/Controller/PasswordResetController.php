@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PasswordResetController extends AbstractController
 {
     /**
-     * @Route ("/api/password/reset", name="create_password_reset", methods={"POST"})
+     * @Route("/api/password/reset", name="create_password_reset", methods={"POST"})
      *
      * @return JsonResponse
      */
@@ -38,7 +38,7 @@ class PasswordResetController extends AbstractController
     }
 
     /**
-     * @Route ("/api/password/reset/{code}", name="password_reset", methods={"GET"})
+     * @Route("/api/password/reset/{code}", name="password_reset", methods={"GET"})
      *
      * @return Response
      */

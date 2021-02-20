@@ -8,8 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     /**
-     * @Route ("/", name="index")
-     * @Route ("/{vueRouting}", name="vue", requirements={"vueRouting"="^(?!.*_wdt|_profiler|api|static).+"})
+     * @Route("/", name="index")
+     * @Route("/{vueRouting}", name="vue", requirements={"vueRouting"="^(?!.*_wdt|_profiler|api|static).+"})
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

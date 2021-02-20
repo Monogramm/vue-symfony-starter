@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SupportController extends AbstractController
 {
     /**
-     * @Route ("/api/support/email/send", name="support_send_email", methods={"POST"})
+     * @Route("/api/support/email/send", name="support_send_email", methods={"POST"})
      *
      * @return JsonResponse
      */

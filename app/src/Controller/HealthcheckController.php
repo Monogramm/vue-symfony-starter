@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class HealthcheckController extends AbstractController
 {
     /**
-     * @Route ("/ping", name="ping", methods={"GET"},)
+     * @Route("/ping", name="ping", methods={"GET"},)
      *
      * @return JsonResponse
      */
@@ -22,7 +22,7 @@ class HealthcheckController extends AbstractController
     }
 
     /**
-     * @Route ("/health", name="health", methods={"GET"},)
+     * @Route("/health", name="health", methods={"GET"},)
      *
      * @return JsonResponse
      */

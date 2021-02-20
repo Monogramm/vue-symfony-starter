@@ -26,7 +26,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route ("/api/user", name="user-create", methods={"POST"})
+     * @Route("/api/user", name="user-create", methods={"POST"})
      *
      * @return Response
      */
@@ -55,7 +55,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route ("/api/user/verify", methods={"POST"})
+     * @Route("/api/user/verify", methods={"POST"})
      *
      * @return JsonResponse
      */
@@ -83,7 +83,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route ("/api/user/verify/resend", methods={"POST"})
+     * @Route("/api/user/verify/resend", methods={"POST"})
      *
      * @return JsonResponse
      */
@@ -126,7 +126,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route ("/api/user", methods={"GET"})
+     * @Route("/api/user", methods={"GET"})
      *
      * @return JsonResponse
      */
@@ -144,7 +144,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route ("/api/user/disable", methods={"PUT"})
+     * @Route("/api/user/disable", methods={"PUT"})
      *
      * @return JsonResponse
      */
@@ -164,7 +164,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route ("/api/admin/users", methods={"GET"})
+     * @Route("/api/admin/users", methods={"GET"})
      *
      * @return JsonResponse
      */
@@ -182,7 +182,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route ("/api/admin/user", name="get_users", methods={"GET"})
+     * @Route("/api/admin/user", name="get_users", methods={"GET"})
      *
      * @return JsonResponse
      */

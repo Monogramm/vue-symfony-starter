@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ParameterController extends AbstractController
 {
     /**
-     * @Route ("/api/admin/parameter/types", name="parameter_types", methods={"GET"})
+     * @Route("/api/admin/parameter/types", name="parameter_types", methods={"GET"})
      *
      * @return JsonResponse
      */
@@ -27,7 +27,7 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route ("/api/admin/parameter", name="get_parameters", methods={"GET"})
+     * @Route("/api/admin/parameter", name="get_parameters", methods={"GET"})
      *
      * @return JsonResponse
      */
@@ -54,7 +54,7 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route ("/api/admin/parameter/{parameter}", name="get_parameter", methods={"GET"})
+     * @Route("/api/admin/parameter/{parameter}", name="get_parameter", methods={"GET"})
      *
      * @return JsonResponse
      */
@@ -77,7 +77,7 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route ("/api/admin/parameter", name="create_parameter", methods={"POST"})
+     * @Route("/api/admin/parameter", name="create_parameter", methods={"POST"})
      *
      * @return JsonResponse
      */
@@ -110,7 +110,7 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route ("/api/admin/parameter/{parameter}", name="edit_parameter", methods={"PUT"})
+     * @Route("/api/admin/parameter/{parameter}", name="edit_parameter", methods={"PUT"})
      *
      * @return JsonResponse
      */
@@ -148,7 +148,7 @@ class ParameterController extends AbstractController
     }
 
     /**
-     * @Route ("/api/admin/parameter/{parameter}", name="delete_parameter", methods={"DELETE"})
+     * @Route("/api/admin/parameter/{parameter}", name="delete_parameter", methods={"DELETE"})
      *
      * @return JsonResponse
      */

@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class StaticController extends AbstractController
 {
     /**
-     * @Route ("/static/pwa", name="pwa")
+     * @Route("/static/pwa", name="pwa")
      *
      * @return Response
      */

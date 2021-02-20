@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class BackgroundJobController extends AbstractController
 {
     /**
-     * @Route ("/api/admin/background-jobs", name="get_background_jobs", methods={"GET"})
+     * @Route("/api/admin/background-jobs", name="get_background_jobs", methods={"GET"})
      *
      * @return JsonResponse
      */

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route ("/api/login", name="api_login")
+     * @Route("/api/login", name="api_login")
      *
      * @return void
      */
@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route ("/api/login/ldap", name="api_ldap_auth")
+     * @Route("/api/login/ldap", name="api_ldap_auth")
      *
      * @return void
      */
@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route ("/api/logout", name="api_logout", methods={"POST"})
+     * @Route("/api/logout", name="api_logout", methods={"POST"})
      *
      * @return JsonResponse
      */
@@ -63,7 +63,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route ("/api/password", name="password_change", methods={"PUT"})
+     * @Route("/api/password", name="password_change", methods={"PUT"})
      *
      * @return JsonResponse
      */
