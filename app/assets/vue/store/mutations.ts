@@ -35,7 +35,7 @@ export const ReadMutations: IReadMutations<IEntity, IEntityState<IEntity>> = {
   },
   GET_ALL_SUCCESS(state: IEntityState<IEntity>, data: IListResponse<IEntity>): void {
     state.isLoading = false;
-    state.error.status = 42;
+    state.error.status = null;
     state.items.push(...data.items);
     state.total = data.total;
   },
