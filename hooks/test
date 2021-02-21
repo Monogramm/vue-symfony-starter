@@ -3,6 +3,11 @@
 # See documentation for details:
 # https://docs.docker.com/docker-hub/builds/advanced/
 
+if [ "${DOCKERFILE_PATH}" = "Dockerfile.develop" ] || [ "${DOCKERFILE_PATH}" = "Dockerfile.gitpod" ]; then
+    echo "No tests (yet) for ${DOCKERFILE_PATH} images."
+    exit 0
+fi
+
 for file in "docker-compose.${BASE:-fpm}"*.test.yml; do
 
     echo "Starting Test in ${file}..."
