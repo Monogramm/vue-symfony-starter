@@ -23,6 +23,13 @@ class ExceptionListener
         $this->translator = $translator;
     }
 
+    /**
+     * Catches kernel exception to create error response.
+     *
+     * @param ExceptionEvent $event exception to handle
+     *
+     * @return void
+     */
     public function onKernelException(ExceptionEvent $event)
     {
         // You get the exception object from the received event

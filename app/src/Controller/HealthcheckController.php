@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -11,20 +13,31 @@ class HealthcheckController extends AbstractController
 {
     /**
      * @Route("/ping", name="ping", methods={"GET"},)
+     *
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return new JsonResponse('pong');
     }
 
     /**
      * @Route("/health", name="health", methods={"GET"},)
+     *
+     * @return JsonResponse
      */
-    public function health()
-    {
-        $health = true;
+    public function health(
+        Request $request,
+        EntityManagerInterface $emi
+    ): JsonResponse {
+        $health = !empty($request) && !empty($emi);
         // TODO Execute all existing healtcheck
         // TODO Return KO if any healthcheck is false
-        return new JsonResponse('UP');
+        // TODO Return detailed info if user as ADMIN role
+
+        if ($health) {
+            return new JsonResponse('UP');
+        }
+        return new JsonResponse('KO');
     }
 }

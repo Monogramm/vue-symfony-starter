@@ -1,267 +1,266 @@
-@import "icons";
+@import 'icons';
 
 @font-face {
-  font-family: "#{$icomoon-font-family}";
-  src: url("#{$icomoon-font-path}/#{$icomoon-font-family}.eot?ubmw8u");
-  src: url("#{$icomoon-font-path}/#{$icomoon-font-family}.eot?ubmw8u#iefix") format("embedded-opentype"),
-    url("#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?ubmw8u") format("truetype"),
-    url("#{$icomoon-font-path}/#{$icomoon-font-family}.woff?ubmw8u") format("woff"),
-    url("#{$icomoon-font-path}/#{$icomoon-font-family}.svg?ubmw8u##{$icomoon-font-family}") format("svg");
-  font-weight: normal;
-  font-style: normal;
   font-display: block;
+  font-family: '#{$icomoon-font-family}';
+  font-style: normal;
+  font-weight: normal;
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?ubmw8u');
+  src:
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?ubmw8u#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?ubmw8u') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?ubmw8u') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?ubmw8u##{$icomoon-font-family}') format('svg');
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
+[class^='icon-'],
+[class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "#{$icomoon-font-family}" !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
+  font-family: '#{$icomoon-font-family}' !important;
 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  speak: none;
+  text-transform: none;
 }
 
 .icon-rotate {
-  height: 1em;
-  width: 1em;
+  animation: Rotate 1000ms infinite linear;
   display: inline-block;
+  height: 1em;
 
   transform-origin: 50% 50%;
-  -o-transform-origin: 50% 50%;
-  -ms-transform-origin: 50% 50%;
-  -moz-transform-origin: 50% 50%;
-  -webkit-transform-origin: 50% 50%;
-  -webkit-animation: Rotate 1000ms infinite linear;
-  -moz-animation: Rotate 1000ms infinite linear;
-  -ms-animation: Rotate 1000ms infinite linear;
-  -o-animation: Rotate 1000ms infinite linear;
-  animation: Rotate 1000ms infinite linear;
+  width: 1em;
 }
-@-o-keyframes Rotate {
-  from {
-    -o-transform: rotate(0deg);
-  }
-  to {
-    -o-transform: rotate(360deg);
-  }
-}
-@-moz-keyframes Rotate {
-  from {
-    -moz-transform: rotate(0deg);
-  }
-  to {
-    -moz-transform: rotate(360deg);
-  }
-}
-@-ms-keyframes Rotate {
-  from {
-    -ms-transform: rotate(0deg);
-  }
-  to {
-    -ms-transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes Rotate {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
+
 @keyframes Rotate {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 .icon-stop {
-  &:before {
+  &::before {
     content: $icon-stop;
   }
 }
+
 .icon-quill {
-  &:before {
+  &::before {
     content: $icon-quill;
   }
 }
+
 .icon-keyboard {
-  &:before {
+  &::before {
     content: $icon-keyboard;
   }
 }
+
 .icon-key {
-  &:before {
+  &::before {
     content: $icon-key;
   }
 }
+
 .icon-envelop {
-  &:before {
+  &::before {
     content: $icon-envelop;
   }
 }
+
 .icon-location2 {
-  &:before {
+  &::before {
     content: $icon-location2;
   }
 }
+
 .icon-spinner5 {
-  &:before {
+  &::before {
     content: $icon-spinner5;
   }
 }
+
 .icon-spinner9 {
-  &:before {
+  &::before {
     content: $icon-spinner9;
   }
 }
+
 .icon-spinner10 {
-  &:before {
+  &::before {
     content: $icon-spinner10;
   }
 }
+
 .icon-cogs {
-  &:before {
+  &::before {
     content: $icon-cogs;
   }
 }
+
 .icon-magic-wand {
-  &:before {
+  &::before {
     content: $icon-magic-wand;
   }
 }
+
 .icon-gift {
-  &:before {
+  &::before {
     content: $icon-gift;
   }
 }
+
 .icon-bin {
-  &:before {
+  &::before {
     content: $icon-bin;
   }
 }
+
 .icon-earth {
-  &:before {
+  &::before {
     content: $icon-earth;
   }
 }
+
 .icon-user {
-  &:before {
+  &::before {
     content: $icon-user;
   }
 }
+
 .icon-user-check {
-  &:before {
+  &::before {
     content: $icon-user-check;
   }
 }
+
 .icon-equalizer {
-  &:before {
+  &::before {
     content: $icon-equalizer;
   }
 }
+
 .icon-rocket {
-  &:before {
+  &::before {
     content: $icon-rocket;
   }
 }
+
 .icon-briefcase {
-  &:before {
+  &::before {
     content: $icon-briefcase;
   }
 }
+
 .icon-star-empty {
-  &:before {
+  &::before {
     content: $icon-star-empty;
   }
 }
+
 .icon-star-full {
-  &:before {
+  &::before {
     content: $icon-star-full;
   }
 }
+
 .icon-clipboard {
-  &:before {
+  &::before {
     content: $icon-clipboard;
   }
 }
+
 .icon-download3 {
-  &:before {
+  &::before {
     content: $icon-download3;
   }
 }
+
 .icon-cloud {
-  &:before {
+  &::before {
     content: $icon-cloud;
   }
 }
+
 .icon-home {
-  &:before {
+  &::before {
     content: $icon-home;
   }
 }
+
 .icon-calendar {
-  &:before {
+  &::before {
     content: $icon-calendar;
   }
 }
+
 .icon-soundcloud {
-  &:before {
+  &::before {
     content: $icon-soundcloud;
   }
 }
+
 .icon-map-pin {
-  &:before {
+  &::before {
     content: $icon-map-pin;
   }
 }
+
 .icon-grav {
-  &:before {
+  &::before {
     content: $icon-grav;
   }
 }
+
 .icon-home1 {
-  &:before {
+  &::before {
     content: $icon-home1;
   }
 }
+
 .icon-calendar1 {
-  &:before {
+  &::before {
     content: $icon-calendar1;
   }
 }
+
 .icon-toggle-on {
-  &:before {
+  &::before {
     content: $icon-toggle-on;
   }
 }
+
 .icon-calendar2 {
-  &:before {
+  &::before {
     content: $icon-calendar2;
   }
 }
+
 .icon-envelope-open-o {
-  &:before {
+  &::before {
     content: $icon-envelope-open-o;
   }
 }
+
 .icon-edit {
-  &:before {
+  &::before {
     content: $icon-edit;
   }
 }
+
 .icon-pencil-square-o {
-  &:before {
+  &::before {
     content: $icon-pencil-square-o;
   }
 }
+

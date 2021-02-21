@@ -8,9 +8,10 @@
   } @else {
     background: linear-gradient($orientation, $start-color, $end-color);
   }
+
 }
 
-@mixin mediaPrint() {
+@mixin media-print() {
   @media print {
     @content;
   }

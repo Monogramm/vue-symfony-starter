@@ -31,6 +31,13 @@ class FileUploader
         return $this->imagesDirectory;
     }
 
+    /**
+     * Transliterate the filename for upload.
+     *
+     * @param string $filename filename to transliterate in latin.
+     *
+     * @return string
+     */
     public function transliterate(string $filename)
     {
         return transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $filename);

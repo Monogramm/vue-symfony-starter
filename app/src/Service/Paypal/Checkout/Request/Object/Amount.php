@@ -14,7 +14,14 @@ class Amount implements \JsonSerializable
         return $this->currencyCode;
     }
 
-    public function setCurrencyCode(?string $currencyCode)
+    /**
+     * Set amount currency code.
+     *
+     * @param string $currencyCode Currency code for value.
+     *
+     * @return static
+     */
+    public function setCurrencyCode(?string $currencyCode): self
     {
         $this->currencyCode = $currencyCode;
         return $this;
@@ -25,7 +32,14 @@ class Amount implements \JsonSerializable
         return $this->value;
     }
 
-    public function setValue(?string $value)
+    /**
+     * Set amount value.
+     *
+     * @param string $value Amount value.
+     *
+     * @return static
+     */
+    public function setValue(?string $value): self
     {
         $this->value = $value;
         return $this;

@@ -14,12 +14,14 @@ class BackgroundJobController extends AbstractController
 {
     /**
      * @Route("/api/admin/background-jobs", name="get_background_jobs", methods={"GET"})
+     *
+     * @return JsonResponse
      */
     public function getByPage(
         Request $request,
         BackgroundJobRepository $repository,
         SerializerInterface $serializer
-    ) {
+    ): JsonResponse {
         $page = (int)$request->get('page', 1);
         $items = (int)$request->get('size', 50);
 

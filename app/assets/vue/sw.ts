@@ -94,14 +94,14 @@ self.addEventListener('activate', (event: any) => {
 
 self.addEventListener('message', (event: any) => {
   switch (event.data.action) {
-    case 'skipWaiting':
-      if ((self as any).skipWaiting) {
-        (self as any).skipWaiting();
-        (self as any).clients.claim();
-      }
-      break;
-    default:
-      break;
+  case 'skipWaiting':
+    if ((self as any).skipWaiting) {
+      (self as any).skipWaiting();
+      (self as any).clients.claim();
+    }
+    break;
+  default:
+    break;
   }
 });
 

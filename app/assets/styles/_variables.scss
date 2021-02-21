@@ -1,5 +1,7 @@
 // Import Bulma's core variables
-@import "~bulma/sass/utilities/_all";
+/* stylelint-disable */
+@import '~bulma/sass/utilities/_all';
+/* stylelint-enable */
 
 // Assets
 
@@ -13,47 +15,47 @@ $twitter-invert: findColorInvert($twitter);
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
-  "white": (
+  'white': (
     $white,
     $black,
   ),
-  "black": (
+  'black': (
     $black,
     $white,
   ),
-  "light": (
+  'light': (
     $light,
     $light-invert,
   ),
-  "dark": (
+  'dark': (
     $dark,
     $dark-invert,
   ),
-  "primary": (
+  'primary': (
     $primary,
     $primary-invert,
   ),
-  "secondary": (
+  'secondary': (
     $secondary,
     $secondary-invert,
   ),
-  "info": (
+  'info': (
     $info,
     $info-invert,
   ),
-  "success": (
+  'success': (
     $success,
     $success-invert,
   ),
-  "warning": (
+  'warning': (
     $warning,
     $warning-invert,
   ),
-  "danger": (
+  'danger': (
     $danger,
     $danger-invert,
   ),
-  "twitter": (
+  'twitter': (
     $twitter,
     $twitter-invert,
   ),

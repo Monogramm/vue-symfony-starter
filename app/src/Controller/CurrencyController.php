@@ -14,9 +14,13 @@ class CurrencyController extends AbstractController
 {
     /**
      * @Route("/api/currency", name="currency", methods={"GET"})
+     *
+     * @return JsonResponse
      */
-    public function getCurrencies(CurrencyRepository $currencyRepository, SerializerInterface $serializer)
-    {
+    public function getCurrencies(
+        CurrencyRepository $currencyRepository,
+        SerializerInterface $serializer
+    ): JsonResponse {
         $currencies = $currencyRepository->findAll();
 
         $total = count($currencies);

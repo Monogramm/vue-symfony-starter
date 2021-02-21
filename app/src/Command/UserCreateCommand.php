@@ -44,6 +44,11 @@ class UserCreateCommand extends Command
         parent::__construct(self::$defaultName);
     }
 
+    /**
+     * Configures the current command.
+     *
+     * @return void
+     */
     protected function configure()
     {
         $this

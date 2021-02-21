@@ -16,7 +16,7 @@ class ClientFactory
         string $env,
         string $clientId,
         string $secret
-    ) {
+    ): PayPalHttpClient {
         switch ($env) {
             case self::SANDBOX:
                 $environment = new SandboxEnvironment($clientId, $secret);

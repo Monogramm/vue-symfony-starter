@@ -17,26 +17,32 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/api/login", name="api_login")
+     *
+     * @return void
      */
-    public function login()
+    public function login(): void
     {
     }
 
     /**
      * @Route("/api/login/ldap", name="api_ldap_auth")
+     *
+     * @return void
      */
-    public function loginLdap()
+    public function loginLdap(): void
     {
     }
 
     /**
      * @Route("/api/logout", name="api_logout", methods={"POST"})
+     *
+     * @return JsonResponse
      */
     public function logout(
         Request $request,
         ApiTokenRepository $tokenRepository,
         EntityManagerInterface $em
-    ) {
+    ): JsonResponse {
         $extractor = new AuthorizationHeaderTokenExtractor(
             'Bearer',
             'Authorization'
@@ -58,11 +64,13 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/api/password", name="password_change", methods={"PUT"})
+     *
+     * @return JsonResponse
      */
     public function changePassword(
         PasswordChangeHandler $handler,
         Request $request
-    ) {
+    ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
         $user = $this->getUser();

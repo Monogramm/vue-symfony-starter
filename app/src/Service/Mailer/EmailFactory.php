@@ -22,22 +22,31 @@ class EmailFactory
 
     public function createEmailFromMessage(EmailNotification $email): TemplatedEmail
     {
-        return (new TemplatedEmail())
-            ->from($email->sender() ?? $this->mailerFrom)
-            ->to($email->recipient())
-            ->subject(EmailFactory::SUBJECT_PREFIX . $email->subject())
-            ->htmlTemplate('emails/'.$email->template().'.html.twig')
-            ->textTemplate('emails/'.$email->template().'.txt.twig')
-            ->context($email->payload());
+        return $this->createEmailFromData(
+            $email->recipient(),
+            $email->subject(),
+            $email->payload(),
+            $email->template(),
+            $email->sender(),
+        );
     }
 
+    /**
+     * @param string $recipient The recipient.
+     * @param string $subject   The subject.
+     * @param array  $payload   The email content.
+     * @param string $template  The email template to use.
+     * @param string $from      The email sender.
+     *
+     * @return TemplatedEmail
+     */
     public function createEmailFromData(
         string $recipient,
         string $subject,
         array $payload,
         string $template,
         ?string $from = null
-    ) {
+    ): TemplatedEmail {
         return (new TemplatedEmail())
             ->from($from ?? $this->mailerFrom)
             ->to($recipient)

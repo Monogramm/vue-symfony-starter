@@ -30,7 +30,14 @@ class Context implements \JsonSerializable
         return $this->returnUrl;
     }
 
-    public function setReturnUrl(?string $returnUrl)
+    /**
+     * Set context return URL.
+     *
+     * @param string $returnUrl Return URL on payment success.
+     *
+     * @return static
+     */
+    public function setReturnUrl(?string $returnUrl): self
     {
         $this->returnUrl = $returnUrl;
         return $this;
@@ -41,7 +48,14 @@ class Context implements \JsonSerializable
         return $this->cancelUrl;
     }
 
-    public function setCancelUrl(?string $cancelUrl)
+    /**
+     * Set context cancel URL.
+     *
+     * @param string $cancelUrl Return URL on payment cancel.
+     *
+     * @return static
+     */
+    public function setCancelUrl(?string $cancelUrl): self
     {
         $this->cancelUrl = $cancelUrl;
         return $this;
@@ -52,7 +66,14 @@ class Context implements \JsonSerializable
         return $this->locale;
     }
 
-    public function setLocale(?string $locale)
+    /**
+     * Set context locale.
+     *
+     * @param string $locale Locale.
+     *
+     * @return static
+     */
+    public function setLocale(?string $locale): self
     {
         if ($locale && isset(self::LOCALES_BCP_47[$locale])) {
             $this->locale = $locale;
@@ -65,7 +86,14 @@ class Context implements \JsonSerializable
         return $this->landingPage;
     }
 
-    public function setLandingPage(?string $landingPage)
+    /**
+     * Set context landing page.
+     *
+     * @param string $landingPage Landing page URL.
+     *
+     * @return static
+     */
+    public function setLandingPage(?string $landingPage): self
     {
         $this->landingPage = $landingPage;
         return $this;
@@ -108,10 +136,18 @@ class Context implements \JsonSerializable
         return $data;
     }
 
+    /**
+     * Set context information.
+     *
+     * @param string $returnUrl Return URL on payment success.
+     * @param string $cancelUrl Return URL on payment cancel.
+     *
+     * @return static
+     */
     public static function create(
         string $returnUrl,
         string $cancelUrl
-    ) {
+    ): self {
         return (new self())
             ->setReturnUrl($returnUrl)
             ->setCancelUrl($cancelUrl);

@@ -20,16 +20,24 @@ class BackgroundJobRepository extends ServiceEntityRepository
         parent::__construct($registry, BackgroundJob::class);
     }
 
+    /**
+     * @param int $page Page number (starting at 1).
+     * @param int $size Page size.
+     *
+     * @return Paginator
+     *
+     * @psalm-return Paginator<mixed>
+     */
     public function findAllByPage(
         int $page,
-        int $itemsPerPage
-    ) {
-        $offset = ($page - 1) * $itemsPerPage;
+        int $size
+    ): Paginator {
+        $offset = ($page - 1) * $size;
 
         $query = $this->createQueryBuilder('j')
             ->orderBy('j.lastExecution', 'DESC')
             ->setFirstResult($offset)
-            ->setMaxResults($itemsPerPage);
+            ->setMaxResults($size);
 
         return new Paginator($query, true);
     }

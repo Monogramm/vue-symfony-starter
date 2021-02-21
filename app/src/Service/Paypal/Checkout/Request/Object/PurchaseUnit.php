@@ -10,6 +10,9 @@ class PurchaseUnit implements \JsonSerializable
      */
     private $amount;
 
+    /**
+     * @var Item[]
+     */
     private $items;
 
     public function getAmount(): Amount
@@ -17,7 +20,12 @@ class PurchaseUnit implements \JsonSerializable
         return $this->amount;
     }
 
-    public function setAmount(?Amount $amount)
+    /**
+     * @param Amount $amount Purchase amount
+     *
+     * @return static
+     */
+    public function setAmount(?Amount $amount): self
     {
         $this->amount = $amount;
         return $this;
@@ -66,11 +74,20 @@ class PurchaseUnit implements \JsonSerializable
         return $data;
     }
 
+    /**
+     * Set purchase unit information.
+     *
+     * @param string $totalPrice   Purchase total price
+     * @param string $currencyCode Purchase currency code
+     * @param array  $items        Purchase items
+     *
+     * @return static
+     */
     public static function create(
         string $totalPrice,
         string $currencyCode,
         array $items
-    ) {
+    ): self {
         $amount = (new Amount())
             ->setValue($totalPrice)
             ->setCurrencyCode($currencyCode);

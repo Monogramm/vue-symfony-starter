@@ -10,8 +10,10 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="index")
      * @Route("/{vueRouting}", name="vue", requirements={"vueRouting"="^(?!.*_wdt|_profiler|api|static).+"})
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function vueRouting()
+    public function vueRouting(): \Symfony\Component\HttpFoundation\Response
     {
         return $this->render('base.html.twig', [
             'google_analytics_id' => null,

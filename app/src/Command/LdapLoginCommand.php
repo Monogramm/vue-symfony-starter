@@ -36,6 +36,11 @@ class LdapLoginCommand extends Command
         parent::__construct(self::$defaultName);
     }
 
+    /**
+     * Configures the current command.
+     *
+     * @return void
+     */
     protected function configure()
     {
         $this
@@ -151,11 +156,11 @@ class LdapLoginCommand extends Command
             'search_dn' => $searchDn,
             'search_password' => $searchPassword
         ];
-        $ldap = new Client($this->ldap, $config);
+        $ldapClient = new Client($this->ldap, $config);
 
         // LDAP login
         try {
-            $entry = $ldap->check($username, $password);
+            $entry = $ldapClient->check($username, $password);
         } catch (\Throwable $e) {
             $io->error('Failed to check against LDAP. Error message: '.$e->getMessage());
             return 1;

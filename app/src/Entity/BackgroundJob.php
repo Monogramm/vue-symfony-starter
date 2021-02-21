@@ -70,23 +70,23 @@ class BackgroundJob
         return $this;
     }
 
-    public function init(string $name)
+    public function init(string $name): void
     {
         $this->setName($name);
         $this->setLastExecution(Carbon::now()->setTimezone('UTC'));
     }
 
-    public function running()
+    public function running(): void
     {
         $this->setStatus(self::STATUS_RUNNING);
     }
 
-    public function success()
+    public function success(): void
     {
         $this->setStatus(self::STATUS_SUCCESS);
     }
 
-    public function error()
+    public function error(): void
     {
         $this->setStatus(self::STATUS_ERROR);
     }

@@ -73,12 +73,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/design-system";
+@import '../../styles/design-system';
 
 .profile-actions {
   margin: 0.25em 0;
   width: 100%;
 }
+
 .contact {
   margin-top: 15%;
 }

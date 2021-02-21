@@ -12,6 +12,6 @@ if [ -f ./.dockertags ]; then
     done
 fi
 
-if [ -n "${DOCKER_REGISTRY}" ]; then
+if [ -n "${DOCKER_PASSWORD}" ] && [ -n "${DOCKER_REGISTRY}" ]; then
     docker logout "${DOCKER_REGISTRY}"
 fi

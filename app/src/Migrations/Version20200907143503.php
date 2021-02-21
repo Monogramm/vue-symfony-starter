@@ -48,6 +48,7 @@ final class Version20200907143503 extends AbstractMigration
 
         $this->addSql('INSERT INTO parameter(id, name, value, type, description, created_at, updated_at) VALUES (\''.Uuid::uuid4().'\',\'APP_SUPPORT_EMAIL\',\'\', \'string\', \'Support email address which will receive technical notifications\', date(\'now\'), date(\'now\') )');
         $this->addSql('INSERT INTO parameter(id, name, value, type, description, created_at, updated_at) VALUES (\''.Uuid::uuid4().'\',\'APP_PUBLIC_URL\',\'http://localhost:8000\', \'string\', \'Public URL for backend generated links\', date(\'now\'), date(\'now\') )');
+        $this->addSql('INSERT INTO parameter(id, name, value, type, description, created_at, updated_at) VALUES (\''.Uuid::uuid4().'\',\'LDAP_USER_DEFAULT_ROLE\',\'ROLE_ADMIN\', \'string\', \'LDAP default role on first login. Valid values are: "ROLE_ADMIN" and no value for "ROLE_USER".\', date(\'now\'), date(\'now\') )');
     }
 
     public function down(Schema $schema) : void
