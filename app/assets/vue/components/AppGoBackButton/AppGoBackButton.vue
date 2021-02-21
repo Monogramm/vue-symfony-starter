@@ -33,10 +33,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../styles/design-system";
+@import '../../../styles/design-system';
 
 .back-button {
-  padding-top: 2%;
   padding-left: 3%;
+  padding-top: 2%;
 }
 </style>

@@ -35,11 +35,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../styles/design-system";
+@import '../../../styles/design-system';
 
 p {
   color: $grey-dark;
 }
+
 strong {
   color: $grey-darker;
 }

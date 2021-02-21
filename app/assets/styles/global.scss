@@ -1,12 +1,12 @@
 // Import variables
-@import "design-system";
+@import 'design-system';
 
 // Import Bulma and Buefy styles
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
 
 // Import fonts
-@import "fonts";
+@import 'fonts';
 
 .ml-auto {
   margin-left: auto;
@@ -17,18 +17,18 @@
 }
 
 fieldset {
-  margin: 1rem 0.25rem;
-  padding: 1rem;
   border: 1px solid rgba($white, 0.3);
   border-radius: 15px;
+  margin: 1rem 0.25rem;
+  padding: 1rem;
 
   legend {
-    padding: 0.25rem;
     border-radius: 5px;
+    padding: 0.25rem;
   }
 }
 
-@include mediaPrint {
+@include media-print {
   .no-print {
     display: none;
   }

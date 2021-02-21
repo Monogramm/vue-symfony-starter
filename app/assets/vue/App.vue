@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/design-system";
+@import '../styles/design-system';
 
 .app-main {
   background-color: rgba(252, 252, 252, 0.75);
@@ -81,6 +81,7 @@ export default {
   .app-content {
     min-height: 75vh;
   }
+
   .app-footer {
     min-height: 25vh;
   }

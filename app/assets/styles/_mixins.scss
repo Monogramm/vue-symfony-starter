@@ -11,7 +11,7 @@
 
 }
 
-@mixin mediaPrint() {
+@mixin media-print() {
   @media print {
     @content;
   }

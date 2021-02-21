@@ -2,7 +2,7 @@
   <form @submit.prevent>
     <div
       class="modal-card"
-      style="width: auto"
+      style="width: auto;"
     >
       <header class="modal-card-head">
         <p class="modal-card-title">
