@@ -20,7 +20,7 @@ This project uses the following technologies:
     -   [Bulma](https://bulma.io/) with [Buefy](https://buefy.org/) integration
     -   [WebPack](https://webpack.js.org/) to build efficiently assets
     -   [StoryBook](https://storybook.js.org/) to help development of the UI components
-    -   [ESLint](https://eslint.org/) for code quality
+    -   Code quality tools: [ESLint](https://eslint.org/), [stylelint](https://stylelint.io/) with [stylelint-config-sass-guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
 
 -   [Docker](https://docs.docker.com/engine/) and [Docker-Compose](https://docs.docker.com/compose/) for building development and production environment with:
     -   [RabbitMQ](https://www.rabbitmq.com/) for delegating long tasks to background workers

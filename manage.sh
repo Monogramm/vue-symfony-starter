@@ -133,8 +133,29 @@ lc-stop-back() {
     symfony server:stop --dir=app "$@"
 }
 
+lc-test() {
+    lc-test-front
+    lc-test-back
+}
+
+lc-test-front() {
+    cd app
+    log "Stylelint on SCSS..."
+    npx stylelint 'assets/styles/*.scss' --fix
+
+    log "ESLint on TypeScript..."
+    npx eslint 'assets/vue/**/*.ts' --fix
+
+    log "Stylelint on Vue.js..."
+    npx stylelint 'assets/vue/**/*.vue' --fix
+    log "ESLint on Vue.js..."
+    npx eslint 'assets/vue/**/*.vue' --fix
+    cd ..
+}
+
 lc-test-back() {
     cd app
+    log "PHPUnit bug fixer..."
     php ./bin/phpunit --coverage-text "$@"
     #log "PHPStan..."
     #vendor/bin/phpstan analyse src tests
@@ -149,6 +170,7 @@ lc-test-back() {
     log "PHPMD..."
     vendor/bin/phpmd src text cleancode,controversial,codesize,naming,design,unusedcode
     #vendor/bin/phpmd src xml phpmd.xml
+    cd ..
 }
 
 lc-log-back() {
@@ -327,7 +349,9 @@ usage() {
         local:start-story, start-local-story    Start Local Storybook
         local:restart, restart-local            Retart Local env
         local:stop-back, stop-local-back        Stop Local env
-        local:test-back, test-back-local        Execute test of Local env
+        local:test, test-local                  Execute test of Local env
+        local:test-front, test-front-local      Execute test of Frontend Local env
+        local:test-back, test-back-local        Execute test of Backend Local env
         local:logs, logs-local                  Follow logs of Local env
         local:ps, ps-local                      List Local env servers
         local:console, console                  Send command to Local env bin/console
@@ -374,6 +398,8 @@ case "${1}" in
     local:start-back|start-local-back) lc-start-back "${@:2}";;
     local:start-story|start-local-story) lc-start-story "${@:2}";;
     local:stop-back|stop-local-back) lc-stop-back "${@:2}";;
+    local:test|test-local) lc-test "${@:2}";;
+    local:test-front|test-front-local) lc-test-front "${@:2}";;
     local:test-back|test-back-local) lc-test-back "${@:2}";;
     local:logs|logs-local) lc-log-back "${@:2}";;
     local:ps|ps-local) lc-log-ps "${@:2}";;
