@@ -39,7 +39,7 @@ This project uses the following technologies:
     -   GitLab [Issue and MR templates](https://docs.gitlab.com/ee/user/project/description_templates.html)
 
 -   Ready to Code:
-    -   [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/gitpod-io/symfony-demo)
+    -   [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Monogramm/vue-symfony-starter)
 
 ## Architecture diagram
 
