@@ -92,7 +92,7 @@ Now go to <http://localhost:8080> to access development environment using docker
 
 You can run the development environment locally.
 
-You can also [![open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Monogramm/ldap-all-for-one-manager) the local development environment.
+You can also [![open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Monogramm/vue-symfony-starter) the local development environment.
 
 ### :construction: Local Development Install
 
