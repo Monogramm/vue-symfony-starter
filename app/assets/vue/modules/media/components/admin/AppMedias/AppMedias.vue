@@ -106,7 +106,7 @@ export default {
       return this.$t("medias.name");
     },
     fileColumnLabel() {
-      return this.$t("medias.file");
+      return this.$t("medias.filename");
     },
     descriptionColumnLabel() {
       return this.$t("medias.description");

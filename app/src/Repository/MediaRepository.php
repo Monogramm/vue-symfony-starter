@@ -24,29 +24,25 @@ class MediaRepository extends ServiceEntityRepository
     /**
      * @param int $page Page number (starting at 1).
      * @param int $size Page size.
-     *
-     * @return Paginator
-     *
-     * @psalm-return Paginator<mixed>
      */
     public function findAllByPage(
         int $page,
         int $size
-    ): Paginator {
+    ) {
         $offset = ($page - 1) * $size;
 
-        $query = $this->createQueryBuilder('p')
+        return $this->createQueryBuilder('m')
             ->setFirstResult($offset)
-            ->setMaxResults($size);
-
-        return new Paginator($query, true);
+            ->setMaxResults($size)
+            ->getQuery()
+            ->getResult();
     }
 
     public function findByName(string $name)
     {
         try {
-            return $this->createQueryBuilder('p')
-                ->where('p.name = :name')
+            return $this->createQueryBuilder('m')
+                ->where('m.name = :name')
                 ->setParameter('name', $name)
                 ->getQuery()
                 ->getSingleResult();

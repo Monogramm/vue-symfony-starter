@@ -37,11 +37,6 @@ export default {
     }
   },
   created() {
-    this.$store
-      .dispatch("media/getTypes")
-      .then((response: string[]) => {
-        this.types = [...response];
-      });
     if (this.id) {
       this.$store
         .dispatch("media/get", this.id);
@@ -51,7 +46,7 @@ export default {
     onChildPropsChanged(property: string, value: string) {
       this.item[property] = value;
     },
-    async editMedia(id: string, media: IMedia, file: any) {
+    async editMedia(media: IMedia, file: any) {
       let payload: IMediaPayload = {
         media: media,
         file: file,
@@ -79,7 +74,7 @@ export default {
     },
     onSubmit(file: any) {
       if (this.isEdit) {
-        return this.editMedia(this.id, this.item, file);
+        return this.editMedia(this.item, file);
       }
 
       return this.createMedia(this.item, file);

@@ -30,11 +30,12 @@
       <b-field class="file">
         <b-upload
           v-model="file"
+          class="file-label"
           :disabled="isLoading"
         >
           <a class="button is-light">
             <b-icon icon="upload" />
-            <span>{{ $t("medias.admin.upload-file") }}</span>
+            <span>{{ $t("common.upload-file") }}</span>
           </a>
         </b-upload>
         <span

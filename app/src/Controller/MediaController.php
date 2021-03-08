@@ -28,7 +28,7 @@ class MediaController extends AbstractController
         MediaRepository $repository,
         Request $request,
         SerializerInterface $serializer,
-        string $publicImagesPath
+        string $publicUploadsPath
     ): JsonResponse {
         $page = (int) $request->get('page', 1);
         $itemsPerPage = (int) $request->get('size', 20);
@@ -38,7 +38,7 @@ class MediaController extends AbstractController
         $total = count($medias);
         foreach ($medias as $key => $media) {
             if ($media->getFilename()) {
-                $media->setFilename('/'.$publicImagesPath.'/'.$media->getFilename());
+                $media->setFilename('/'.$publicUploadsPath.'/'.$media->getFilename());
             }
             $medias[$key] = $serializer->normalize($media, Media::class);
         }
@@ -57,9 +57,9 @@ class MediaController extends AbstractController
     public function getMediaById(
         Media $media,
         SerializerInterface $serializer,
-        string $publicImagesPath
+        string $publicUploadsPath
     ): JsonResponse {
-        $media->setFilename('/'.$publicImagesPath.'/'.$media->getFilename());
+        $media->setFilename('/'.$publicUploadsPath.'/'.$media->getFilename());
 
         $dto = $serializer->serialize($media, 'json');
 
@@ -76,7 +76,7 @@ class MediaController extends AbstractController
         SerializerInterface $serializer,
         EntityManagerInterface $em,
         FileUploader $fileUploader,
-        string $publicImagesPath
+        string $publicUploadsPath
     ): JsonResponse {
         $data = json_decode($request->get('dto'), true);
         /**
@@ -90,7 +90,6 @@ class MediaController extends AbstractController
             $data['filename'] = $filename;
         }
 
-        var_dump($data);
         /**
          * @var Media $dto
          */
@@ -103,7 +102,7 @@ class MediaController extends AbstractController
         $em->persist($dto);
         $em->flush();
 
-        $dto->setFilename('/'.$publicImagesPath.'/'.$dto->getFilename());
+        $dto->setFilename('/'.$publicUploadsPath.'/'.$dto->getFilename());
 
         return JsonResponse::fromJsonString(
             $serializer->serialize($dto, 'json')
@@ -111,7 +110,7 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/api/admin/media/{media}", name="edit_media", methods={"PUT"})
+     * @Route("/api/admin/media/{media}", name="edit_media", methods={"POST"})
      *
      * @return JsonResponse
      */
@@ -120,7 +119,9 @@ class MediaController extends AbstractController
         EntityManagerInterface $em,
         Request $request,
         SerializerInterface $serializer,
-        FileUploader $fileUploader
+        FileUploader $fileUploader,
+        Filesystem $filesystem,
+        string $publicUploadsDirectory
     ): JsonResponse {
         $mediaJson = $request->get('dto');
         $data = json_decode($mediaJson, true);
@@ -128,7 +129,8 @@ class MediaController extends AbstractController
          * @var UploadedFile $file
          */
         $file = $request->files->get('file');
-        $data['filename'] = $media->getFilename();
+        $previousFilename = $media->getFilename();
+        $data['filename'] = $previousFilename;
         if ($file) {
             $data['type'] = $file->getMimeType();
             $filename = $fileUploader->upload($file);
@@ -148,6 +150,11 @@ class MediaController extends AbstractController
         $em->persist($dto);
         $em->flush();
 
+        if ($file) {
+            // Delete previous file if new file sent
+            $filesystem->remove($publicUploadsDirectory . '/' . $previousFilename);
+        }
+
         return JsonResponse::fromJsonString(
             $serializer->serialize($dto, 'json')
         );
@@ -162,13 +169,15 @@ class MediaController extends AbstractController
         Media $media,
         EntityManagerInterface $em,
         Filesystem $filesystem,
-        string $publicImagesPath
+        string $publicUploadsDirectory
     ): JsonResponse {
+        $previousFilename = $media->getFilename();
+
         $em->remove($media);
         $em->flush();
 
-        if ($media->getFilename()) {
-            $filesystem->remove('/' . $publicImagesPath . '/' . $media->getFilename());
+        if ($previousFilename) {
+            $filesystem->remove($publicUploadsDirectory . '/' . $previousFilename);
         }
 
         return new JsonResponse([]);

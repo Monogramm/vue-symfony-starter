@@ -16,19 +16,19 @@ export class MediaAPI extends ReadWriteApi<IMedia> {
     super("admin/media");
   }
 
-  createMedia(application: IMedia, file: any) {
+  createMedia(media: IMedia, file: any) {
     let formData = new FormData();
     formData.append("file", file);
-    formData.append("dto", JSON.stringify(application));
+    formData.append("dto", JSON.stringify(media));
 
     return axios.post<IMedia>(`${this.base}/${this.rwPrefix}`, formData);
   }
 
-  updateMedia(application: IMedia, file: any) {
+  updateMedia(media: IMedia, file: any) {
     let formData = new FormData();
     formData.append("file", file);
-    formData.append("dto", JSON.stringify(application));
+    formData.append("dto", JSON.stringify(media));
 
-    return axios.post<IMedia>(`${this.base}/${this.rwPrefix}/${application.id}`, formData);
+    return axios.post<IMedia>(`${this.base}/${this.rwPrefix}/${media.id}`, formData);
   }
 };
