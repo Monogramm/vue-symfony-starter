@@ -17,6 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
+/**
+ * Provides REST API for Media.
+ */
 class MediaController extends AbstractController
 {
     /**
@@ -121,7 +124,7 @@ class MediaController extends AbstractController
         SerializerInterface $serializer,
         FileUploader $fileUploader,
         Filesystem $filesystem,
-        string $publicUploadsDirectory
+        string $publicUploadsDir
     ): JsonResponse {
         $mediaJson = $request->get('dto');
         $data = json_decode($mediaJson, true);
@@ -152,7 +155,7 @@ class MediaController extends AbstractController
 
         if ($file) {
             // Delete previous file if new file sent
-            $filesystem->remove($publicUploadsDirectory . '/' . $previousFilename);
+            $filesystem->remove($publicUploadsDir . '/' . $previousFilename);
         }
 
         return JsonResponse::fromJsonString(
@@ -169,7 +172,7 @@ class MediaController extends AbstractController
         Media $media,
         EntityManagerInterface $em,
         Filesystem $filesystem,
-        string $publicUploadsDirectory
+        string $publicUploadsDir
     ): JsonResponse {
         $previousFilename = $media->getFilename();
 
@@ -177,7 +180,7 @@ class MediaController extends AbstractController
         $em->flush();
 
         if ($previousFilename) {
-            $filesystem->remove($publicUploadsDirectory . '/' . $previousFilename);
+            $filesystem->remove($publicUploadsDir . '/' . $previousFilename);
         }
 
         return new JsonResponse([]);

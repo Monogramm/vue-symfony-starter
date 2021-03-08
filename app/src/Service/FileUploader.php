@@ -8,11 +8,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploader
 {
-    private $publicUploadsDirectory;
+    private $publicUploadsDir;
 
-    public function __construct($publicUploadsDirectory)
+    public function __construct($publicUploadsDir)
     {
-        $this->publicUploadsDirectory = $publicUploadsDirectory;
+        $this->publicUploadsDir = $publicUploadsDir;
     }
 
     public function upload(UploadedFile $file): string
@@ -28,7 +28,7 @@ class FileUploader
 
     public function getTargetDirectory()
     {
-        return $this->publicUploadsDirectory;
+        return $this->publicUploadsDir;
     }
 
     /**

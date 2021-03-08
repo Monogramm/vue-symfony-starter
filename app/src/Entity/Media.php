@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Media entity.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\MediaRepository")
  * @ORM\HasLifecycleCallbacks
  */

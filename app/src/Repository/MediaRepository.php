@@ -9,6 +9,8 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Media Entity Repository.
+ *
  * @method Media|null find($id, $lockMode = null, $lockVersion = null)
  * @method Media|null findOneBy(array $criteria, array $orderBy = null)
  * @method Media[]    findAll()
@@ -16,6 +18,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MediaRepository extends ServiceEntityRepository
 {
+    /**
+     * Simplified constructor (for autowiring).
+     *
+     * @param string $entityClass The class name of the entity this repository manages
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Media::class);
