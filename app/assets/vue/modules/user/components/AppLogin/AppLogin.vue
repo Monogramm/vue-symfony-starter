@@ -28,7 +28,7 @@
         />
       </b-field>
       <a
-        class="has-text-warning"
+        class="has-text-danger"
         @click="forgotPassword()"
       >{{ $t("login.forgot-pass") }}</a>
     </div>
