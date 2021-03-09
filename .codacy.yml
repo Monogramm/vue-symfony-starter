@@ -1,0 +1,7 @@
+---
+engines:
+  phpcs:
+    base_sub_dir: "app"
+directory: 'app'
+exclude_paths:
+  - '**.sql'
