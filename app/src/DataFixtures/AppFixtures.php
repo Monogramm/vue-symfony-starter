@@ -5,12 +5,21 @@ namespace App\DataFixtures;
 use App\Entity\BackgroundJob;
 use App\Entity\Media;
 use App\Entity\Parameter;
+use App\Entity\User;
 use Carbon\Carbon;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     /**
      * @return void
      */
@@ -41,6 +50,19 @@ class AppFixtures extends Fixture
             ->setValue('http://localhost:8000')
         ;
         $manager->persist($parameterAppUrl);
+
+        $user = new User();
+        $user
+            ->setCreatedAt(Carbon::now())
+            ->setUpdatedAt(Carbon::now())
+            ->setUsername('username')
+            ->setEmail('firstname.lastname@yopmail.com')
+            ->setRoles(['ROLE_ADMIN'])
+            ->verify()
+        ;
+        $password = $this->encoder->encodePassword($user, 'pa$$word');
+        $user->setPassword($password);
+        $manager->persist($user);
 
         $media = new Media();
         $media
