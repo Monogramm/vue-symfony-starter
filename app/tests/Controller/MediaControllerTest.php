@@ -30,12 +30,12 @@ class MediaControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->request(
-        'POST',
-        '/api/login',
-        array(),
-        array(),
-        array('CONTENT_TYPE' => 'application/json'),
-        json_encode(array(
+            'POST',
+            '/api/login',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode(array(
             'username' => $username,
             'password' => $password,
             ))
