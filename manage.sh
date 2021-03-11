@@ -172,7 +172,7 @@ lc-test-back() {
     #log "PHPStan..."
     #vendor/bin/phpstan analyse src tests
     log "PHP_CodeSniffer bug fixer..."
-    vendor/bin/phpcbf src
+    vendor/bin/phpcbf src tests
     log "Psalm..."
     vendor/bin/psalm --alter --issues=MissingReturnType,InvalidReturnType,InvalidNullableReturnType
     log "PHP Copy/Paste detector..."
