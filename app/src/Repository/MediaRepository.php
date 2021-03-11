@@ -45,17 +45,9 @@ class MediaRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByName(string $name)
+    public function findByName(string $name): ?Media
     {
-        try {
-            return $this->createQueryBuilder('m')
-                ->where('m.name = :name')
-                ->setParameter('name', $name)
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NoResultException $e) {
-            return null;
-        }
+        return $this->findOneBy(['name' => $name]);
     }
 
     /**
@@ -65,7 +57,7 @@ class MediaRepository extends ServiceEntityRepository
      *
      * @psalm-return array<array-key, Media>
      */
-    public function findMediasByNames(array $names): array
+    public function findAllByNames(array $names): array
     {
         return $this->findBy(['name' => $names]);
     }

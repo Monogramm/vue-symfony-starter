@@ -155,6 +155,9 @@ lc-test-front() {
 
 lc-test-back() {
     cd app
+    log "Init test database..."
+    php ./bin/console doctrine:migrations:migrate --no-interaction --env=test
+    php ./bin/console doctrine:fixtures:load --no-interaction --env=test
     log "PHPUnit bug fixer..."
     php ./bin/phpunit --coverage-text "$@"
     #log "PHPStan..."
