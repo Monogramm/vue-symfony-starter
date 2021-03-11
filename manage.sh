@@ -199,6 +199,9 @@ lc-prepare-release() {
         -e "s|\"version\": \".*\"|\"version\": \"${NEW_VERSION}\"|g" \
         app/package.json app/composer.json .gitmoji-changelogrc
     sed -i \
+        -e "s|-v.*';|-v${NEW_VERSION}';|g" \
+        app/public/sw.js
+    sed -i \
         -e "s| VERSION=.*| VERSION=${NEW_VERSION}|g" \
         .travis.yml Dockerfile.alpine Dockerfile.debian
 

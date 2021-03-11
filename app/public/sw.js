@@ -1,6 +1,6 @@
 // Service Worker
 
-var CACHE_NAME = 'app-cache-v1';
+var CACHE_NAME = 'app-cache-v0.1.0';
 var urlsToCache = [
   '/',
   '/sw.js',
@@ -60,7 +60,7 @@ this.addEventListener('activate', function (event) {
 //    let title = (event.data && event.data.text());
 //    let body = "We have received a push message";
 //    let tag = "push-app-notification";
-//    let icon = '/build/images/app-logo.png';
+//    let icon = '/build/images/app_logo.png';
 //
 //    event.waitUntil(
 //        self.registration.showNotification(title, { body, icon, tag })
