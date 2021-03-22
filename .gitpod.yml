@@ -17,7 +17,9 @@ tasks:
       [[ ! -z ${GNUGPG_KEY}  ]] &&
       git config --global commit.gpgsign true &&
       git config --global user.signingkey ${GNUGPG_KEY}
-    command: cd -
+    command: >
+      cd $GITPOD_REPO_ROOT &&
+      ./manage.sh
   - init: >
       ./manage.sh local:build &&
       gp sync-done 'backend-init'
