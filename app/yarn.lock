@@ -10132,7 +10132,7 @@
     "postcss-value-parser" "^3.0.0"
     "svgo" "^1.0.0"
 
-"postcss-syntax@^0.36.2", "postcss-syntax@>=0.36.0", "postcss-syntax@>=0.36.2":
+"postcss-syntax@^0.36.2":
   "integrity" "sha512-nBRg/i7E3SOHWxF3PpF5WnJM/jQ1YpY9000OaVXlAQj6Zp/kIqJxEDWIZ67tAd7NLuk7zqN4yqe9nc0oNAOs1w=="
   "resolved" "https://registry.npmjs.org/postcss-syntax/-/postcss-syntax-0.36.2.tgz"
   "version" "0.36.2"
@@ -10161,7 +10161,7 @@
   "resolved" "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.1.0.tgz"
   "version" "4.1.0"
 
-"postcss@^7.0.0", "postcss@^7.0.1", "postcss@^7.0.14", "postcss@^7.0.17", "postcss@^7.0.2", "postcss@^7.0.21", "postcss@^7.0.26", "postcss@^7.0.27", "postcss@^7.0.31", "postcss@^7.0.32", "postcss@^7.0.35", "postcss@^7.0.5", "postcss@^7.0.6", "postcss@>=5.0.0", "postcss@>=7.0.0":
+"postcss@^7.0.0", "postcss@^7.0.1", "postcss@^7.0.14", "postcss@^7.0.17", "postcss@^7.0.2", "postcss@^7.0.21", "postcss@^7.0.26", "postcss@^7.0.27", "postcss@^7.0.31", "postcss@^7.0.32", "postcss@^7.0.35", "postcss@^7.0.5", "postcss@^7.0.6":
   "integrity" "sha512-3QT8bBJeX/S5zKTTjTCIjRF3If4avAT6kqxcASlTWEtAFCb9NH0OUxNDfgZSWdP5fJnBYCMEWkIFfWeugjzYMg=="
   "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.35.tgz"
   "version" "7.0.35"
@@ -12566,7 +12566,7 @@
     "postcss-selector-parser" "^6.0.2"
     "postcss-value-parser" "^4.1.0"
 
-"stylelint@^10.0.1 || ^11.0.0 || ^12.0.0 || ^13.0.0", "stylelint@^13.11.0", "stylelint@^13.7.0", "stylelint@^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0":
+"stylelint@^13.11.0":
   "integrity" "sha512-P8O1xDy41B7O7iXaSlW+UuFbE5+ZWQDb61ndGDxKIt36fMH50DtlQTbwLpFLf8DikceTAb3r6nPrRv30wBlzXw=="
   "resolved" "https://registry.npmjs.org/stylelint/-/stylelint-13.12.0.tgz"
   "version" "13.12.0"
@@ -13610,10 +13610,10 @@
   "resolved" "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"
   "version" "2.3.4"
 
-"vue-i18n@^8.15.5":
-  "integrity" "sha512-XLI5s0AdqMP2Lf4I4CmdmOq8kjb5DDFGR77wAuxCfpEuYSfhTRyyx6MetgZMiL6Lxa0DasjBOiOcciU3NkL3/Q=="
-  "resolved" "https://registry.npmjs.org/vue-i18n/-/vue-i18n-8.22.4.tgz"
-  "version" "8.22.4"
+"vue-i18n@^8.23.0":
+  "integrity" "sha512-mXgniaumwca8tKdp55fmvqIcW658vQQXq0zEyRHp8sgZ6t+Md+Whhu6CCPg9/erVNlvpKzsGsucGjt2N8GrFCA=="
+  "resolved" "https://registry.npmjs.org/vue-i18n/-/vue-i18n-8.23.0.tgz"
+  "version" "8.23.0"
 
 "vue-loader@^15.8.3":
   "integrity" "sha512-j0cqiLzwbeImIC6nVIby2o/ABAWhlppyL/m5oJ67R5MloP0hj/DtFgb0Zmq3J9CG7AJ+AXIvHVnJAPBvrLyuDg=="
