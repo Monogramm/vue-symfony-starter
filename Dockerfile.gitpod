@@ -16,8 +16,10 @@ RUN set -ex; \
 
 ARG XDEBUG_VERSION=2.9.8
 
+USER root
+
 RUN set -ex; \
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         php-ldap \
         slapd \
         tini \
@@ -28,9 +30,9 @@ RUN set -ex; \
     phpize; \
     ./configure; \
     make; \
-    sudo mkdir -p /usr/lib/php/20190902; \
-    sudo cp modules/xdebug.so /usr/lib/php/20190902; \
-    sudo bash -c "echo -e '\nzend_extension = /usr/lib/php/20190902/xdebug.so\n[XDebug]\nxdebug.remote_enable = 1\nxdebug.remote_autostart = 1\n' >> /etc/php/7.4/cli/php.ini"
+    mkdir -p /usr/lib/php/20190902; \
+    cp modules/xdebug.so /usr/lib/php/20190902; \
+    bash -c "echo -e '\nzend_extension = /usr/lib/php/20190902/xdebug.so\n[XDebug]\nxdebug.remote_enable = 1\nxdebug.remote_autostart = 1\n' >> /etc/php/7.4/cli/php.ini"
 
 # Taken from https://github.com/rroemhild/docker-test-openldap
 # Add bootstrap files
@@ -41,6 +43,8 @@ RUN set -ex; \
     /bin/bash /bootstrap/slapd-init.sh
 
 EXPOSE 389 636
+
+USER gitpod
 
 RUN set -ex; \
     wget 'https://get.symfony.com/cli/installer' -O - | bash; \
