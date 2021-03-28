@@ -17,7 +17,7 @@ RUN set -ex; \
 ARG XDEBUG_VERSION=2.9.8
 
 RUN set -ex; \
-    sudo apt-get install -y --no-install-recommends \
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         php-ldap \
         slapd \
         tini \
