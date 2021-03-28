@@ -45,7 +45,7 @@ RUN set -ex; \
     mkdir -p /etc/ldap/ssl; \
     /bin/bash /bootstrap/slapd-init.sh
 
-EXPOSE 389 636
+EXPOSE 10389 10636
 
 USER gitpod
 
