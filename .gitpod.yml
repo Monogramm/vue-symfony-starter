@@ -2,8 +2,22 @@ image:
   file: Dockerfile.gitpod
 
 ports:
+  # symofny
   - port: 8000
+  # storybook
   - port: 6006
+  # mailhog web interface
+  - port: 8025
+    onOpen: notify
+  # mailhog postfix
+  - port: 1025
+    onOpen: ignore
+  # openldap
+  - port: 10389
+    onOpen: ignore
+  # openldap (SSL)
+  - port: 10636
+    onOpen: ignore
 
 tasks:
   # https://github.com/gitpod-io/gitpod/issues/666#issuecomment-534347856
@@ -34,6 +48,13 @@ tasks:
       gp sync-await 'backend-init' &&
       gp await-port 8000 &&
       ./manage.sh local:start-story
+  #- name: openldap
+  #  command: >
+  #    /usr/bin/tini -- /usr/sbin/slapd -h ldapi:/// ldap://0.0.0.0:10389 ldaps://0.0.0.0:10636 -d 256
+  #- before: go get github.com/mailhog/MailHog
+  #  name: mailhog
+  #  openMode: split-right
+  #  command: MailHog
 
 vscode:
   extensions:
