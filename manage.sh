@@ -174,7 +174,7 @@ lc-test-back() {
     log "PHP_CodeSniffer bug fixer..."
     vendor/bin/phpcbf src tests
     log "Psalm..."
-    vendor/bin/psalm --alter --issues=MissingReturnType,InvalidReturnType,InvalidNullableReturnType
+    vendor/bin/psalm --alter --issues=MissingParamType,MissingReturnType,InvalidReturnType,InvalidNullableReturnType
     log "PHP Copy/Paste detector..."
     vendor/bin/phpcpd src
     log "PHP_CodeSniffer..."
@@ -425,14 +425,14 @@ case "${1}" in
     local:prepare-docker|prepare-docker) lc-prepare-docker "${@:2}";;
 
     # DEV env
-    dev:build|build-dev) build docker-compose.yml "${@:2}";;
-    dev:start|start-dev) start docker-compose.yml "${@:2}";;
-    dev:restart|restart-dev) restart docker-compose.yml "${@:2}";;
-    dev:stop|stop-dev) stop docker-compose.yml "${@:2}";;
-    dev:logs|logs-dev) logs docker-compose.yml "${@:2}";;
+    dev:build|build-dev) dc-build docker-compose.yml "${@:2}";;
+    dev:start|start-dev) dc-start docker-compose.yml "${@:2}";;
+    dev:restart|restart-dev) dc-restart docker-compose.yml "${@:2}";;
+    dev:stop|stop-dev) dc-stop docker-compose.yml "${@:2}";;
+    dev:logs|logs-dev) dc-logs docker-compose.yml "${@:2}";;
     dev:exec|exec-dev) dc-exec docker-compose.yml "${@:2}";;
-    dev:down|down-dev) down docker-compose.yml "${@:2}";;
-    dev:reset|reset-dev) down docker-compose.yml "${@:2}";
+    dev:down|down-dev) dc-down docker-compose.yml "${@:2}";;
+    dev:reset|reset-dev) dc-down docker-compose.yml "${@:2}";
     . .env;
     sudo rm -rf "${APP_HOME:-/srv/app}_dev"
     ;;
@@ -441,14 +441,14 @@ case "${1}" in
     dc-console docker-compose.yml app_dev_symfony "${@:2}";;
 
     # PROD env
-    prod:build|build-prod|build) build "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
-    prod:start|start-prod|start) start "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
-    prod:restart|restart-prod|restart) restart "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
-    prod:stop|stop-prod|stop) stop "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
-    prod:logs|logs-prod|logs) logs "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:build|build-prod|build) dc-build "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:start|start-prod|start) dc-start "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:restart|restart-prod|restart) dc-restart "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:stop|stop-prod|stop) dc-stop "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:logs|logs-prod|logs) dc-logs "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
     prod:exec|exec-prod|exec) dc-exec "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
-    prod:down|down-prod|down) down "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
-    prod:reset|reset-prod|reset) down "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";
+    prod:down|down-prod|down) dc-down "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
+    prod:reset|reset-prod|reset) dc-down "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";
     . .env;
     sudo rm -rf "${APP_HOME:-/srv/app}"
     ;;
