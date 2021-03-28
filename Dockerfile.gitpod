@@ -9,7 +9,6 @@ FROM gitpod/workspace-full:latest
 RUN set -ex; \
     brew install \
         mailhog \
-        openldap \
         postgresql \
         rabbitmq \
     ;
@@ -21,6 +20,7 @@ USER root
 RUN set -ex; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates \
+        ldap-utils \
         php-ldap \
         slapd \
         tini \
