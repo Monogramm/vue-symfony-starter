@@ -96,8 +96,9 @@ load_initial_data() {
 
 reconfigure_slapd
 make_snakeoil_certificate
+chown -R openldap:gitpod /etc/ldap
+slapd -h "ldapi:///" -d 256 -u openldap -g gitpod
 chown -R gitpod:gitpod /etc/ldap
-slapd -h "ldapi:///" -u gitpod -g gitpod
 
 configure_msad_features
 configure_tls
