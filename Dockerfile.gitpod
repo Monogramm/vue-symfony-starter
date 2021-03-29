@@ -42,15 +42,16 @@ COPY ./.gitpod/bootstrap /bootstrap
 # Initialize LDAP with data
 RUN set -ex; \
     mkdir -p /etc/ldap/ssl; \
+    usermod -a -G openldap gitpod; \
     /bin/bash /bootstrap/slapd-init.sh
 
 EXPOSE 10389 10636
-
-USER gitpod
 
 RUN set -ex; \
     wget 'https://get.symfony.com/cli/installer' -O - | bash; \
     export PATH="$HOME/.symfony/bin:$PATH"; \
     symfony -V; \
-    sudo mv "$HOME/.symfony/bin/symfony" /usr/local/bin/symfony; \
+    mv "$HOME/.symfony/bin/symfony" /usr/local/bin/symfony; \
     symfony server:ca:install
+
+USER gitpod
