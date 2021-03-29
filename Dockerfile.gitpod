@@ -37,7 +37,7 @@ RUN set -ex; \
 
 # Taken from https://github.com/rroemhild/docker-test-openldap
 # Add bootstrap files (without )
-ADD ./.gitpod/bootstrap /bootstrap
+COPY ./.gitpod/bootstrap /bootstrap
 
 # Initialize LDAP with data
 RUN set -ex; \
