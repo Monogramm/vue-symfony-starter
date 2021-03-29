@@ -33,7 +33,8 @@ RUN set -ex; \
     make; \
     mkdir -p /usr/lib/php/20190902; \
     cp modules/xdebug.so /usr/lib/php/20190902; \
-    bash -c "echo -e '\nzend_extension = /usr/lib/php/20190902/xdebug.so\n[XDebug]\nxdebug.remote_enable = 1\nxdebug.remote_autostart = 1\n' >> /etc/php/7.4/cli/php.ini"
+    bash -c "echo -e '\nzend_extension = /usr/lib/php/20190902/xdebug.so\n[XDebug]\nxdebug.remote_enable = 1\nxdebug.remote_autostart = 1\n' >> /etc/php/7.4/cli/php.ini"; \
+    echo 'temp'
 
 # Taken from https://github.com/rroemhild/docker-test-openldap
 # Add bootstrap files (without )
