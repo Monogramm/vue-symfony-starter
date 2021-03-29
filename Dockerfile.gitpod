@@ -47,6 +47,8 @@ RUN set -ex; \
 
 EXPOSE 10389 10636
 
+VOLUME ["/etc/ldap/slapd.d", "/etc/ldap/ssl", "/var/lib/ldap", "/run/slapd"]
+
 RUN set -ex; \
     wget 'https://get.symfony.com/cli/installer' -O - | bash; \
     export PATH="$HOME/.symfony/bin:$PATH"; \
