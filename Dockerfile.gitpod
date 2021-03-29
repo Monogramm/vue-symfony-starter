@@ -43,6 +43,7 @@ COPY ./.gitpod/bootstrap /bootstrap
 RUN set -ex; \
     mkdir -p /etc/ldap/ssl; \
     usermod -a -G openldap gitpod; \
+    chown gitpod:gitpod /usr/sbin/slapd; \
     /bin/bash /bootstrap/slapd-init.sh
 
 EXPOSE 10389 10636

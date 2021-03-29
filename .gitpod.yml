@@ -53,7 +53,7 @@ tasks:
     openMode: split-right
     command: MailHog
   - name: openldap
-    command: /usr/bin/tini -s -- /usr/sbin/slapd -h ldapi:/// ldap://0.0.0.0:10389 ldaps://0.0.0.0:10636 -d 256
+    command: /usr/bin/tini -s -- /usr/sbin/slapd -h "ldapi:/// ldap://0.0.0.0:10389 ldaps://0.0.0.0:10636" -d 256
 
 vscode:
   extensions:
