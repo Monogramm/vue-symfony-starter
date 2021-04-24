@@ -23,6 +23,12 @@
 
 See GitHub Pages at [monogramm.github.io/vue-symfony-starter](https://monogramm.github.io/vue-symfony-starter/).
 
+You can generate the PHP documentation using PHPDocumentor:
+
+```bash
+docker run --rm -v "${PWD}:/data" phpdoc/phpdoc:3 run
+```
+
 ## :chart_with_upwards_trend: Changes
 
 All notable changes to this project will be documented in [CHANGELOG](./CHANGELOG.md) file.
