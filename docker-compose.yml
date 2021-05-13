@@ -303,8 +303,33 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
+  app_dev_pghero:
+    image: ankane/pghero:v2.8.1
+    container_name: app_dev_pghero
+    restart: always
+    healthcheck:
+      test: CMD curl -v --fail --silent http://localhost:8080/health 2>&1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      #start_period: 40s
+    expose:
+      - '8080'
+    ports:
+      - "58080:8080"
+    networks:
+      - app_dev_internal_network
+      - app_dev_external_network
+    environment:
+      - DATABASE_URL=postgres://${APP_DB_USER}:${APP_DB_PASSWD}@app_dev_db:5432/${APP_DB_NAME}
+      - PGHERO_USERNAME=${APP_DB_USER}
+      - PGHERO_PASSWORD=${APP_DB_PASSWD}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
   app_dev_rabbitmq:
-    image: rabbitmq:3-alpine
+    image: rabbitmq:3-management-alpine
     hostname: app_dev_rabbitmq
     container_name: app_dev_rabbitmq
     restart: always
@@ -316,10 +341,14 @@ services:
     memswap_limit: 1024M
     expose:
       - '5672'
+      - '15672'
+    ports:
+      - "15672:15672"
     labels:
       com.symfony.server.service-prefix: "RABBITMQ"
     networks:
       - app_dev_internal_network
+      - app_dev_external_network
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
