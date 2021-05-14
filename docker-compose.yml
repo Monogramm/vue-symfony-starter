@@ -346,6 +346,35 @@ services:
       - RABBITMQ_DEFAULT_USER=${APP_RABBIT_USER}
       - RABBITMQ_DEFAULT_PASS=${APP_RABBIT_PASSWD}
 
+  app_dev_prometheus:
+    image: prom/prometheus:main
+    container_name: app_dev_prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    networks:
+      - app_dev_internal_network
+    volumes:
+      - ./docker/prometheus:/etc/prometheus:ro
+
+  app_dev_redis:
+    image: redis:5.0-alpine
+    container_name: app_dev_redis
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+    expose:
+      - '6379'
+    networks:
+      - app_dev_internal_network
+    environment:
+      #- REDIS_PASSWORD=${APP_REDIS_PASSWD}
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ${APP_HOME}_dev/redis/:/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
   # https://github.com/maxpou/docker-symfony
   # TODO Add ELK for looking through logs?
 
