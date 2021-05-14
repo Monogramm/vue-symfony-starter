@@ -5,6 +5,20 @@
     "amphp/byte-stream": {
         "version": "v1.8.0"
     },
+    "artprima/prometheus-metrics-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "a07f1cab0b63419f2153b744a254d9d6c3d732e9"
+        },
+        "files": [
+            "config/packages/prometheus_metrics.yaml",
+            "config/packages/test/prometheus_metrics.yaml",
+            "config/routes/metrics.yaml"
+        ]
+    },
     "brick/math": {
         "version": "0.9.2"
     },
@@ -251,6 +265,9 @@
     },
     "phpunit/php-timer": {
         "version": "5.0.3"
+    },
+    "promphp/prometheus_client_php": {
+        "version": "v2.2.2"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -531,6 +548,9 @@
             "phpunit.xml.dist",
             "tests/bootstrap.php"
         ]
+    },
+    "symfony/polyfill-apcu": {
+        "version": "v1.22.1"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.22.0"
