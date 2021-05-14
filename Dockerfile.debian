@@ -215,6 +215,8 @@ RUN set -ex; \
     docker-php-ext-configure gd; \
     docker-php-ext-configure intl; \
     docker-php-ext-configure zip; \
+    pecl install apcu; \
+    docker-php-ext-enable apcu; \
     pecl install amqp; \
     docker-php-ext-enable amqp; \
     pecl install libsodium; \
@@ -236,6 +238,7 @@ RUN set -ex; \
         zip \
     ; \
     \
+    pecl clear-cache; \
     rm -rf /var/lib/apt/lists/*; \
     \
     chown -R www-data:root /var/www/html; \
