@@ -1,0 +1,1155 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": "-- Grafana --",
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 1,
+    "iteration": 1621080359506,
+    "links": [],
+    "panels": [
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 67,
+            "panels": [],
+            "title": "rabbitmq-prometheus",
+            "type": "row"
+        },
+        {
+            "columns": [
+                {
+                    "text": "Min",
+                    "value": "min"
+                },
+                {
+                    "text": "Max",
+                    "value": "max"
+                },
+                {
+                    "text": "Avg",
+                    "value": "avg"
+                },
+                {
+                    "text": "Current",
+                    "value": "current"
+                }
+            ],
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fontSize": "100%",
+            "gridPos": {
+                "h": 7,
+                "w": 9,
+                "x": 0,
+                "y": 1
+            },
+            "id": 56,
+            "pageSize": null,
+            "pluginVersion": "6.4.1",
+            "scroll": true,
+            "showHeader": true,
+            "sort": {
+                "col": 4,
+                "desc": true
+            },
+            "styles": [
+                {
+                    "alias": "Node -> Peer",
+                    "align": "auto",
+                    "colorMode": null,
+                    "colors": [
+                        "rgba(245, 54, 54, 0.9)",
+                        "rgba(237, 129, 40, 0.89)",
+                        "rgba(50, 172, 45, 0.97)"
+                    ],
+                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                    "decimals": 0,
+                    "mappingType": 1,
+                    "pattern": "Metric",
+                    "thresholds": [],
+                    "type": "string",
+                    "unit": "short"
+                },
+                {
+                    "alias": "",
+                    "align": "auto",
+                    "colorMode": null,
+                    "colors": [
+                        "rgba(245, 54, 54, 0.9)",
+                        "rgba(237, 129, 40, 0.89)",
+                        "rgba(50, 172, 45, 0.97)"
+                    ],
+                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                    "decimals": 1,
+                    "mappingType": 1,
+                    "pattern": "/.*/",
+                    "thresholds": [],
+                    "type": "number",
+                    "unit": "Bps"
+                }
+            ],
+            "targets": [
+                {
+                    "expr": "rate(erlang_vm_dist_send_bytes[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=~\"$rabbitmq_cluster\"}",
+                    "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Erlang Distribution outgoing traffic / s",
+            "transform": "timeseries_aggregations",
+            "type": "table-old"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "description": "Erlang Distribution traffic, node network traffic and CPU + PerfTest message throughput and latency",
+            "fieldConfig": {
+                "defaults": {
+                    "links": []
+                },
+                "overrides": []
+            },
+            "fill": 0,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 7,
+                "w": 15,
+                "x": 9,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 3,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": false,
+                "sort": "max",
+                "sortDesc": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.6",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+                {
+                    "alias": "/^rabbit@[\\w.-]+0/",
+                    "color": "#56A64B"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+1/",
+                    "color": "#F2CC0C"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+2/",
+                    "color": "#3274D9"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+3/",
+                    "color": "#A352CC"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+4/",
+                    "color": "#FF780A"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+5/",
+                    "color": "#96D98D"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+6/",
+                    "color": "#FFEE52"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+7/",
+                    "color": "#8AB8FF"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+8/",
+                    "color": "#CA95E5"
+                },
+                {
+                    "alias": "/^rabbit@[\\w.-]+9/",
+                    "color": "#FFB357"
+                }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "rate(erlang_vm_dist_send_bytes[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=~\"$rabbitmq_cluster\"}",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Erlang Distribution outgoing traffic / s",
+            "tooltip": {
+                "shared": true,
+                "sort": 2,
+                "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "Bps",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 8
+            },
+            "id": 65,
+            "panels": [],
+            "title": "node-exporter_cadvisor",
+            "type": "row"
+        },
+        {
+            "columns": [
+                {
+                    "text": "Min",
+                    "value": "min"
+                },
+                {
+                    "text": "Max",
+                    "value": "max"
+                },
+                {
+                    "text": "Avg",
+                    "value": "avg"
+                },
+                {
+                    "text": "Current",
+                    "value": "current"
+                }
+            ],
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fontSize": "100%",
+            "gridPos": {
+                "h": 7,
+                "w": 9,
+                "x": 0,
+                "y": 9
+            },
+            "id": 61,
+            "pageSize": null,
+            "pluginVersion": "6.4.1",
+            "scroll": true,
+            "showHeader": true,
+            "sort": {
+                "col": 4,
+                "desc": true
+            },
+            "styles": [
+                {
+                    "alias": "Host",
+                    "align": "auto",
+                    "colorMode": null,
+                    "colors": [
+                        "rgba(245, 54, 54, 0.9)",
+                        "rgba(237, 129, 40, 0.89)",
+                        "rgba(50, 172, 45, 0.97)"
+                    ],
+                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                    "decimals": 0,
+                    "mappingType": 1,
+                    "pattern": "Metric",
+                    "thresholds": [],
+                    "type": "string",
+                    "unit": "short"
+                },
+                {
+                    "alias": "",
+                    "align": "auto",
+                    "colorMode": null,
+                    "colors": [
+                        "rgba(245, 54, 54, 0.9)",
+                        "rgba(237, 129, 40, 0.89)",
+                        "rgba(50, 172, 45, 0.97)"
+                    ],
+                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                    "decimals": 1,
+                    "mappingType": 1,
+                    "pattern": "/.*/",
+                    "thresholds": [],
+                    "type": "number",
+                    "unit": "Bps"
+                }
+            ],
+            "targets": [
+                {
+                    "expr": "sum by(instance) (rate(node_network_receive_bytes_total{instance=~\"$host\"}[5m]))",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                },
+                {
+                    "expr": "sum by(name) (rate(container_network_receive_bytes_total{name=~\"$container\"}[1m]))",
+                    "legendFormat": "{{name}}",
+                    "refId": "B"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Network incoming traffic / s",
+            "transform": "timeseries_aggregations",
+            "type": "table-old"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "decimals": null,
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "links": []
+                },
+                "overrides": []
+            },
+            "fill": 0,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 15,
+                "x": 9,
+                "y": 9
+            },
+            "height": "",
+            "hiddenSeries": false,
+            "id": 58,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "hideEmpty": true,
+                "hideZero": true,
+                "max": true,
+                "min": true,
+                "rightSide": true,
+                "show": false,
+                "sort": "max",
+                "sortDesc": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "maxPerRow": 3,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.6",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "repeatDirection": "h",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "calculatedInterval": "2s",
+                    "datasourceErrors": {},
+                    "errors": {},
+                    "expr": "sum by(instance) (rate(node_network_receive_bytes_total{instance=~\"$host\"}[5m]))",
+                    "format": "time_series",
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{instance}}",
+                    "metric": "",
+                    "refId": "A",
+                    "step": 20
+                },
+                {
+                    "expr": "sum by(name) (rate(container_network_receive_bytes_total{name=~\"$container\"}[1m]))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{name}}",
+                    "refId": "B"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Network incoming traffic / s",
+            "tooltip": {
+                "msResolution": false,
+                "shared": true,
+                "sort": 2,
+                "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 1,
+                    "format": "Bps",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "columns": [
+                {
+                    "text": "Min",
+                    "value": "min"
+                },
+                {
+                    "text": "Max",
+                    "value": "max"
+                },
+                {
+                    "text": "Avg",
+                    "value": "avg"
+                },
+                {
+                    "text": "Current",
+                    "value": "current"
+                }
+            ],
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fontSize": "100%",
+            "gridPos": {
+                "h": 7,
+                "w": 9,
+                "x": 0,
+                "y": 16
+            },
+            "id": 60,
+            "pageSize": null,
+            "pluginVersion": "6.4.1",
+            "scroll": true,
+            "showHeader": true,
+            "sort": {
+                "col": 4,
+                "desc": true
+            },
+            "styles": [
+                {
+                    "alias": "Host",
+                    "align": "auto",
+                    "colorMode": null,
+                    "colors": [
+                        "rgba(245, 54, 54, 0.9)",
+                        "rgba(237, 129, 40, 0.89)",
+                        "rgba(50, 172, 45, 0.97)"
+                    ],
+                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                    "decimals": 0,
+                    "mappingType": 1,
+                    "pattern": "Metric",
+                    "thresholds": [],
+                    "type": "string",
+                    "unit": "short"
+                },
+                {
+                    "alias": "",
+                    "align": "auto",
+                    "colorMode": null,
+                    "colors": [
+                        "rgba(245, 54, 54, 0.9)",
+                        "rgba(237, 129, 40, 0.89)",
+                        "rgba(50, 172, 45, 0.97)"
+                    ],
+                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                    "decimals": 1,
+                    "mappingType": 1,
+                    "pattern": "/.*/",
+                    "thresholds": [],
+                    "type": "number",
+                    "unit": "Bps"
+                }
+            ],
+            "targets": [
+                {
+                    "expr": "sum by(instance) (rate(node_network_transmit_bytes_total{instance=~\"$host\"}[5m]))",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                },
+                {
+                    "expr": "sum by(name) (rate(container_network_transmit_bytes_total{name=~\"$container\"}[1m]))",
+                    "legendFormat": "{{name}}",
+                    "refId": "B"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Network outgoing traffic / s",
+            "transform": "timeseries_aggregations",
+            "type": "table-old"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "decimals": null,
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "links": []
+                },
+                "overrides": []
+            },
+            "fill": 0,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 15,
+                "x": 9,
+                "y": 16
+            },
+            "height": "",
+            "hiddenSeries": false,
+            "id": 57,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "hideEmpty": true,
+                "hideZero": true,
+                "max": true,
+                "min": true,
+                "rightSide": true,
+                "show": false,
+                "sort": "max",
+                "sortDesc": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "maxPerRow": 3,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.6",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "repeatDirection": "h",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "calculatedInterval": "2s",
+                    "datasourceErrors": {},
+                    "errors": {},
+                    "expr": "sum by(instance) (rate(node_network_transmit_bytes_total{instance=~\"$host\"}[5m]))",
+                    "format": "time_series",
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{instance}}",
+                    "metric": "",
+                    "refId": "A",
+                    "step": 20
+                },
+                {
+                    "expr": "sum by(name) (rate(container_network_transmit_bytes_total{name=~\"$container\"}[1m]))",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{name}}",
+                    "refId": "B"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Network outgoing traffic / s",
+            "tooltip": {
+                "msResolution": false,
+                "shared": true,
+                "sort": 2,
+                "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 1,
+                    "format": "Bps",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "columns": [
+                {
+                    "text": "Min",
+                    "value": "min"
+                },
+                {
+                    "text": "Max",
+                    "value": "max"
+                },
+                {
+                    "text": "Avg",
+                    "value": "avg"
+                },
+                {
+                    "text": "Current",
+                    "value": "current"
+                }
+            ],
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fontSize": "100%",
+            "gridPos": {
+                "h": 7,
+                "w": 9,
+                "x": 0,
+                "y": 23
+            },
+            "id": 59,
+            "pageSize": null,
+            "pluginVersion": "6.4.1",
+            "scroll": true,
+            "showHeader": true,
+            "sort": {
+                "col": 4,
+                "desc": true
+            },
+            "styles": [
+                {
+                    "alias": "Host",
+                    "align": "auto",
+                    "colorMode": null,
+                    "colors": [
+                        "rgba(245, 54, 54, 0.9)",
+                        "rgba(237, 129, 40, 0.89)",
+                        "rgba(50, 172, 45, 0.97)"
+                    ],
+                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                    "decimals": 0,
+                    "mappingType": 1,
+                    "pattern": "Metric",
+                    "thresholds": [],
+                    "type": "string",
+                    "unit": "short"
+                },
+                {
+                    "alias": "",
+                    "align": "auto",
+                    "colorMode": null,
+                    "colors": [
+                        "rgba(245, 54, 54, 0.9)",
+                        "rgba(237, 129, 40, 0.89)",
+                        "rgba(50, 172, 45, 0.97)"
+                    ],
+                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+                    "decimals": 0,
+                    "mappingType": 1,
+                    "pattern": "/.*/",
+                    "thresholds": [],
+                    "type": "number",
+                    "unit": "percent"
+                }
+            ],
+            "targets": [
+                {
+                    "expr": "(max by (instance) (irate(node_cpu_seconds_total{job=\"node\", mode=~\"user|system|iowait|softirq\", instance=~\"$host\"}[5m])) * 100)",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                },
+                {
+                    "expr": "sum by(name) (irate(container_cpu_usage_seconds_total{name=~\"$container\"}[1m])) * 100",
+                    "legendFormat": "{{name}}",
+                    "refId": "B"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "CPU",
+            "transform": "timeseries_aggregations",
+            "type": "table-old"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "decimals": null,
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "links": []
+                },
+                "overrides": []
+            },
+            "fill": 0,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 15,
+                "x": 9,
+                "y": 23
+            },
+            "height": "",
+            "hiddenSeries": false,
+            "id": 28,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "hideEmpty": true,
+                "hideZero": true,
+                "max": true,
+                "min": true,
+                "rightSide": true,
+                "show": false,
+                "sort": "max",
+                "sortDesc": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "maxPerRow": 3,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.6",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "repeat": null,
+            "repeatDirection": "h",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "calculatedInterval": "2s",
+                    "datasourceErrors": {},
+                    "errors": {},
+                    "expr": "(max by (instance) (irate(node_cpu_seconds_total{job=\"node\", mode=~\"user|system|iowait|softirq\", instance=~\"$host\"}[5m])) * 100)",
+                    "format": "time_series",
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{instance}}",
+                    "metric": "",
+                    "refId": "A",
+                    "step": 20
+                },
+                {
+                    "expr": "sum by(name) (irate(container_cpu_usage_seconds_total{name=~\"$container\"}[1m])) * 100",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 1,
+                    "legendFormat": "{{name}}",
+                    "refId": "B"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "CPU",
+            "tooltip": {
+                "msResolution": false,
+                "shared": true,
+                "sort": 2,
+                "value_type": "individual"
+            },
+            "transparent": true,
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "percent",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        }
+    ],
+    "refresh": "15s",
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [
+        "cadvisor",
+        "node-exporter",
+        "rabbitmq-perf-test",
+        "rabbitmq-prometheus"
+    ],
+    "templating": {
+        "list": [
+            {
+                "allValue": null,
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": null,
+                "definition": "label_values(rabbitmq_identity_info, rabbitmq_cluster)",
+                "description": null,
+                "error": null,
+                "hide": 0,
+                "includeAll": true,
+                "label": "RabbitMQ Cluster",
+                "multi": true,
+                "name": "rabbitmq_cluster",
+                "options": [],
+                "query": {
+                    "query": "label_values(rabbitmq_identity_info, rabbitmq_cluster)",
+                    "refId": "prometheus-rabbitmq_cluster-Variable-Query"
+                },
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            },
+            {
+                "allValue": null,
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": null,
+                "definition": "label_values(perftest_published, instance)",
+                "description": null,
+                "error": null,
+                "hide": 0,
+                "includeAll": true,
+                "label": "PerfTest Instance",
+                "multi": true,
+                "name": "instance",
+                "options": [],
+                "query": {
+                    "query": "label_values(perftest_published, instance)",
+                    "refId": "prometheus-instance-Variable-Query"
+                },
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            },
+            {
+                "allValue": null,
+                "current": {
+                    "isNone": true,
+                    "selected": false,
+                    "text": "None",
+                    "value": ""
+                },
+                "datasource": null,
+                "definition": "label_values(perftest_latency_seconds, quantile)",
+                "description": null,
+                "error": null,
+                "hide": 0,
+                "includeAll": false,
+                "label": "Percentile",
+                "multi": false,
+                "name": "percentile",
+                "options": [],
+                "query": {
+                    "query": "label_values(perftest_latency_seconds, quantile)",
+                    "refId": "prometheus-percentile-Variable-Query"
+                },
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 4,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            },
+            {
+                "allValue": null,
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": null,
+                "definition": "label_values(node_network_info, instance)",
+                "description": null,
+                "error": null,
+                "hide": 0,
+                "includeAll": true,
+                "label": "Host",
+                "multi": true,
+                "name": "host",
+                "options": [],
+                "query": {
+                    "query": "label_values(node_network_info, instance)",
+                    "refId": "prometheus-host-Variable-Query"
+                },
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            },
+            {
+                "allValue": null,
+                "current": {
+                    "selected": true,
+                    "text": [
+                        "All"
+                    ],
+                    "value": [
+                        "$__all"
+                    ]
+                },
+                "datasource": null,
+                "definition": "label_values(container_network_receive_bytes_total, name)",
+                "description": null,
+                "error": null,
+                "hide": 0,
+                "includeAll": true,
+                "label": "or Container",
+                "multi": true,
+                "name": "container",
+                "options": [],
+                "query": {
+                    "query": "label_values(container_network_receive_bytes_total, name)",
+                    "refId": "prometheus-container-Variable-Query"
+                },
+                "refresh": 2,
+                "regex": "",
+                "skipUrlSync": false,
+                "sort": 1,
+                "tagValuesQuery": "",
+                "tags": [],
+                "tagsQuery": "",
+                "type": "query",
+                "useTags": false
+            }
+        ]
+    },
+    "time": {
+        "from": "now-15m",
+        "to": "now"
+    },
+    "timepicker": {
+        "refresh_intervals": [
+            "15s",
+            "30s",
+            "1m",
+            "5m",
+            "10m"
+        ],
+        "time_options": [
+            "5m",
+            "15m",
+            "1h",
+            "6h",
+            "12h",
+            "24h",
+            "2d",
+            "7d",
+            "30d"
+        ]
+    },
+    "timezone": "",
+    "title": "Erlang-Distributions-Compare",
+    "uid": "C0jeDstZk",
+    "version": 1
+}

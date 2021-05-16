@@ -1,6 +1,6 @@
 artprima_prometheus_metrics:
     # namespace is used to prefix the prometheus metrics
-    namespace: vue_symfony_starter
+    namespace: symfony
 
     # possible values: in_memory, apcu, redis
     type: apcu
@@ -9,6 +9,9 @@ artprima_prometheus_metrics:
     ignored_routes:
     - prometheus_bundle_prometheus
     - _wdt
+    - pwa
+    - ping
+    - health
 
     # used in case of type = "redis"
     #redis:
@@ -20,7 +23,7 @@ artprima_prometheus_metrics:
     #    password: ~
 
     # used to disable default application metrics
-    disable_default_metrics: true
+    disable_default_metrics: false
 
     # used to enable console metrics
     enable_console_metrics: true

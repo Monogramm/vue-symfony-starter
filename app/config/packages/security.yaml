@@ -29,6 +29,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # TODO Secure metrics API but with a basic HTTP auth.
+        - { path: ^/api/metrics/prometheus, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
         - { path: ^/api/payment/success, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /api/password/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/admin, roles: ROLE_ADMIN }

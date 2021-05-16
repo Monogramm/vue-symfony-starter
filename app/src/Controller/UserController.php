@@ -9,6 +9,7 @@ use App\Handler\UserRegistrationHandler;
 use App\Message\EmailNotification;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Prometheus\CollectorRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,7 +36,8 @@ class UserController extends AbstractController
         SerializerInterface $serializer,
         ValidatorInterface $validator,
         UserRegistrationHandler $registrationHandler,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        CollectorRegistry $collectionRegistry
     ): Response {
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
 
@@ -48,6 +50,17 @@ class UserController extends AbstractController
         }
 
         $registrationHandler->handle($user);
+
+        // Track creating a new enabled user
+        $counter = $collectionRegistry->getOrRegisterCounter(
+            'app',
+            'user_created',
+            'users created',
+            ['type']
+        );
+
+        $counter->inc(['all']);
+        $counter->inc(['enabled']);
 
         $dispatcher->dispatch(new UserCreatedEvent($user));
 

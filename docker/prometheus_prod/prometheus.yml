@@ -5,7 +5,20 @@ global:
 
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'bundle_metrics'
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+  - job_name: 'app_metrics'
     metrics_path: /api/metrics/prometheus
     static_configs:
       - targets: ['backend:8080']
+  - job_name: 'rabbitmq-server'
+    static_configs:
+      - targets:
+        - 'rabbitmq:15692'

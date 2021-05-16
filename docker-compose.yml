@@ -4,6 +4,9 @@ networks:
   app_dev_external_network:
   app_dev_internal_network:
 
+volumes:
+  app_dev_grafana_data:
+
 services:
   app_dev_symfony:
     build:
@@ -21,17 +24,24 @@ services:
       test: CMD curl -v --silent http://localhost:8000/health 2>&1 | grep UP
       interval: 1m30s
       timeout: 10s
-      retries: 3
       #start_period: 40s
+      retries: 3
+    depends_on:
+      app_dev_db:
+        condition: service_healthy
+      app_dev_rabbitmq:
+        condition: service_started
+      app_dev_mailer:
+        condition: service_started
+      app_dev_ldap:
+        condition: service_started
     ports:
       - "8000:8000"
-    depends_on:
-      - app_dev_db
-      - app_dev_rabbitmq
-      - app_dev_mailer
     networks:
-      - app_dev_external_network
-      - app_dev_internal_network
+      app_dev_external_network:
+      app_dev_internal_network:
+        aliases:
+          - symfony
     volumes:
       # For DEV, mount local sources
       - ./app:/var/www/html
@@ -135,6 +145,7 @@ services:
       app_dev_rabbitmq:
         condition: service_started
     networks:
+      - app_dev_external_network
       - app_dev_internal_network
     volumes:
       # For DEV, mount local sources
@@ -330,6 +341,7 @@ services:
     expose:
       - '5672'
       - '15672'
+      - '15692'
     ports:
       - "15672:15672"
     labels:
@@ -346,6 +358,38 @@ services:
       - RABBITMQ_DEFAULT_USER=${APP_RABBIT_USER}
       - RABBITMQ_DEFAULT_PASS=${APP_RABBIT_PASSWD}
 
+  # Monitoring services
+
+  app_dev_grafana:
+    # https://hub.docker.com/r/grafana/grafana/tags
+    image: grafana/grafana:7.5.6
+    container_name: app_dev_grafana
+    #restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      app_dev_external_network:
+      app_dev_internal_network:
+        aliases:
+          - grafana
+    volumes:
+      - app_dev_grafana_data:/var/lib/grafana
+      # Use bind mounts to persist on disk
+      #- ${APP_HOME}_dev/grafana:/var/lib/grafana
+      - ./docker/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/rabbitmq.yaml
+      - ./docker/grafana/datasources.yml:/etc/grafana/provisioning/datasources/prometheus.yaml
+      - ./docker/grafana/dashboards:/dashboards
+    environment:
+      # https://grafana.com/plugins/flant-statusmap-panel
+      # https://grafana.com/plugins/grafana-piechart-panel
+      # https://grafana.com/plugins/grafana-polystat-panel
+      # https://grafana.com/plugins/jdbranham-diagram-panel
+      # https://grafana.com/plugins/michaeldmoore-multistat-panel
+      # https://grafana.com/plugins/vonage-status-panel
+      # https://grafana.com/plugins/yesoreyeram-boomtable-panel
+      GF_INSTALL_PLUGINS: "flant-statusmap-panel,grafana-piechart-panel"
+      #GF_SECURITY_ADMIN_PASSWORD: "${APP_GRAFANA_ADMIN_PASSWD}"
+
   app_dev_prometheus:
     image: prom/prometheus:main
     container_name: app_dev_prometheus
@@ -353,27 +397,52 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - app_dev_internal_network
+      app_dev_internal_network:
+        aliases:
+          - prometheus
     volumes:
-      - ./docker/prometheus:/etc/prometheus:ro
+      - ./docker/prometheus_dev:/etc/prometheus:ro
 
-  app_dev_redis:
-    image: redis:5.0-alpine
-    container_name: app_dev_redis
-    restart: always
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+  app_dev_node_exporter:
+    # https://hub.docker.com/r/prom/node-exporter/tags
+    image: prom/node-exporter:v1.0.1
+    container_name: app_dev_node_exporter
+    #restart: always
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
     expose:
-      - '6379'
+      - '9100'
     networks:
-      - app_dev_internal_network
-    environment:
-      #- REDIS_PASSWORD=${APP_REDIS_PASSWD}
-      - ALLOW_EMPTY_PASSWORD=yes
+      app_dev_internal_network:
+        aliases:
+          - node-exporter
     volumes:
-      - ${APP_HOME}_dev/redis/:/data
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+
+  app_dev_cadvisor:
+    # https://hub.docker.com/r/google/cadvisor/tags
+    #image: google/cadvisor:v0.33.0
+    # https://console.cloud.google.com/gcr/images/cadvisor/GLOBAL/cadvisor
+    image: gcr.io/cadvisor/cadvisor:v0.39.0
+    container_name: app_dev_cadvisor
+    #restart: always
+    expose:
+      - '8080'
+    networks:
+      app_dev_internal_network:
+        aliases:
+          - cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      #- /cgroup:/cgroup:ro #doesn't work on MacOS only for Linux
 
   # https://github.com/maxpou/docker-symfony
   # TODO Add ELK for looking through logs?
