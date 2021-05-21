@@ -59,13 +59,13 @@ class LdapLoginCommandUnitTest extends KernelTestCase
         $ldapConnectionMock->expects($this->exactly(0))
             ->method('isBound')
             ->willReturn(true);
-        $ldapConnectionMock->expects($this->once())
+        $ldapConnectionMock->expects($this->atLeastOnce())
             ->method('bind');
 
-        $ldapAdapterMock->expects($this->once())
+        $ldapAdapterMock->expects($this->atLeastOnce())
             ->method('getConnection')
             ->willReturn($ldapConnectionMock);
-        $ldapAdapterMock->expects($this->once())
+        $ldapAdapterMock->expects($this->atLeastOnce())
             ->method('createQuery')
             ->willReturn($ldapQueryMock);
         $ldapAdapterMock->expects($this->any())
