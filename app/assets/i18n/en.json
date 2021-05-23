@@ -60,7 +60,8 @@
       "update-message": "Are you sure you want to <b>update</b>?",
       "delete": "Confirm deletion?",
       "delete-message": "Are you sure you want to <b>delete</b>? This action cannot be undone.",
-      "deleted": "Deleted"
+      "deleted": "Deleted",
+      "info": "Info"
     },
     "error": {
       "required-field-emmpty": "Please fill out this field",
@@ -214,20 +215,18 @@
     }
   },
   "admin": {
-    "dashboard": "Administration",
-    "users": "Users",
-    "parameters": "Parameters",
-    "medias": "Medias",
-    "background-jobs": "Background jobs"
+    "dashboard": "Administration"
   },
   "users": {
-    "title": "Users List",
+    "admin": "Users",
+    "list": "Users List",
     "username": "Username",
     "email": "Email",
     "language": "Language",
     "verified": "Verified"
   },
   "parameters": {
+    "admin": "Parameters",
     "list": "Parameters List",
     "edit": "Edit Parameter",
     "create": "Create Parameter",
@@ -238,6 +237,7 @@
     "types": "Types"
   },
   "medias": {
+    "admin": "Medias",
     "list": "Medias List",
     "edit": "Edit Media",
     "create": "Create Media",
@@ -246,7 +246,8 @@
     "description": "Description"
   },
   "background-jobs": {
-    "title": "Background jobs"
+    "admin": "Background jobs",
+    "list": "Background jobs List"
   },
   "support": {
     "contact": {

@@ -134,7 +134,7 @@ class LdapLoginCommand extends Command
         }
 
         if ($invalid) {
-            return 2;
+            return 4;
         }
 
         // Creating LDAP config
@@ -163,7 +163,7 @@ class LdapLoginCommand extends Command
             $entry = $ldapClient->check($username, $password);
         } catch (\Throwable $e) {
             $io->error('Failed to check against LDAP. Error message: '.$e->getMessage());
-            return 1;
+            return 2;
         }
 
         if (!isset(
