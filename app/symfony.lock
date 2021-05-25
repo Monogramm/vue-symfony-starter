@@ -552,6 +552,9 @@
     "symfony/polyfill-apcu": {
         "version": "v1.22.1"
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.22.1"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.22.0"
     },
@@ -637,6 +640,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.4.19"
+    },
+    "symfony/string": {
+        "version": "v5.2.8"
     },
     "symfony/test-pack": {
         "version": "v1.0.7"
