@@ -3,8 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Media;
-use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

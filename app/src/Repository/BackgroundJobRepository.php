@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\BackgroundJob;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

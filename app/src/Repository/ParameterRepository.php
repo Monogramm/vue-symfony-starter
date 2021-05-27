@@ -3,9 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Parameter;
-use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\Tools\Pagination\Paginator;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
