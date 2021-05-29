@@ -492,6 +492,7 @@ case "${1}" in
     dev:ps|ps-dev) dc-ps 'docker-compose.yml' "${@:2}";;
     dev:console|console-dev)
     dc-console 'docker-compose.yml' app_dev_symfony "${@:2}";;
+    dev:dc|dc-dev) dc 'docker-compose.yml' "${@:2}";;
 
     # PROD env
     prod:build|build-prod|build) dc-build "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
@@ -508,6 +509,7 @@ case "${1}" in
     prod:ps|ps-prod|ps) dc-ps "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
     prod:console|console-prod|console)
     dc-console "docker-compose.${BASE:-fpm}.test.yml" app_backend "${@:2}";;
+    prod:dc|dc-prod) dc "docker-compose.${BASE:-fpm}.test.yml" "${@:2}";;
 
     # CI hooks
     hooks|hooks:run) ./hooks/run "${@:2}";;
