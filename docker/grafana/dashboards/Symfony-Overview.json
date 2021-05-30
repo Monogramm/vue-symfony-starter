@@ -12,10 +12,10 @@
             }
         ]
     },
+    "description": "",
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 9,
     "links": [],
     "panels": [
         {
@@ -411,7 +411,9 @@
     ],
     "schemaVersion": 27,
     "style": "dark",
-    "tags": [],
+    "tags": [
+        "symfony-prometheus"
+    ],
     "templating": {
         "list": []
     },
@@ -421,7 +423,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "New dashboard Copy",
+    "title": "Symfony Overview",
     "uid": "p4eAg9jMz",
     "version": 1
 }

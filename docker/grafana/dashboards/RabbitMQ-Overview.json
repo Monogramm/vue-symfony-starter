@@ -16,8 +16,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 1,
-    "id": 6,
-    "iteration": 1621121052851,
+    "iteration": 1622381206535,
     "links": [
         {
             "icon": "doc",
@@ -842,13 +841,306 @@
             "type": "row"
         },
         {
-            "columns": [],
             "datasource": null,
             "fieldConfig": {
-                "defaults": {},
-                "overrides": []
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "erlang_version"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Erlang/OTP"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "none"
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            },
+                            {
+                                "id": "thresholds",
+                                "value": {
+                                    "mode": "absolute",
+                                    "steps": [
+                                        {
+                                            "color": "rgba(50, 172, 45, 0.97)",
+                                            "value": null
+                                        },
+                                        {
+                                            "color": "rgba(237, 129, 40, 0.89)",
+                                            "value": null
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "rabbitmq_version"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "RabbitMQ"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "none"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            },
+                            {
+                                "id": "thresholds",
+                                "value": {
+                                    "mode": "absolute",
+                                    "steps": [
+                                        {
+                                            "color": "rgba(245, 54, 54, 0.9)",
+                                            "value": null
+                                        },
+                                        {
+                                            "color": "rgba(237, 129, 40, 0.89)",
+                                            "value": null
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "instance"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Host"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "rabbitmq_node"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Node name"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            },
+                            {
+                                "id": "thresholds",
+                                "value": {
+                                    "mode": "absolute",
+                                    "steps": [
+                                        {
+                                            "color": "rgba(245, 54, 54, 0.9)",
+                                            "value": null
+                                        },
+                                        {
+                                            "color": "rgba(237, 129, 40, 0.89)",
+                                            "value": null
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Time"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "job"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "rabbitmq_cluster"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Cluster"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "prometheus_client_version"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "prometheus.erl"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "prometheus_plugin_version"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "rabbitmq_prometheus"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align",
+                                "value": null
+                            }
+                        ]
+                    }
+                ]
             },
-            "fontSize": "100%",
             "gridPos": {
                 "h": 4,
                 "w": 24,
@@ -857,198 +1149,10 @@
             },
             "id": 69,
             "links": [],
-            "pageSize": null,
-            "scroll": true,
-            "showHeader": true,
-            "sort": {
-                "col": 8,
-                "desc": false
+            "options": {
+                "showHeader": true
             },
-            "styles": [
-                {
-                    "alias": "Erlang/OTP",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(50, 172, 45, 0.97)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(245, 54, 54, 0.9)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": null,
-                    "link": false,
-                    "mappingType": 1,
-                    "pattern": "erlang_version",
-                    "thresholds": [
-                        ""
-                    ],
-                    "type": "string",
-                    "unit": "none"
-                },
-                {
-                    "alias": "RabbitMQ",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "mappingType": 1,
-                    "pattern": "rabbitmq_version",
-                    "thresholds": [
-                        ""
-                    ],
-                    "type": "string",
-                    "unit": "none"
-                },
-                {
-                    "alias": "Host",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "mappingType": 1,
-                    "pattern": "instance",
-                    "preserveFormat": false,
-                    "thresholds": [],
-                    "type": "string",
-                    "unit": "short",
-                    "valueMaps": []
-                },
-                {
-                    "alias": "Node name",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "mappingType": 1,
-                    "pattern": "rabbitmq_node",
-                    "thresholds": [
-                        ""
-                    ],
-                    "type": "string",
-                    "unit": "short"
-                },
-                {
-                    "alias": "",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "mappingType": 1,
-                    "pattern": "Time",
-                    "thresholds": [],
-                    "type": "hidden",
-                    "unit": "short"
-                },
-                {
-                    "alias": "",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "mappingType": 1,
-                    "pattern": "Value",
-                    "thresholds": [],
-                    "type": "hidden",
-                    "unit": "short"
-                },
-                {
-                    "alias": "",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "mappingType": 1,
-                    "pattern": "job",
-                    "thresholds": [],
-                    "type": "hidden",
-                    "unit": "short"
-                },
-                {
-                    "alias": "Cluster",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "mappingType": 1,
-                    "pattern": "rabbitmq_cluster",
-                    "thresholds": [],
-                    "type": "hidden",
-                    "unit": "short",
-                    "valueMaps": []
-                },
-                {
-                    "alias": "prometheus.erl",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "mappingType": 1,
-                    "pattern": "prometheus_client_version",
-                    "thresholds": [],
-                    "type": "string",
-                    "unit": "short"
-                },
-                {
-                    "alias": "rabbitmq_prometheus",
-                    "align": "auto",
-                    "colorMode": null,
-                    "colors": [
-                        "rgba(245, 54, 54, 0.9)",
-                        "rgba(237, 129, 40, 0.89)",
-                        "rgba(50, 172, 45, 0.97)"
-                    ],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "mappingType": 1,
-                    "pattern": "prometheus_plugin_version",
-                    "thresholds": [],
-                    "type": "string",
-                    "unit": "short"
-                }
-            ],
+            "pluginVersion": "7.5.6",
             "targets": [
                 {
                     "expr": "rabbitmq_build_info * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\"}",
@@ -1060,8 +1164,15 @@
             ],
             "timeFrom": null,
             "timeShift": null,
-            "transform": "table",
-            "type": "table-old"
+            "transformations": [
+                {
+                    "id": "merge",
+                    "options": {
+                        "reducers": []
+                    }
+                }
+            ],
+            "type": "table"
         },
         {
             "aliasColors": {},
@@ -5608,5 +5719,5 @@
     "timezone": "",
     "title": "RabbitMQ-Overview",
     "uid": "Kn5xm-gZk",
-    "version": 428
+    "version": 1
 }
