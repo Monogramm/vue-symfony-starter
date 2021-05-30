@@ -7,8 +7,8 @@ networks:
   #app_elk_network:
 
 #volumes:
-#  app_grafana_data:
 #  app_elasticsearch:
+#  app_grafana_data:
 
 services:
   app_backend:
@@ -460,7 +460,7 @@ services:
 #      #- ELASTICSEARCH_USERNAME=${APP_ELASTICSEARCH_USERNAME}
 #      #- ELASTICSEARCH_PASSWORD=${APP_ELASTICSEARCH_PASSWORD}
 
-  # Monitoring services
+  # Uncomment to monitor services
 #  app_grafana:
 #    # https://hub.docker.com/r/grafana/grafana/tags
 #    image: grafana/grafana:7.5.6
@@ -502,7 +502,7 @@ services:
 #        aliases:
 #          - prometheus
 #    volumes:
-#      - ./docker/prometheus_prod:/etc/prometheus:ro
+#      - ./docker/prometheus/prod:/etc/prometheus:ro
 #
 #  app_redis:
 #    image: redis:5.0-alpine

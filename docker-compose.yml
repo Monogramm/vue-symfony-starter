@@ -4,8 +4,8 @@ networks:
   app_dev_external_network:
   app_dev_internal_network:
 
-volumes:
-  app_dev_grafana_data:
+#volumes:
+#  app_dev_grafana_data:
 
 services:
   app_dev_symfony:
@@ -400,7 +400,7 @@ services:
 #        aliases:
 #          - prometheus
 #    volumes:
-#      - ./docker/prometheus_dev:/etc/prometheus:ro
+#      - ./docker/prometheus/dev:/etc/prometheus:ro
 #
 #  app_dev_node_exporter:
 #    # https://hub.docker.com/r/prom/node-exporter/tags
