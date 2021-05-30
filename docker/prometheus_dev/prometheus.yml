@@ -16,6 +16,10 @@ scrape_configs:
       - targets: ['cadvisor:8080']
   - job_name: 'app_metrics'
     metrics_path: /api/metrics/prometheus
+    # TODO Replace by a real secure login/password
+    basic_auth:
+      username: 'bender'
+      password: 'bender'
     static_configs:
       - targets: ['symfony:8000']
   - job_name: 'rabbitmq-server'
