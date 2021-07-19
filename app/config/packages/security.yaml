@@ -38,6 +38,9 @@ security:
         - { path: /api/logout, roles: ROLE_USER }
         - { path: ^/api, roles: ROLE_VERIFIED_USER }
 
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER, ROLE_MONITORING]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     encoders:
         App\Entity\User:
