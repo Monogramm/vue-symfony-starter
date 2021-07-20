@@ -209,7 +209,13 @@ class LdapAuthenticator extends AbstractGuardAuthenticator
         return $parameter->getValue();
     }
 
-    private function getUserRoles(string $fullDn) {
+    /**
+     * @return string[]
+     *
+     * @psalm-return list<string>
+     */
+    private function getUserRoles(string $fullDn): array
+    {
         $userRoles = [];
 
         $defaultRole = $this->getUserDefaultRole();

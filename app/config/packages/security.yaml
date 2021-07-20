@@ -29,7 +29,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/payment/success, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/currency, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
         - { path: /api/password/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/admin, roles: ROLE_ADMIN }
         - { path: ^/api/user/verify, roles: ROLE_USER }

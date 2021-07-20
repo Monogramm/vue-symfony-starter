@@ -149,7 +149,8 @@ class User implements UserInterface
         return $roles;
     }
 
-    public function hasRole(string $role) {
+    public function hasRole(string $role): bool
+    {
         return in_array($role, $this->roles, true);
     }
 
@@ -197,9 +198,20 @@ class User implements UserInterface
         return $this->enabled;
     }
 
-    public function disable(): void
+    private function setEnabled(bool $enabled): self
     {
-        $this->enabled = false;
+        $this->enabled = $enabled;
+        return $this;
+    }
+
+    public function enable(): self
+    {
+        return $this->setEnabled(true);
+    }
+
+    public function disable(): self
+    {
+        return $this->setEnabled(false);
     }
 
     public function isVerified()
@@ -207,9 +219,37 @@ class User implements UserInterface
         return $this->isVerified;
     }
 
+    private function setVerified(bool $verified): self
+    {
+        $this->isVerified = $verified;
+        return $this;
+    }
+
     public function verify(): self
     {
-        $this->isVerified = true;
+        $this->setVerified(true);
+
+        if (!$this->hasRole('ROLE_VERIFIED_USER')) {
+            $this->roles[] = 'ROLE_VERIFIED_USER';
+        }
+
+        return $this;
+    }
+
+    public function unverify(): self
+    {
+        $this->setVerified(false);
+
+        if ($this->hasRole('ROLE_VERIFIED_USER')) {
+            // Ensure there are no duplicates AND no holes in array keys
+            $roles = [];
+            foreach ($this->roles as $role) {
+                if ($role !== 'ROLE_VERIFIED_USER' && !in_array($role, $roles)) {
+                    $roles[] = $role;
+                }
+            }
+            $this->roles[] = $roles;
+        }
 
         return $this;
     }
