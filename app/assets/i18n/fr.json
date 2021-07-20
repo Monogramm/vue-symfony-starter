@@ -193,7 +193,7 @@
       "link": "CGU"
     },
     "register": "S'inscrire",
-    "success": "Inscription réussie! Vous pouvez maintenant vous connecter."
+    "success": "Inscription réussie ! Vous pouvez maintenant vous connecter et valider votre compte."
   },
   "payment": {
     "title": "Vérification du paiement",
