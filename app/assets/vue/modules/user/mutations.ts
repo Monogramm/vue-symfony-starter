@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from "axios";
 
-import { IError } from "@/vue/interfaces/error";
-import { IReadWriteMutations, ReadWriteMutations } from "@/vue/store/mutations";
+import { IError } from "../../interfaces/error";
+import { IReadWriteMutations, ReadWriteMutations } from "../../store/mutations";
 
 import { IUserState } from "./state";
 import { IUser, ILogin } from "./interfaces";
@@ -10,7 +10,8 @@ export interface IUserMutations extends IReadWriteMutations<IUser, IUserState> {
 
   PASSWORD_CHANGE_PENDING(state: IUserState): void;
   PASSWORD_CHANGE_SUCCESS(state: IUserState): void;
-  PASSWORD_CHANGE_ERROR(state: IUserState, error: AxiosError<IError>): void;
+  PASSWORD_CHANGE_ERROR(state: IUserState, error: AxiosError<
+    IError>): void;
 
   DISABLE_ACCOUNT_SUCCESS(state: IUserState): void;
 
