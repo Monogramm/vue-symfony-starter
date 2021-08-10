@@ -17,7 +17,7 @@ class UserCreated implements EventSubscriberInterface
 {
     private $bus;
 
-    private $em;
+    private $emi;
 
     private $codeGenerator;
 
@@ -27,13 +27,13 @@ class UserCreated implements EventSubscriberInterface
 
     public function __construct(
         MessageBusInterface $bus,
-        EntityManagerInterface $em,
+        EntityManagerInterface $emi,
         CodeGenerator $codeGenerator,
         TranslatorInterface $translator,
         string $mailerFrom
     ) {
         $this->bus = $bus;
-        $this->em = $em;
+        $this->emi = $emi;
         $this->codeGenerator = $codeGenerator;
         $this->mailerFrom = $mailerFrom;
         $this->translator = $translator;
@@ -54,8 +54,8 @@ class UserCreated implements EventSubscriberInterface
                 ->generate(8)
         );
         $code->setUser($event->getUser());
-        $this->em->persist($code);
-        $this->em->flush();
+        $this->emi->persist($code);
+        $this->emi->flush();
 
         $user = $event->getUser();
 

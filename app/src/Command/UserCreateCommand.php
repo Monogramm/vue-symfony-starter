@@ -20,7 +20,7 @@ class UserCreateCommand extends Command
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $emi;
 
     /**
      * @var UserPasswordEncoderInterface
@@ -33,12 +33,12 @@ class UserCreateCommand extends Command
     private $userRepository;
 
     public function __construct(
-        EntityManagerInterface $em,
+        EntityManagerInterface $emi,
         UserPasswordEncoderInterface $passwordEncoder,
         UserRepository $userRepository
     ) {
+        $this->emi = $emi;
         $this->userRepository = $userRepository;
-        $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
 
         parent::__construct(self::$defaultName);
@@ -119,8 +119,8 @@ class UserCreateCommand extends Command
             $user->verify();
         }
 
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->emi->persist($user);
+        $this->emi->flush();
 
         $ioStyle->success("User '$username' created");
 
