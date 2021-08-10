@@ -85,6 +85,11 @@ class UserCreateCommand extends Command
         ;
     }
 
+    /**
+     * @return int
+     *
+     * @psalm-return 0|1
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $ioStyle = new SymfonyStyle($input, $output);

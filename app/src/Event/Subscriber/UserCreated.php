@@ -39,7 +39,12 @@ class UserCreated implements EventSubscriberInterface
         $this->translator = $translator;
     }
 
-    public static function getSubscribedEvents()
+    /**
+     * @return string[]
+     *
+     * @psalm-return array{'App\\Event\\UserCreatedEvent': string}
+     */
+    public static function getSubscribedEvents(): array
     {
         return [
             UserCreatedEvent::class => 'onUserCreated'
