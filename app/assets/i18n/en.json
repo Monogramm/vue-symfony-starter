@@ -224,6 +224,7 @@
     "email": "Email",
     "language": "Language",
     "verified": "Verified",
+    "enabled": "Enabled",
     "role": {
       "super-admin": "Super Administrator",
       "admin": "Administrator",
