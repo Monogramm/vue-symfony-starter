@@ -15,6 +15,7 @@
         @pageChanged="onPageChange"
         @filtersChanged="onFiltersChange"
         @sortingChanged="onSortingChange"
+        @enabled="onEnableChange"
       />
     </div>
   </section>
@@ -64,6 +65,26 @@ export default {
       if (this.pagination.size > 0) {
         this.load();
       }
+    },
+    onEnableChange(userId: string, enabled: boolean) {
+      this.$buefy.dialog.confirm({
+        message: this.$t(
+          enabled ? "users.enable" : "users.disable"
+        ),
+        confirmText: this.$t("common.continue"),
+        cancelText: this.$t("common.cancel"),
+        type: "is-info",
+        hasIcon: true,
+        onConfirm: () => {
+          const payload: EnablePayload = {
+            userId: userId,
+            enabled: enabled,
+          };
+          this.$store.dispatch("user/setEnable", payload).then(
+            () => this.load()
+          );
+        },
+      });
     },
   }
 };

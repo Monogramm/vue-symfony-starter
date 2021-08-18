@@ -23,6 +23,10 @@ export interface IUserMutations extends IReadWriteMutations<IUser, IUserState> {
   RESEND_CODE_SUCCESS(state: IUserState): void;
   // TODO RESEND_CODE_ERROR(state: IUserState, error: AxiosError): void;
 
+  SET_ENABLE_PENDING(state: IUserState): void;
+  SET_ENABLE_SUCCESS(state: IUserState): void;
+  SET_ENABLE_ERROR(state: IUserState, error: AxiosError<IError>): void;
+
 }
 
 export const UserMutationsDefault: IUserMutations = {
@@ -66,6 +70,19 @@ export const UserMutationsDefault: IUserMutations = {
   RESEND_CODE_SUCCESS(state: IUserState): void {
     state.isLoading = false;
     state.clearError();
+  },
+
+  SET_ENABLE_PENDING(state: IUserState): void {
+    state.isLoading = true;
+    state.clearError();
+  },
+  SET_ENABLE_SUCCESS(state: IUserState): void {
+    state.isLoading = false;
+    state.clearError();
+  },
+  SET_ENABLE_ERROR(state: IUserState, error: AxiosError<IError>): void {
+    state.isLoading = false;
+    state.saveError(error);
   },
 
 };
