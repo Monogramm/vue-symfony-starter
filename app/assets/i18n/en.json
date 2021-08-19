@@ -41,17 +41,20 @@
     "details": "Details",
     "username": {
       "label": "Username",
-      "placeholder": "Enter a username"
+      "placeholder": "Enter a username",
+      "format": "letters, numbers and the characters -."
     },
     "email": {
       "label": "Email",
-      "placeholder": "Enter an email address"
+      "placeholder": "Enter an email address",
+      "format": "valid email address, like user@mail.com"
     },
     "password": {
       "label": "Password",
       "placeholder": "Enter a password",
       "empty": "Password cannot be empty",
-      "confirm": "Confirm password"
+      "confirm": "Confirm password",
+      "format": "at least 6 characters"
     },
     "confirmation": {
       "create": "Confirm creation?",
@@ -65,7 +68,7 @@
     },
     "error": {
       "required-field-emmpty": "Please fill out this field",
-      "field-not-valid": "Please match the requested format"
+      "field-not-valid": "Please match the requested format: {format}"
     },
     "send": "Send",
     "user": "User",
