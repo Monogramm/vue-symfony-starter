@@ -28,7 +28,8 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
 
     public function supports(Request $request)
     {
-        return $request->headers->has('Authorization');
+        return $request->headers->has('Authorization')
+            && 0 === strpos($request->headers->get('Authorization'), 'Bearer ');
     }
 
     public function getCredentials(Request $request)
@@ -126,7 +127,7 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      * @param Request                 $request       The request.
      * @param AuthenticationException $authException An authentication exception.
      *
-     * @return Response|void
+     * @return JsonResponse
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {

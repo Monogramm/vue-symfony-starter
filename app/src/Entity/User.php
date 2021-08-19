@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -55,7 +54,7 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      * @Groups("admin")
      */
-    private $isVerified;
+    private $enabled;
 
     /**
      * @ORM\OneToMany(targetEntity="ApiToken", mappedBy="user", cascade={"REMOVE"})
@@ -63,22 +62,30 @@ class User implements UserInterface
     private $tokens;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @Groups("admin")
+     */
+    private $isVerified;
+
+    /**
      * @ORM\OneToOne(targetEntity="VerificationCode", mappedBy="user", cascade={"remove"})
      */
     private $verificationCode;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var array $metadata Metadata only used by frontend client(s).
+     * @ORM\Column(type="json")
+     * @Groups("default")
      */
-    private $enabled;
+    private $metadata = [];
 
     public function __construct(string $username = null, string $email = null, $verified = false, $enabled = true)
     {
-        $this->tokens = new ArrayCollection();
         $this->username = $username;
         $this->email = $email;
-        $this->isVerified = $verified;
         $this->enabled = $enabled;
+        $this->tokens = new ArrayCollection();
+        $this->isVerified = $verified;
     }
 
     public function getUsername(): ?string
@@ -86,6 +93,9 @@ class User implements UserInterface
         return $this->username;
     }
 
+    /**
+     * @return static
+     */
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -98,6 +108,9 @@ class User implements UserInterface
         return $this->email;
     }
 
+    /**
+     * @return static
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -110,6 +123,9 @@ class User implements UserInterface
         return $this->password;
     }
 
+    /**
+     * @return static
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -117,6 +133,9 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return null
+     */
     public function getSalt()
     {
         return null;
@@ -129,6 +148,24 @@ class User implements UserInterface
     {
     }
 
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    /**
+     * @return static
+     */
+    public function setLanguage(string $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -159,6 +196,11 @@ class User implements UserInterface
         return $this->hasRole('ROLE_ADMIN');
     }
 
+    /**
+     * @return string[]
+     *
+     * @psalm-return array{0: string, 1?: string}
+     */
     public function getAllowedGroups(): array
     {
         $groups = ['default'];
@@ -168,6 +210,36 @@ class User implements UserInterface
         }
 
         return $groups;
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return static
+     */
+    private function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function enable(): self
+    {
+        return $this->setEnabled(true);
+    }
+
+    /**
+     * @return static
+     */
+    public function disable(): self
+    {
+        return $this->setEnabled(false);
     }
 
     public function getTokens()
@@ -181,50 +253,23 @@ class User implements UserInterface
         $token->setUser($this);
     }
 
-    public function getLanguage(): ?string
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(string $language): self
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    private function setEnabled(bool $enabled): self
-    {
-        $this->enabled = $enabled;
-        return $this;
-    }
-
-    public function enable(): self
-    {
-        return $this->setEnabled(true);
-    }
-
-    public function disable(): self
-    {
-        return $this->setEnabled(false);
-    }
-
     public function isVerified()
     {
         return $this->isVerified;
     }
 
+    /**
+     * @return static
+     */
     private function setVerified(bool $verified): self
     {
         $this->isVerified = $verified;
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function verify(): self
     {
         $this->setVerified(true);
@@ -236,6 +281,9 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function unverify(): self
     {
         $this->setVerified(false);
@@ -257,5 +305,68 @@ class User implements UserInterface
     public function getVerificationCode()
     {
         return $this->verificationCode;
+    }
+
+    /**
+     * Get user metadata.
+     * @return array the metadata only used by frontend client(s).
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * Set the user metadata.
+     *
+     * @param array $metadata the new user metadata
+     *
+     * @return static
+     */
+    public function setMetadata(array $metadata): self
+    {
+        $this->metadata = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Get a specific field from the user metadata.
+     * @param string $meta the user metadata to retrieve
+     * @param mixed $default the default value if not present
+     * @return mixed
+     */
+    public function getMeta(string $meta, $default = null)
+    {
+        return $this->metadata[$meta] ?? $default;
+    }
+
+    /**
+     * Set a specific field in the user metadata.
+     *
+     * @param string $meta the user metadata field to set
+     * @param mixed $data the new user metadata
+     *
+     * @return static
+     */
+    public function setMeta(string $meta, $data): self
+    {
+        $this->metadata[$meta] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Unset a specific field in the user metadata.
+     *
+     * @param string $meta the user metadata field to unset
+     *
+     * @return static
+     */
+    public function unsetMeta(string $meta): self
+    {
+        unset($this->metadata[$meta]);
+
+        return $this;
     }
 }

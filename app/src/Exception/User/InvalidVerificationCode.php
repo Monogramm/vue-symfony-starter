@@ -4,27 +4,24 @@
 namespace App\Exception\User;
 
 use App\Exception\ApiExceptionInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
-class InvalidVerificationCode extends \RuntimeException implements ApiExceptionInterface
+class InvalidVerificationCode extends HttpException implements ApiExceptionInterface
 {
-    protected $code = 1004;
-    protected $httpErrorCode = 400;
-    protected $message = 'error.user.invalid.verification.code';
+    protected const ERROR_CODE  = 1004;
+    protected const STATUS_CODE = Response::HTTP_BAD_REQUEST;
+    protected const MESSAGE     = 'error.user.invalid.verification.code';
 
-    public function __construct(Throwable $previous = null)
+    public function __construct(Throwable $previous = null, array $headers = [])
     {
-        parent::__construct($this->message, $this->code, $previous);
-    }
-
-    public function getStatusCode(): int
-    {
-        return $this->code;
-    }
-
-    public function getHttpErrorCode(): int
-    {
-        return $this->httpErrorCode;
+        parent::__construct(
+            self::STATUS_CODE,
+            self::MESSAGE,
+            $previous,
+            $headers,
+            self::ERROR_CODE
+        );
     }
 }

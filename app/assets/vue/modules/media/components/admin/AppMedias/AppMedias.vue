@@ -2,6 +2,7 @@
   <div class="box">
     <b-button
       type="is-primary"
+      icon-left="plus"
       class="field"
       @click="create"
     >
@@ -62,12 +63,14 @@
         <div class="buttons">
           <b-button
             type="is-warning"
+              icon-left="edit"
             @click="edit(props.row.id)"
           >
             {{ $t("common.edit") }}
           </b-button>
           <b-button
             type="is-danger"
+              icon-left="trash"
             @click="deleteMedia(props.row.id)"
           >
             {{ $t("common.delete") }}

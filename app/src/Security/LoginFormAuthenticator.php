@@ -52,6 +52,9 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
         return json_decode($request->getContent(), true);
     }
 
+    /**
+     * @return \App\Entity\User|null
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         if (!isset($credentials['username'])) {
@@ -82,13 +85,21 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         return new JsonResponse([], Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationSuccessResponse
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $token->setAttribute('source', 'local');
+        $token->setAttribute('provider', $providerKey);
         return $this->successHandler->onAuthenticationSuccess($request, $token);
     }
 

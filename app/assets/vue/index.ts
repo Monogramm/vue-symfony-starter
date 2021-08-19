@@ -18,7 +18,7 @@ axios.interceptors.request.use(function(config) {
 
 router.beforeEach(async (to: Route, from: Route, next: any) => {
   const token = localStorage.getItem("token");
-  if (token) {
+  if (token && !store.state.auth.isLoggedIn()) {
     await store.dispatch("auth/getAuthUser");
   }
 
@@ -119,6 +119,8 @@ import {
   faMagic,
   faEdit,
   faCopy,
+  faSave,
+  faTrash,
   faFilter,
   faSignInAlt,
   faSignOutAlt,
@@ -173,6 +175,8 @@ library.add(
   faEdit,
   faCopy,
   faFilter,
+  faSave,
+  faTrash,
   faSignInAlt,
   faSignOutAlt,
   faUpload,

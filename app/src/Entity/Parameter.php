@@ -38,11 +38,26 @@ class Parameter
      */
     private $type;
 
+    public function __construct(
+        $name = null,
+        $value = null,
+        $description = null,
+        $type = self::STRING_TYPE
+    ) {
+        $this->name = $name;
+        $this->value = $value;
+        $this->description = $description;
+        $this->type = $type;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @return static
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -55,6 +70,9 @@ class Parameter
         return $this->value;
     }
 
+    /**
+     * @return static
+     */
     public function setValue(string $value): self
     {
         $this->value = $value;
@@ -67,6 +85,9 @@ class Parameter
         return $this->description;
     }
 
+    /**
+     * @return static
+     */
     public function setDescription(?string $description): self
     {
         $this->description = $description;

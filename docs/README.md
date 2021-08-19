@@ -36,6 +36,11 @@ This project uses the following technologies:
     -   [Codacy](https://www.codacy.com/) code quality and code coverage review
     -   [Snyk](https://snyk.io/) security review
 
+-   Monitoring, Reporting and SEO:
+    -   Integration with Google Analytics and Matomo
+    -   Integration with Prometheus / Grafana and custom metrics possible (POC)
+    -   Integration with ELK Stack possible (POC)
+
 -   Source Code Management templates:
     -   GitHub [Issue and PR templates](https://docs.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
     -   GitLab [Issue and MR templates](https://docs.gitlab.com/ee/user/project/description_templates.html)
@@ -81,3 +86,7 @@ Check repository on GitHub for details: <https://github.com/Monogramm/vue-symfon
 ## Contributing
 
 For information about contributing, see the [Contributing page](https://github.com/Monogramm/vue-symfony-starter/blob/master/CONTRIBUTING.md).
+
+## License
+
+For information about license, see the [license page](https://github.com/Monogramm/vue-symfony-starter/blob/main/LICENSE).
