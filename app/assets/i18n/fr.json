@@ -54,7 +54,9 @@
       "placeholder": "Entrer un mot de passe",
       "empty": "Le mot de passe ne peut pas être vide",
       "confirm": "Confirmer mot de passe",
-      "format": "at least 6 characters"
+      "format": "at least 6 characters",
+      "not-username": "Le mot de passe ne doit pas être le nom d'utilisateur !",
+      "not-email": "Le mot de passe ne doit pas être l'e-mail !"
     },
     "confirmation": {
       "create": "Confirmer création ?",
