@@ -28,6 +28,8 @@ import { Pagination } from "../../../../interfaces/pagination";
 import { Criteria } from "../../../../interfaces/criteria";
 import { Sort } from "../../../../interfaces/sort";
 
+import { EnablePayload } from '../../actions';
+
 import AppUsers from "../../components/admin/AppUsers/AppUsers.vue";
 
 export default {

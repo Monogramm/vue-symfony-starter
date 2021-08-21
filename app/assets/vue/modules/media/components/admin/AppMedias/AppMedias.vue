@@ -63,14 +63,14 @@
         <div class="buttons">
           <b-button
             type="is-warning"
-              icon-left="edit"
+            icon-left="edit"
             @click="edit(props.row.id)"
           >
             {{ $t("common.edit") }}
           </b-button>
           <b-button
             type="is-danger"
-              icon-left="trash"
+            icon-left="trash"
             @click="deleteMedia(props.row.id)"
           >
             {{ $t("common.delete") }}
