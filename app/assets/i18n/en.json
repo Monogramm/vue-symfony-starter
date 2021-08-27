@@ -38,6 +38,7 @@
     "delete": "Delete",
     "manage": "Manage",
     "view": "View",
+    "refresh": "Refresh",
     "details": "Details",
     "username": {
       "label": "Username",
