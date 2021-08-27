@@ -9,6 +9,8 @@ var urlsToCache = [
   //'/build/app.js',
 ];
 
+var ignorePath = '/api';
+
 // Install stage sets up the index page (home page) in the cache and opens a new cache
 this.addEventListener('install', function (event) {
   console.log('[SW] Install Event processing');
@@ -87,6 +89,10 @@ function fetchFromNetworkAndCache(event) {
     }
     // regardless, we don't want to cache other origin's assets
     if (new URL(res.url).origin !== location.origin) {
+      return res;
+    }
+    // XXX never cache ignored path (usually API, to ensure always fresh results)
+    if (!!location.pathname && location.pathname.startsWith(ignorePath)) {
       return res;
     }
 
