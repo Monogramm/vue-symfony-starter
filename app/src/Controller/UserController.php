@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor;
+use Prometheus\CollectorRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,6 +43,7 @@ class UserController extends AbstractController
         ValidatorInterface $validator,
         UserRegistrationHandler $registrationHandler,
         EventDispatcherInterface $dispatcher,
+        CollectorRegistry $collectionRegistry,
         PasswordCheckHandler $passwordChecker
     ): Response {
         /** @var User */
@@ -76,6 +78,17 @@ class UserController extends AbstractController
         }
 
         $savedUser = $registrationHandler->handle($user);
+
+        // Track creating a new enabled user
+        $counter = $collectionRegistry->getOrRegisterCounter(
+            'app',
+            'user_created',
+            'users created',
+            ['type']
+        );
+
+        $counter->inc(['all']);
+        $counter->inc(['enabled']);
 
         $dispatcher->dispatch(new UserCreatedEvent($savedUser));
 
