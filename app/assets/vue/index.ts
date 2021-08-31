@@ -10,7 +10,25 @@ import store from "./store/index";
 axios.interceptors.request.use(function(config) {
   const token = localStorage.getItem("token");
   if (token) {
+    if (!!!config.headers) {
+      config.headers = {};
+    }
     config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  const impersonate = localStorage.getItem("impersonate");
+  if (!!impersonate) {
+    if (!!!config.headers) {
+      config.headers = {};
+    }
+    // WARN When building production, axios sends header in lowercase
+    // https://github.com/axios/axios/issues/413
+    config.headers.HTTP_X_SWITCH_USER = impersonate;
+
+    if (!!!config.params) {
+      config.params = {};
+    }
+    config.params._switch_user = impersonate;
   }
 
   return config;
@@ -26,7 +44,7 @@ router.beforeEach(async (to: Route, from: Route, next: any) => {
     if (!store.state.auth.isLoggedIn()) {
       return next({ name: "Login" });
     }
-    let isAdmin = store.state.auth.hasRole("ADMIN");
+    let isAdmin = store.state.auth.hasRole("ADMIN", "ROLE_");
     if (!isAdmin) {
       return next({ name: "Error" });
     } else {

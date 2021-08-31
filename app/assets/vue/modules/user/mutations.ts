@@ -10,8 +10,7 @@ export interface IUserMutations extends IReadWriteMutations<IUser, IUserState> {
 
   PASSWORD_CHANGE_PENDING(state: IUserState): void;
   PASSWORD_CHANGE_SUCCESS(state: IUserState): void;
-  PASSWORD_CHANGE_ERROR(state: IUserState, error: AxiosError<
-    IError>): void;
+  PASSWORD_CHANGE_ERROR(state: IUserState, error: AxiosError<IError>): void;
 
   DISABLE_ACCOUNT_SUCCESS(state: IUserState): void;
 

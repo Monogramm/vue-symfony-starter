@@ -4,61 +4,58 @@
     @submit.prevent
   >
     <b-field
-      :label="$t('parameters.name')"
-      :type="fieldType('name')"
-      :message="fieldMessage('name')"
+      :label="$t('users.username')"
+      :type="fieldType('username')"
+      :message="fieldMessage('username')"
     >
       <b-input
-        v-model="parameter.name"
+        v-model="user.username"
         maxlength="255"
         required
         :disabled="isLoading"
-        @change="updateParent('name', $event.target.value)"
+        @change="updateParent('username', $event.target.value)"
       />
     </b-field>
 
     <b-field
-      :label="$t('parameters.value')"
-      :type="fieldType('value')"
-      :message="fieldMessage('value')"
+      :label="$t('users.email')"
+      :type="fieldType('email')"
+      :message="fieldMessage('email')"
     >
       <b-input
-        v-model="parameter.value"
-        maxlength="4096"
+        v-model="user.email"
+        maxlength="255"
+        required
         :disabled="isLoading"
-        @change="updateParent('value', $event.target.value)"
+        @change="updateParent('email', $event.target.value)"
       />
     </b-field>
 
     <b-field
-      :label="$t('parameters.type')"
-      :type="fieldType('type')"
-      :message="fieldMessage('type')"
+      :label="$t('users.language')"
+      :type="fieldType('language')"
+      :message="fieldMessage('language')"
     >
-      <b-select
-        v-model="parameter.type"
-        required
-        :placeholder="$t('parameters.types')"
-        @input.native.prevent="updateParent('type', $event.target.value)"
-      >
-        <option
-          v-for="type in types"
-          :key="type"
-          :value="type"
-        >
-          {{ type }}
-        </option>
-      </b-select>
-    </b-field>
-
-
-    <b-field :label="$t('parameters.description')">
       <b-input
-        v-model="parameter.description"
-        type="textarea"
+        v-model="user.language"
+        maxlength="2"
         required
         :disabled="isLoading"
-        @change="updateParent('description', $event.target.value)"
+        @change="updateParent('language', $event.target.value)"
+      />
+    </b-field>
+
+    <b-field
+      :label="$t('users.roles')"
+      :type="fieldType('roles')"
+      :message="fieldMessage('roles')"
+    >
+      <b-taginput
+        v-model="user.roles"
+        icon="angle-right"
+        :placeholder="$t('users.roles-placeholder')"
+        :disabled="isLoading"
+        @change="updateParent('roles', $event.target.value)"
       />
     </b-field>
 
@@ -75,14 +72,14 @@
 </template>
 
 <script lang="ts">
-import { IParameter, Parameter } from "../../../interfaces/parameter";
+import { IUser, User } from "../../../interfaces/user";
 
 export default {
-  name: "AppParameter",
+  name: "AppUser",
   props: {
-    parameter: {
+    user: {
       type: Object,
-      default: () => new Parameter()
+      default: () => new User()
     },
     error: {
       type: Object,
@@ -92,15 +89,11 @@ export default {
       type: Boolean,
       default: false
     },
-    types: {
-      type: Array,
-      default: [] as string[]
-    }
   },
   computed: {
     isEdit() {
-      return !!this.parameter.id;
-    }
+      return !!this.user.id;
+    },
   },
   methods: {
     updateParent(property: string, value: string) {

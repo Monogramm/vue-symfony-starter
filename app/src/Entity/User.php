@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,13 +14,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="`user`")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity("username")
+ * @UniqueEntity("email")
  */
 class User implements UserInterface
 {
     use EntityTrait;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, unique=true)
      * @Assert\NotBlank
      * @Assert\Length(min=3)
      * @Groups("admin")
@@ -26,7 +30,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank
      * @Assert\Email
      * @Groups("admin")
@@ -69,6 +73,7 @@ class User implements UserInterface
     private $isVerified;
 
     /**
+     * @var VerificationCode
      * @ORM\OneToOne(targetEntity="VerificationCode", mappedBy="user", cascade={"remove"})
      */
     private $verificationCode;
@@ -192,6 +197,11 @@ class User implements UserInterface
         return in_array($role, $this->roles, true);
     }
 
+    public function addRole(string $role): void
+    {
+        array_push($this->roles, $role);
+    }
+
     public function isAdmin(): bool
     {
         return $this->hasRole('ROLE_ADMIN');
@@ -303,7 +313,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getVerificationCode()
+    public function getVerificationCode(): ?VerificationCode
     {
         return $this->verificationCode;
     }
@@ -319,9 +329,7 @@ class User implements UserInterface
 
     /**
      * Set the user metadata.
-     *
      * @param array $metadata the new user metadata
-     *
      * @return static
      */
     public function setMetadata(array $metadata): self
@@ -344,10 +352,8 @@ class User implements UserInterface
 
     /**
      * Set a specific field in the user metadata.
-     *
      * @param string $meta the user metadata field to set
      * @param mixed $data the new user metadata
-     *
      * @return static
      */
     public function setMeta(string $meta, $data): self
@@ -359,9 +365,7 @@ class User implements UserInterface
 
     /**
      * Unset a specific field in the user metadata.
-     *
      * @param string $meta the user metadata field to unset
-     *
      * @return static
      */
     public function unsetMeta(string $meta): self

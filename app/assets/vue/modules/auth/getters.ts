@@ -14,6 +14,8 @@ export interface IAuthGetters {
   authUser(state: IAuthState): IUser;
   isLoggedIn(state: IAuthState): boolean;
   isAdmin(state: IAuthState): boolean;
+  isImpersonator(state: IAuthState): boolean;
+  impersonating(state: IAuthState): string;
   language(state: IAuthState): string;
 }
 
@@ -37,7 +39,13 @@ export const AuthGettersDefault: IAuthGetters = {
     return state.isLoggedIn();
   },
   isAdmin(state: IAuthState): boolean {
-    return state.hasRole("ADMIN");
+    return state.hasRole("ADMIN", "ROLE_");
+  },
+  isImpersonator(state: IAuthState): boolean {
+    return state.isImpersonator();
+  },
+  impersonating(state: IAuthState): string {
+    return state.impersonate;
   },
   language(state: IAuthState): string {
     // TODO Get language from browser
