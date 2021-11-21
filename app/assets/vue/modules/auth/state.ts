@@ -20,7 +20,8 @@ export interface IAuthState extends IApiState<AuthAPI> {
 
   isLoggedIn(): boolean;
   isImpersonator(): boolean;
-  hasRole(role: string, prefix: string): boolean;
+  hasRole(role: string): boolean;
+  isGranted(permission: string): boolean;
 }
 
 /**
@@ -42,11 +43,15 @@ export class AuthState extends AbstractState implements IAuthState {
   }
 
   isImpersonator(): boolean {
-    return this.hasRole("PREVIOUS_ADMIN", "ROLE_") || this.hasRole("IMPERSONATOR", "IS_");
+    return this.hasRole("PREVIOUS_ADMIN") || this.isGranted("IS_IMPERSONATOR");
   }
 
-  hasRole(role: string, prefix: string = "ROLE_"): boolean {
-    return this.isLoggedIn() && this.authUser.roles.includes(prefix + role);
+  hasRole(role: string): boolean {
+    return this.isGranted("ROLE_" + role);
+  }
+
+  isGranted(permission: string): boolean {
+    return this.isLoggedIn() && this.authUser.roles.includes(permission);
   }
 }
 

@@ -182,14 +182,14 @@ class User implements UserInterface
     public function getRoles()
     {
         // Ensure there are no duplicates AND no holes in array keys
-        $roles = [];
+        $tempRoles = [];
         foreach ($this->roles as $role) {
-            if (!in_array($role, $roles)) {
-                $roles[] = $role;
+            if (!in_array($role, $tempRoles)) {
+                $tempRoles[] = $role;
             }
         }
 
-        return $roles;
+        return $tempRoles;
     }
 
     public function hasRole(string $role): bool
@@ -301,13 +301,13 @@ class User implements UserInterface
 
         if ($this->hasRole('ROLE_VERIFIED_USER')) {
             // Ensure there are no duplicates AND no holes in array keys
-            $roles = [];
+            $tempRoles = [];
             foreach ($this->roles as $role) {
-                if ($role !== 'ROLE_VERIFIED_USER' && !in_array($role, $roles)) {
-                    $roles[] = $role;
+                if ($role !== 'ROLE_VERIFIED_USER' && !in_array($role, $tempRoles)) {
+                    $tempRoles[] = $role;
                 }
             }
-            $this->roles[] = $roles;
+            $this->roles[] = $tempRoles;
         }
 
         return $this;

@@ -69,8 +69,8 @@ export const AuthActionsDefault: IAuthActions = {
     commit(`STOP_IMPERSONATION_PENDING`);
     try {
       commit(`STOP_IMPERSONATION_SUCCESS`);
-    } catch (e) {
-      commit(`STOP_IMPERSONATION_FAILED`);
+    } catch (error) {
+      commit(`STOP_IMPERSONATION_FAILED`, error);
     }
     return null;
   },

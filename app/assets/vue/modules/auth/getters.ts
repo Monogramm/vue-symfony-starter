@@ -39,7 +39,7 @@ export const AuthGettersDefault: IAuthGetters = {
     return state.isLoggedIn();
   },
   isAdmin(state: IAuthState): boolean {
-    return state.hasRole("ADMIN", "ROLE_");
+    return state.hasRole("ADMIN");
   },
   isImpersonator(state: IAuthState): boolean {
     return state.isImpersonator();

@@ -36,15 +36,11 @@ export const AuthMutationsDefault: IAuthMutations =  {
 
   GET_USER_PENDING(state: IAuthState): void {
     state.isLoading = true;
-    state.error.code = null;
-    state.error.message = null;
-    state.error.status = null;
+    state.error.clear();
   },
   GET_USER_SUCCESS(state: IAuthState, response: AxiosResponse<IUser>): void {
     state.isLoading = false;
-    state.error.code = null;
-    state.error.message = null;
-    state.error.status = null;
+    state.error.clear();
     if (response.data) {
       state.authUser = response.data;
     }
@@ -58,14 +54,11 @@ export const AuthMutationsDefault: IAuthMutations =  {
 
   LOGIN_PENDING(state: IAuthState): void {
     state.isLoading = true;
-    state.error.code = null;
-    state.error.message = null;
-    state.error.status = null;
+    state.error.clear();
   },
   LOGIN_SUCCESS(state: IAuthState, loginPayload: ILoginToken): void {
     state.isLoading = false;
-    state.error.code = null;
-    state.error.message = null;
+    state.error.clear();
     state.token.update(loginPayload);
     localStorage.setItem("token", loginPayload.token);
   },
@@ -80,9 +73,7 @@ export const AuthMutationsDefault: IAuthMutations =  {
 
   LOGOUT_PENDING(state: IAuthState): void {
     state.isLoading = true;
-    state.error.code = null;
-    state.error.message = null;
-    state.error.status = null;
+    state.error.clear();
   },
   LOGOUT_SUCCESS(state: IAuthState): void {
     state.isLoading = false;
@@ -106,14 +97,11 @@ export const AuthMutationsDefault: IAuthMutations =  {
 
   START_IMPERSONATION_PENDING(state: IAuthState): void {
     state.isLoading = true;
-    state.error.code = null;
-    state.error.message = null;
-    state.error.status = null;
+    state.error.clear();
   },
   START_IMPERSONATION_SUCCESS(state: IAuthState, username: string): void {
     state.isLoading = false;
-    state.error.code = null;
-    state.error.message = null;
+    state.error.clear();
     state.authUser = null;
     state.impersonate = username;
     localStorage.setItem("impersonate", username);
@@ -129,9 +117,7 @@ export const AuthMutationsDefault: IAuthMutations =  {
 
   STOP_IMPERSONATION_PENDING(state: IAuthState): void {
     state.isLoading = true;
-    state.error.code = null;
-    state.error.message = null;
-    state.error.status = null;
+    state.error.clear();
   },
   STOP_IMPERSONATION_SUCCESS(state: IAuthState): void {
     state.isLoading = false;
