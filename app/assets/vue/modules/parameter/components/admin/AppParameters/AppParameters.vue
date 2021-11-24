@@ -141,11 +141,11 @@ export default {
     },
     formatValue(value: string, type: string) {
       if (type === 'secret') {
-        return '••••••••'
+        return '••••••••';
       }
 
       if (type === 'number') {
-        return Number(value)
+        return Number(value);
       }
 
       return value;
