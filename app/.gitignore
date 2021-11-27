@@ -37,3 +37,8 @@ yarn-error.log
 ###< squizlabs/php_codesniffer ###
 
 /public/uploads/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
