@@ -4,44 +4,47 @@
 namespace App\Handler\Security;
 
 use App\Entity\User;
-use App\Exception\User\PasswordInvalid;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PasswordChangeHandler
 {
-    private $em;
+    private $emi;
+
+    private $passwordChecker;
 
     private $passwordEncoder;
 
     public function __construct(
-        EntityManagerInterface $em,
+        EntityManagerInterface $emi,
+        PasswordCheckHandler $passwordChecker,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
-        $this->em = $em;
+        $this->emi = $emi;
+        $this->passwordChecker = $passwordChecker;
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function handle(string $newPassword, string $confirmPassword, string $oldPassword, User $user): void
+    public function handle(string $newPassword, string $confirmPassword, ?string $oldPassword, User $user): bool
     {
-        $isValid = $this->passwordEncoder->isPasswordValid($user, $oldPassword);
+        // Should throw appropriate exception if not valid
+        $isValid = $this->passwordChecker->handle($newPassword, $confirmPassword, $oldPassword, $user);
 
         if (!$isValid) {
-            throw new PasswordInvalid();
-        }
-
-        if ($newPassword !== $confirmPassword) {
-            throw new PasswordInvalid();
+            return false;
         }
 
         $newPassword = $this->passwordEncoder->encodePassword($user, $newPassword);
 
         $user->setPassword($newPassword);
 
+        // Revoke all sessions
         foreach ($user->getTokens() as $token) {
-            $this->em->remove($token);
+            $this->emi->remove($token);
         }
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->emi->persist($user);
+        $this->emi->flush();
+
+        return true;
     }
 }

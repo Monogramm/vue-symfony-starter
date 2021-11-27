@@ -3,6 +3,7 @@
 namespace App\Service\Ldap;
 
 use Symfony\Component\Ldap\Adapter\CollectionInterface;
+use Symfony\Component\Ldap\Adapter\ExtLdap\EntryManager;
 use Symfony\Component\Ldap\Adapter\QueryInterface;
 use Symfony\Component\Ldap\Entry;
 use Symfony\Component\Ldap\Exception\LdapException;
@@ -129,7 +130,7 @@ class Client
     }
 
     /**
-     * @return String|bool
+     * @return bool
      *
      * @throws LdapException When the query given was not right
      */
@@ -143,23 +144,58 @@ class Client
     }
 
     /**
+     * Finding, resetting and updating an existing entry.
+     *
      * @return bool
      *
      * @throws LdapException
      */
-    public function update(string $fullDn, string $query, array $attributes = []) : bool
+    public function update(string $fullDn, string $query, array $attributes = []): bool
     {
-        // Finding and updating an existing entry
-        $entryManager = $this->ldap->getEntryManager();
         $entry = $this->get($query, $fullDn);
 
         if (empty($entry)) {
             return false;
         }
 
+        $this->resetEntry($entry);
+
+        return $this->updateEntry($entry, $attributes);
+    }
+
+    /**
+     * Finding and updating an existing entry.
+     *
+     * @return bool
+     *
+     * @throws LdapException
+     */
+    public function patch(string $fullDn, string $query, array $attributes = []): bool
+    {
+        $entry = $this->get($query, $fullDn);
+
+        if (empty($entry)) {
+            return false;
+        }
+
+        return $this->updateEntry($entry, $attributes);
+    }
+
+    private function resetEntry(Entry $entry): void
+    {
+        foreach ($entry->getAttributes() as $key => $value) {
+            $entry->setAttribute($key, []);
+        }
+    }
+
+    private function updateEntry(Entry $entry, array $attributes = []): bool
+    {
+        $entryManager = $this->ldap->getEntryManager();
+
         foreach ($attributes as $key => $value) {
             $entry->setAttribute($key, $value);
         }
+
         // XXX Check if it's possible to return the saved LDAP entry.
         $entryManager->update($entry);
 
@@ -169,11 +205,11 @@ class Client
     /**
      * Delete an entry from a directory.
      *
-     * @return bool
+     * @return true
      *
      * @throws LdapException
      */
-    public function delete(string $fullDn)
+    public function delete(string $fullDn): bool
     {
         // Removing an existing entry
         $entryManager = $this->ldap->getEntryManager();

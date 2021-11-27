@@ -27,7 +27,7 @@ class LdapLoginCommandUnitTest extends KernelTestCase
             ->disableOriginalClone()
             ->disableProxyingToOriginalMethods()
             ->disableOriginalConstructor()
-            ->setMethods(['execute'])
+            ->onlyMethods(['execute'])
             ->getMock();
 
         $ldapEntry = new Entry(
@@ -47,14 +47,14 @@ class LdapLoginCommandUnitTest extends KernelTestCase
             ->disableOriginalClone()
             ->disableProxyingToOriginalMethods()
             ->disableOriginalConstructor()
-            ->setMethods(['getConnection', 'createQuery', 'getEntryManager', 'escape'])
+            ->onlyMethods(['getConnection', 'createQuery', 'getEntryManager', 'escape'])
             ->getMock();
 
         $ldapConnectionMock = $this->getMockBuilder(ConnectionInterface::class)
             ->disableOriginalClone()
             ->disableProxyingToOriginalMethods()
             ->disableOriginalConstructor()
-            ->setMethods(['isBound', 'bind'])
+            ->onlyMethods(['isBound', 'bind'])
             ->getMock();
         $ldapConnectionMock->expects($this->exactly(0))
             ->method('isBound')

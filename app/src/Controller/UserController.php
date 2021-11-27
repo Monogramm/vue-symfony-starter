@@ -4,11 +4,18 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Event\UserCreatedEvent;
+use App\Exception\EntityValidationException;
+use App\Exception\User\ConfirmPasswordInvalid;
 use App\Exception\User\InvalidVerificationCode;
+use App\Handler\Security\PasswordCheckHandler;
 use App\Handler\UserRegistrationHandler;
 use App\Message\EmailNotification;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
+use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor;
+use Prometheus\CollectorRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,38 +27,72 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/api/user", name="user-create", methods={"POST"})
+     * @Route("/api/user", name="register_user", methods={"POST"})
      *
      * @return Response
      */
-    public function createUserAccount(
+    public function registerUserAccount(
         Request $request,
         SerializerInterface $serializer,
         ValidatorInterface $validator,
         UserRegistrationHandler $registrationHandler,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        CollectorRegistry $collectionRegistry,
+        PasswordCheckHandler $passwordChecker
     ): Response {
-        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        /** @var User */
+        $dto = $serializer->deserialize(
+            $request->getContent(),
+            User::class,
+            'json'
+        );
 
-        $errors = $validator->validate($user);
+        $errors = $validator->validate($dto);
 
         if (count($errors) > 0) {
-            $errorMessage = (string) $errors;
-
-            return new JsonResponse($errorMessage, 422);
+            // TODO Manage this errors on frontend
+            throw new EntityValidationException($errors);
         }
 
-        $savedUser = $registrationHandler->handle($user);
+        // Should throw appropriate exception if not valid
+        $data = json_decode($request->getContent(), true);
+        if (!isset($data['confirmPassword'])) {
+            throw new ConfirmPasswordInvalid();
+        }
+        $isValid = $passwordChecker->handle(
+            $dto->getPassword(),
+            $data['confirmPassword'],
+            null,
+            $dto
+        );
+
+        if (!$isValid) {
+            return new Response('', Response::HTTP_FORBIDDEN);
+        }
+
+        $savedUser = $registrationHandler->handle($dto);
+
+        // Track registering a new enabled user
+        $counter = $collectionRegistry->getOrRegisterCounter(
+            'app',
+            'user_registered',
+            'Users registered',
+            ['type']
+        );
+
+        $counter->inc(['all']);
+        $counter->inc(['enabled']);
 
         $dispatcher->dispatch(new UserCreatedEvent($savedUser));
 
-        return new Response('', 201);
+        return new Response('', Response::HTTP_CREATED);
     }
 
     /**
@@ -59,7 +100,7 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function verifyUser(Request $request, EntityManagerInterface $em): JsonResponse
+    public function verifyUser(Request $request, EntityManagerInterface $emi): JsonResponse
     {
         /**
          * @var User $user
@@ -79,9 +120,9 @@ class UserController extends AbstractController
         }
 
         $user->verify();
-        $em->persist($user);
-        $em->remove($code);
-        $em->flush();
+        $emi->persist($user);
+        $emi->remove($code);
+        $emi->flush();
 
         return new JsonResponse([]);
     }
@@ -133,12 +174,32 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function getCurrentUser(): JsonResponse
-    {
+    public function getCurrentUser(
+        Request $request,
+        JWTEncoderInterface $jwtEncoder
+    ): JsonResponse {
         /**
          * @var User $user
          */
         $user = $this->getUser();
+
+        $extractor = new AuthorizationHeaderTokenExtractor(
+            'Bearer',
+            'Authorization'
+        );
+
+        $token = $extractor->extract($request);
+        try {
+            $payload = $jwtEncoder->decode($token);
+        } catch (JWTDecodeFailureException $ex) {
+            // if no exception thrown then the token could be used
+            $payload = [];
+        }
+
+        // Merge token payload with current user metadata
+        $mergeMetadata = $user->getMetadata();
+        // XXX Maybe only extract part of the payload?
+        $mergeMetadata['auth'] = $payload;
 
         return new JsonResponse([
             'username' => $user->getUsername(),
@@ -146,6 +207,7 @@ class UserController extends AbstractController
             'roles' => $user->getRoles(),
             'isVerified' => $user->isVerified(),
             'language' => $user->getLanguage(),
+            'metadata' => $mergeMetadata,
         ]);
     }
 
@@ -154,7 +216,7 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function disableCurrentUser(EntityManagerInterface $em): JsonResponse
+    public function disableCurrentUser(EntityManagerInterface $emi): JsonResponse
     {
         /**
          * @var User $user
@@ -163,28 +225,10 @@ class UserController extends AbstractController
 
         $user->disable();
 
-        $em->persist($user);
-        $em->flush();
+        $emi->persist($user);
+        $emi->flush();
 
         return new JsonResponse([], 200);
-    }
-
-    /**
-     * @Route("/api/admin/users", methods={"GET"})
-     *
-     * @return JsonResponse
-     */
-    public function findAllByUsername(UserRepository $userRepository, Request $request): JsonResponse
-    {
-        if (!$request->get('username')) {
-            return new JsonResponse();
-        }
-
-        $usersArray = $userRepository->findAllLikeUsername(
-            $request->get('username')
-        );
-
-        return new JsonResponse($usersArray);
     }
 
     /**
@@ -220,5 +264,124 @@ class UserController extends AbstractController
             'total' => $total,
             'items' => $results
         ]);
+    }
+
+    /**
+     * @Route("/api/admin/user/{user}", name="get_user", methods={"GET"})
+     *
+     * @return JsonResponse
+     */
+    public function getUserById(
+        User $user,
+        SerializerInterface $serializer
+    ): JsonResponse {
+        $dto = $serializer->serialize($user, 'json', [AbstractNormalizer::GROUPS => 'admin']);
+
+        return JsonResponse::fromJsonString($dto);
+    }
+
+    /**
+     * @Route("/api/admin/user", name="create_user", methods={"POST"})
+     *
+     * @return JsonResponse
+     */
+    public function createUser(
+        Request $request,
+        SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        EntityManagerInterface $emi,
+        CollectorRegistry $collectionRegistry
+    ): JsonResponse {
+        /** @var User */
+        $dto = $serializer->deserialize(
+            $request->getContent(),
+            User::class,
+            'json'
+        );
+
+        $errors = $validator->validate($dto);
+
+        if (count($errors) > 0) {
+            throw new EntityValidationException($errors);
+        }
+
+        $emi->persist($dto);
+        $emi->flush();
+
+        // Track creating a new user
+        $counter = $collectionRegistry->getOrRegisterCounter(
+            'app',
+            'user_created',
+            'Users created',
+            ['type']
+        );
+
+        $counter->inc(['all']);
+
+        return JsonResponse::fromJsonString(
+            $serializer->serialize($dto, 'json', [AbstractNormalizer::GROUPS => 'admin'])
+        );
+    }
+
+    /**
+     * @Route("/api/admin/user/{user}", name="edit_user", methods={"PUT"})
+     *
+     * @return JsonResponse
+     */
+    public function editUserById(
+        User $user,
+        Request $request,
+        SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        EntityManagerInterface $emi
+    ): JsonResponse {
+        /**
+         * @var User $dto
+         */
+        $dto = $serializer->deserialize(
+            $request->getContent(),
+            User::class,
+            'json',
+            [ AbstractNormalizer::OBJECT_TO_POPULATE => $user ]
+        );
+
+        $errors = $validator->validate($dto);
+
+        if (count($errors) > 0) {
+            throw new EntityValidationException($errors);
+        }
+
+        $emi->persist($dto);
+        $emi->flush();
+
+        return JsonResponse::fromJsonString(
+            $serializer->serialize($dto, 'json', [AbstractNormalizer::GROUPS => 'admin'])
+        );
+    }
+
+    /**
+     * @Route("/api/admin/user/{user}/set-enable", name="set_enable_user", methods={"PUT"})
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     *
+     * @return JsonResponse
+     */
+    public function setEnable(
+        User $user,
+        Request $request,
+        EntityManagerInterface $emi
+    ): JsonResponse {
+        $enabled = $request->getContent();
+
+        if (!empty($enabled)) {
+            $user->enable();
+        } else {
+            $user->disable();
+        }
+
+        $emi->persist($user);
+        $emi->flush();
+
+        return new JsonResponse([], 200);
     }
 }

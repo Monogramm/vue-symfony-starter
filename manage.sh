@@ -48,6 +48,16 @@ lc-jwt-keys() {
     fi
 }
 
+lc-clear() {
+    # Clear any local deps
+    rm -rf \
+        app/node_modules/ \
+        app/var/ \
+        app/vendor/ \
+        app/config/jwt/private.pem \
+        app/config/jwt/public.pem
+}
+
 lc-build() {
     # Backend install
     log "Backend install..."
@@ -151,6 +161,25 @@ lc-test() {
 }
 
 lc-test-front() {
+    log "TODO Add frontend tests..."
+}
+
+lc-test-back() {
+    cd app
+    log "Init test database..."
+    php ./bin/console doctrine:migrations:migrate --no-interaction --env=test
+    php ./bin/console doctrine:fixtures:load --no-interaction --env=test
+    log "PHPUnit bug fixer..."
+    php ./bin/phpunit --coverage-text --coverage-html coverage/coverage-phpunit-html "$@"
+    cd ..
+}
+
+lc-lint() {
+    lc-lint-front
+    lc-lint-back
+}
+
+lc-lint-front() {
     cd app
     log "Stylelint on SCSS..."
     npx stylelint 'assets/styles/*.scss' --fix
@@ -165,13 +194,8 @@ lc-test-front() {
     cd ..
 }
 
-lc-test-back() {
+lc-lint-back() {
     cd app
-    log "Init test database..."
-    php ./bin/console doctrine:migrations:migrate --no-interaction --env=test
-    php ./bin/console doctrine:fixtures:load --no-interaction --env=test
-    log "PHPUnit bug fixer..."
-    php ./bin/phpunit --coverage-text "$@"
     #log "PHPStan..."
     #vendor/bin/phpstan analyse src tests
     log "PHP_CodeSniffer bug fixer..."
@@ -349,6 +373,24 @@ dc-test() {
 }
 
 dc-test-front() {
+    log "TODO Add frontend tests..."
+}
+
+dc-test-back() {
+    log "Init test database..."
+    dc-exec "${1}" "${2}" php ./bin/console doctrine:migrations:migrate --no-interaction --env=test
+    dc-exec "${1}" "${2}" php ./bin/console doctrine:fixtures:load --no-interaction --env=test
+    log "PHPUnit bug fixer..."
+    dc-exec "${1}" "${2}" php ./bin/phpunit --coverage-text --coverage-html coverage/coverage-phpunit-html
+}
+
+dc-lint() {
+    log 'Executing container(s) lint...'
+    dc-lint-front "${1}" "${2}"
+    dc-lint-back "${1}" "${3}"
+}
+
+dc-lint-front() {
     log "Stylelint on SCSS..."
     dc-exec "${1}" "${2}" npx stylelint 'assets/styles/*.scss' --fix
 
@@ -361,18 +403,13 @@ dc-test-front() {
     dc-exec "${1}" "${2}" npx eslint 'assets/vue/**/*.vue' --fix
 }
 
-dc-test-back() {
-    log "Init test database..."
-    dc-exec "${1}" "${2}" php ./bin/console doctrine:migrations:migrate --no-interaction --env=test
-    dc-exec "${1}" "${2}" php ./bin/console doctrine:fixtures:load --no-interaction --env=test
-    log "PHPUnit bug fixer..."
-    dc-exec "${1}" "${2}" php ./bin/phpunit --coverage-text --coverage-html coverage/coverage-phpunit-html
+dc-lint-back() {
     #log "PHPStan..."
     #vendor/bin/phpstan analyse src tests
     log "PHP_CodeSniffer bug fixer..."
     dc-exec "${1}" "${2}" vendor/bin/phpcbf src tests
     log "Psalm (with auto-fixes)..."
-    dc-exec "${1}" "${2}" vendor/bin/psalm --alter --issues=MissingParamType,MissingReturnType,InvalidReturnType,InvalidNullableReturnType
+    dc-exec "${1}" "${2}" vendor/bin/psalm --alter --issues=MissingParamType,MissingReturnType,InvalidReturnType,InvalidNullableReturnType,MismatchingDocblockParamType,MismatchingDocblockReturnType
     log "Psalm..."
     dc-exec "${1}" "${2}" vendor/bin/psalm
     log "PHP Copy/Paste detector..."
@@ -395,7 +432,7 @@ dc-down() {
 }
 
 dc-console() {
-    dc "${1}" exec "${2}" php bin/console "${@:3}"
+    dc-exec "${1}" "${2}" php bin/console "${@:3}"
 }
 
 usage() {
@@ -404,6 +441,7 @@ usage() {
     Commands:
       local
         local:check, check-local                Check Local env requirements and security
+        local:clear, clear-local                Clear Local env
         local:build, build-local                Build Local env
         local:start, start-local                Start Local env (backend in background)
         local:start-front, start-local-front    Start Local env frontend
@@ -414,6 +452,9 @@ usage() {
         local:test, test-local                  Execute test of Local env
         local:test-front, test-front-local      Execute test of Frontend Local env
         local:test-back, test-back-local        Execute test of Backend Local env
+        local:lint, lint-local                  Execute lint of Local env
+        local:lint-front, lint-front-local      Execute lint of Frontend Local env
+        local:lint-back, lint-back-local        Execute lint of Backend Local env
         local:logs, logs-local                  Follow logs of Local env
         local:ps, ps-local                      List Local env servers
         local:console, console                  Send command to Local env bin/console
@@ -429,6 +470,9 @@ usage() {
         dev:test, test-dev                      Execute test of Docker Dev env
         dev:test-front, test-front-dev          Execute test of Frontend Docker Dev env
         dev:test-back, test-back-dev            Execute test of Backend Docker Dev env
+        dev:lint, lint-dev                      Execute lint of Docker Dev env
+        dev:lint-front, lint-front-dev          Execute lint of Frontend Docker Dev env
+        dev:lint-back, lint-back-dev            Execute lint of Backend Docker Dev env
         dev:logs, logs-dev                      Follow logs of Docker Dev env
         dev:exec, exec-dev                      Execute command in Docker Dev env
         dev:down, down-dev                      Stop and remove Docker Dev env
@@ -460,6 +504,7 @@ usage() {
 case "${1}" in
     # Local env
     local:check|check-local) lc-check;;
+    local:clear|clear-local) lc-clear;;
     local:build|build-local) lc-build;;
     local:start|start-local) lc-start;;
     local:start-front|start-local-front) lc-start-front "${@:2}";;
@@ -469,6 +514,9 @@ case "${1}" in
     local:test|test-local) lc-test "${@:2}";;
     local:test-front|test-front-local) lc-test-front "${@:2}";;
     local:test-back|test-back-local) lc-test-back "${@:2}";;
+    local:lint|lint-local) lc-lint "${@:2}";;
+    local:lint-front|lint-front-local) lc-lint-front "${@:2}";;
+    local:lint-back|lint-back-local) lc-lint-back "${@:2}";;
     local:logs|logs-local) lc-log-back "${@:2}";;
     local:ps|ps-local) lc-log-ps "${@:2}";;
     local:console|console-local) lc-console "${@:2}";;
@@ -485,6 +533,9 @@ case "${1}" in
     dev:test|test-dev) dc-test 'docker-compose.yml' 'app_dev_encore' 'app_dev_symfony';;
     dev:test-front|test-front-dev) dc-test-front 'docker-compose.yml' 'app_dev_encore';;
     dev:test-back|test-back-dev) dc-test-back 'docker-compose.yml' 'app_dev_symfony';;
+    dev:lint|lint-dev) dc-lint 'docker-compose.yml' 'app_dev_encore' 'app_dev_symfony';;
+    dev:lint-front|lint-front-dev) dc-lint-front 'docker-compose.yml' 'app_dev_encore';;
+    dev:lint-back|lint-back-dev) dc-lint-back 'docker-compose.yml' 'app_dev_symfony';;
     dev:logs|logs-dev) dc-logs 'docker-compose.yml' "${@:2}";;
     dev:exec|exec-dev) dc-exec 'docker-compose.yml' "${@:2}";;
     dev:down|down-dev) dc-down 'docker-compose.yml' "${@:2}";;

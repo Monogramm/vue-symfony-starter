@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Parameter;
+use App\Exception\EntityValidationException;
 use App\Repository\ParameterRepository;
 use App\Service\Encryptor;
 use Doctrine\ORM\EntityManager;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ParameterController extends AbstractController
 {
@@ -91,7 +93,8 @@ class ParameterController extends AbstractController
     public function createParameter(
         Request $request,
         SerializerInterface $serializer,
-        EntityManagerInterface $em,
+        ValidatorInterface $validator,
+        EntityManagerInterface $emi,
         Encryptor $encryptor
     ): JsonResponse {
         $dto = $serializer->deserialize(
@@ -102,14 +105,20 @@ class ParameterController extends AbstractController
 
         if ($dto->isSecret()) {
             $dto->setValue(
-                $encryptor->decryptText(
+                $encryptor->encryptText(
                     $dto->getValue()
                 )
             );
         }
 
-        $em->persist($dto);
-        $em->flush();
+        $errors = $validator->validate($dto);
+
+        if (count($errors) > 0) {
+            throw new EntityValidationException($errors);
+        }
+
+        $emi->persist($dto);
+        $emi->flush();
 
         return JsonResponse::fromJsonString(
             $serializer->serialize($dto, 'json')
@@ -123,9 +132,10 @@ class ParameterController extends AbstractController
      */
     public function editParameterById(
         Parameter $parameter,
-        EntityManagerInterface $em,
         Request $request,
         SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        EntityManagerInterface $emi,
         Encryptor $encryptor
     ): JsonResponse {
         /**
@@ -146,8 +156,14 @@ class ParameterController extends AbstractController
             );
         }
 
-        $em->persist($dto);
-        $em->flush();
+        $errors = $validator->validate($dto);
+
+        if (count($errors) > 0) {
+            throw new EntityValidationException($errors);
+        }
+
+        $emi->persist($dto);
+        $emi->flush();
 
         return JsonResponse::fromJsonString(
             $serializer->serialize($dto, 'json')
@@ -161,10 +177,10 @@ class ParameterController extends AbstractController
      */
     public function deleteParameter(
         Parameter $parameter,
-        EntityManagerInterface $em
+        EntityManagerInterface $emi
     ): JsonResponse {
-        $em->remove($parameter);
-        $em->flush();
+        $emi->remove($parameter);
+        $emi->flush();
 
         return new JsonResponse([]);
     }

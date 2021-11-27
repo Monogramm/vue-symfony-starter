@@ -277,6 +277,7 @@ if [ -z "${DATABASE_URL}" ]; then
 fi
 
 if [ -z "${MAILER_DSN}" ]; then
+    # https://symfony.com/doc/current/mailer.html
     log "Initializing Symfony mailer DSN..."
 
     if [ -n "${MAILER_USER}" ] && [ -n "${MAILER_PASSWORD}" ]; then
@@ -366,7 +367,9 @@ if [ -n "${DATABASE_URL}" ]; then
         log "Generating default admin account..."
 
         php bin/console 'app:users:create' \
+            --role=USER \
             --role=ADMIN \
+            --role=SUPER_ADMIN \
             --verified \
             "${SF_ADMIN_LOGIN}" \
             "${SF_ADMIN_EMAIL}" \

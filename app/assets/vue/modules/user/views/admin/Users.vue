@@ -6,15 +6,32 @@
       </h1>
     </div>
 
-    <app-users
-      :users="items"
-      :is-loading="isLoading"
-      :per-page="pagination.size"
-      :total="total"
-      @pageChanged="onPageChange"
-      @filtersChanged="onFiltersChange"
-      @sortingChanged="onSortingChange"
-    />
+    <div class="box">
+      <div class="buttons">
+        <b-button
+          type="is-info"
+          icon-left="redo"
+          class="field"
+          :loading="isLoading"
+          @click="load"
+        >
+          {{ $t("common.refresh") }}
+        </b-button>
+      </div>
+
+      <app-users
+        :auth-user="authUser"
+        :users="items"
+        :is-loading="isLoading"
+        :per-page="pagination.size"
+        :total="total"
+        @edit="onEdit"
+        @pageChanged="onPageChange"
+        @filtersChanged="onFiltersChange"
+        @sortingChanged="onSortingChange"
+        @enabled="onEnableChange"
+      />
+    </div>
   </section>
 </template>
 
@@ -24,6 +41,8 @@ import { mapGetters } from "vuex";
 import { Pagination } from "../../../../interfaces/pagination";
 import { Criteria } from "../../../../interfaces/criteria";
 import { Sort } from "../../../../interfaces/sort";
+
+import { EnablePayload } from '../../actions';
 
 import AppUsers from "../../components/admin/AppUsers/AppUsers.vue";
 
@@ -36,7 +55,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("user", ["items", "total", "isLoading"])
+    ...mapGetters("user", ["items", "total", "isLoading"]),
+    ...mapGetters("auth", ["authUser"]),
   },
   created() {
     this.load();
@@ -44,6 +64,9 @@ export default {
   methods: {
     load() {
       this.$store.dispatch("user/getAll", this.pagination);
+    },
+    onEdit(userId: string) {
+      this.$router.push({ name: "UserEdit", params: { id: userId } });
     },
     onPageChange(page: string) {
       this.pagination.page = page;
@@ -62,6 +85,26 @@ export default {
       if (this.pagination.size > 0) {
         this.load();
       }
+    },
+    onEnableChange(userId: string, enabled: boolean) {
+      this.$buefy.dialog.confirm({
+        message: this.$t(
+          enabled ? "users.enable-message" : "users.disable-message"
+        ),
+        confirmText: this.$t("common.continue"),
+        cancelText: this.$t("common.cancel"),
+        type: "is-info",
+        hasIcon: true,
+        onConfirm: () => {
+          const payload: EnablePayload = {
+            userId: userId,
+            enabled: enabled,
+          };
+          this.$store.dispatch("user/setEnable", payload).then(
+            () => this.load()
+          );
+        },
+      });
     },
   }
 };

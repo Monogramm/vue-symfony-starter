@@ -9,32 +9,43 @@
           {{ $t("component.password-change.title") }}
         </p>
       </header>
+
       <section class="modal-card-body">
         <b-field
+          v-if="showOldPassword"
           :label="$t('component.password-change.old.label')"
-          :type="{ 'is-danger': !!!oldPassword || (hasError && error.code === 1003) }"
-          :message="error.message"
+          :type="{ 'is-danger': !!!payload.oldPassword || (hasError && error.code === 1003) }"
+          :message="(hasError && error.code === 1003) ? error.message : ''"
         >
           <b-input
-            v-model="oldPassword"
+            v-model="payload.oldPassword"
             type="password"
             required
             password-reveal
             :placeholder="$t('component.password-change.old.placeholder')"
           />
         </b-field>
-        <b-field :label="$t('component.password-change.new.label')">
+
+        <b-field
+          :label="$t('component.password-change.new.label')"
+          :type="{ 'is-danger': !!!payload.newPassword || (hasError && error.code === 1004) }"
+          :message="(hasError && error.code === 1004) ? error.message : ''"
+        >
           <b-input
-            v-model="newPassword"
+            v-model="payload.newPassword"
             type="password"
             required
             password-reveal
             :placeholder="$t('component.password-change.new.placeholder')"
           />
         </b-field>
-        <b-field :label="$t('component.password-change.confirm.label')">
+        <b-field
+          :label="$t('component.password-change.confirm.label')"
+          :type="{ 'is-danger': !!!payload.confirmPassword || (hasError && error.code === 1005) }"
+          :message="(hasError && error.code === 1005) ? error.message : ''"
+        >
           <b-input
-            v-model="confirmPassword"
+            v-model="payload.confirmPassword"
             type="password"
             required
             :placeholder="$t('component.password-change.confirm.placeholder')"
@@ -49,9 +60,9 @@
         <b-button
           type="is-primary"
           native-type="submit"
-          :loading="isLoading"
-          :disabled="!isValid()"
-          @click="changePassword()"
+          :loading="loading"
+          :disabled="!payload.isValid()"
+          @click="submit()"
         >
           {{ $t("common.validate") }}
         </b-button>
@@ -62,56 +73,62 @@
 
 <script lang="ts">
 import { mapGetters } from "vuex";
+import { Error } from '../../../../interfaces/error';
+import { UserPasswordChangeDefault } from '../../interfaces';
 
 export default {
   name: "AppPasswordChangeModal",
+  props: {
+    showOldPassword: {
+      type: Boolean,
+      default: true
+    },
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    error: {
+      type: Error,
+      default: null
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+  },
   data() {
     return {
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-      duration: 2000
+      payload: UserPasswordChangeDefault()
     };
   },
   computed: {
-    ...mapGetters("user", ["isLoading", "hasError", "error"]),
-    confirmErrorMessage: {
-      get(): any {
-        return {
-          [this.$t("common.password.empty")]:
-            this.newPassword !== "" && this.confirmPassword !== "",
-          [this.$t("common.password.confirm")]:
-            this.newPassword !== this.confirmPassword
-        };
-      },
-      set(value: any) {
-        return value;
-      }
+    confirmErrorMessage() {
+      return {
+        [this.$t("common.password.empty")]:
+          this.payload.newPassword !== "" && this.payload.confirmPassword !== "",
+        [this.$t("common.error.field-not-valid", {format: this.$t("common.password.format")})]:
+          !!this.payload.newPassword && !this.payload.isPasswordValid,
+        [this.$t("common.password.confirm")]:
+          this.payload.newPassword !== this.payload.confirmPassword
+      };
+    },
+    isPasswordValid() {
+      // TODO Check complexity
+      return this.payload.newPassword.length >= 6;
+    },
+  },
+  created() {
+    if (this.showOldPassword === false) {
+      this.payload.oldPassword = null;
     }
   },
   methods: {
-    isValid() {
-      return (
-        !!this.oldPassword &&
-        !!this.newPassword &&
-        !!this.confirmPassword &&
-        this.newPassword === this.confirmPassword
-      );
-    },
-    async changePassword() {
-      if (this.isValid()) {
-        const data = {
-          oldPassword: this.oldPassword,
-          newPassword: this.newPassword,
-          confirmPassword: this.confirmPassword
-        };
-        this.$store.dispatch("user/passwordChange", data).then(() => {
-          if (!this.hasError) {
-            this.$store.dispatch("auth/logout");
-            this.$router.push({ name: "Login" });
-          }
-        });
+    submit() {
+      if (!this.payload.isValid()) {
+        return;
       }
+
+      this.$emit("submit", this.payload);
     }
   }
 };
