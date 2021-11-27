@@ -51,10 +51,10 @@ RUN set -ex; \
     composer --version; \
     pecl install gnupg; \
     docker-php-ext-enable gnupg; \
+    docker-php-ext-configure zip; \
     echo "\n" | pecl install apcu; \
     docker-php-ext-enable apcu; \
     echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini; \
-    docker-php-ext-configure zip; \
     pecl install amqp; \
     docker-php-ext-enable amqp; \
     pecl install -o -f redis; \
