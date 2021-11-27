@@ -62,6 +62,7 @@ class UserControllerTest extends AuthenticatedWebTestCase
             'username' => 'john.doe.' . $testUuid,
             'email'    => 'john.doe.' . $testUuid . '@yopmail.com',
             'password' => 'password',
+            'confirmPassword' => 'password',
             'language' => 'en',
         ];
 
@@ -175,10 +176,29 @@ class UserControllerTest extends AuthenticatedWebTestCase
         $this->assertSame('[]', $disableContent);
     }
 
-    public function testAdminCrud()
+    public function testCrudUsernameTooShort()
     {
-        $this->authenticateClient($this->client);
+        $testUuid = Uuid::uuid4();
+        $user = [
+            'username' => 'jd',
+            'email'    => 'john.dorian.' . $testUuid . '@yopmail.com',
+            'password' => 'password',
+            'confirmPassword' => 'password',
+            'language' => 'en',
+        ];
 
+        // Create
+        $createPayload = json_encode($user);
+        $this->client->request('POST', '/api/user', [], [], [], $createPayload);
+
+        $this->assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+        $createContent = $this->client->getResponse()->getContent();
+        $createError = json_decode($createContent, true);
+        $this->assertNotEmpty($createError);
+    }
+
+    public function testCrudNoConfirmPassword()
+    {
         $testUuid = Uuid::uuid4();
         $user = [
             'username' => 'john.doe.' . $testUuid,
@@ -191,10 +211,124 @@ class UserControllerTest extends AuthenticatedWebTestCase
         $createPayload = json_encode($user);
         $this->client->request('POST', '/api/user', [], [], [], $createPayload);
 
+        $this->assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+        $createContent = $this->client->getResponse()->getContent();
+        $createError = json_decode($createContent, true);
+        $this->assertNotEmpty($createError);
+    }
+
+    public function testCrudSameUsername()
+    {
+        $testUuid = Uuid::uuid4();
+        $user = [
+            'username' => 'john.doe.' . $testUuid,
+            'email'    => 'john.doe.' . $testUuid . '@yopmail.com',
+            'password' => 'john.doe.' . $testUuid,
+            'confirmPassword' => 'john.doe.' . $testUuid,
+            'language' => 'en',
+        ];
+
+        // Create
+        $createPayload = json_encode($user);
+        $this->client->request('POST', '/api/user', [], [], [], $createPayload);
+
+        $this->assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+        $createContent = $this->client->getResponse()->getContent();
+        $createError = json_decode($createContent, true);
+        $this->assertNotEmpty($createError);
+    }
+
+    public function testCrudSameEmail()
+    {
+        $testUuid = Uuid::uuid4();
+        $user = [
+            'username' => 'john.doe.' . $testUuid,
+            'email'    => 'john.doe.' . $testUuid . '@yopmail.com',
+            'password' => 'john.doe.' . $testUuid . '@yopmail.com',
+            'confirmPassword' => 'john.doe.' . $testUuid . '@yopmail.com',
+            'language' => 'en',
+        ];
+
+        // Create
+        $createPayload = json_encode($user);
+        $this->client->request('POST', '/api/user', [], [], [], $createPayload);
+
+        $this->assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+        $createContent = $this->client->getResponse()->getContent();
+        $createError = json_decode($createContent, true);
+        $this->assertNotEmpty($createError);
+    }
+
+    public function testCrudConfirmNotMatch()
+    {
+        $testUuid = Uuid::uuid4();
+        $user = [
+            'username' => 'john.doe.' . $testUuid,
+            'email'    => 'john.doe.' . $testUuid . '@yopmail.com',
+            'password' => 'john.doe.' . $testUuid . '@yopmail.com',
+            'confirmPassword' => 'password',
+            'language' => 'en',
+        ];
+
+        // Create
+        $createPayload = json_encode($user);
+        $this->client->request('POST', '/api/user', [], [], [], $createPayload);
+
+        $this->assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+        $createContent = $this->client->getResponse()->getContent();
+        $createError = json_decode($createContent, true);
+        $this->assertNotEmpty($createError);
+    }
+
+    public function testAdminCrud()
+    {
+        $this->authenticateClient($this->client);
+
+        $testUuid = Uuid::uuid4();
+        $user = [
+            'username' => 'jane.doe.' . $testUuid,
+            'email'    => 'jane.doe.' . $testUuid . '@yopmail.com',
+            'password' => 'password',
+            'confirmPassword' => 'password',
+            'language' => 'en',
+        ];
+
+        // Create
+        $createPayload = json_encode($user);
+        $this->client->request('POST', '/api/user', [], [], [], $createPayload);
+
         $this->assertSame(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
         $createContent = $this->client->getResponse()->getContent();
         $createUser = json_decode($createContent, true);
         $this->assertEmpty($createUser);
+
+        // Retrieve user and verification code from DB
+        /**
+         * @var User
+         */
+        $userEntity = $this->entityManager
+            ->getRepository(User::class)
+            ->findOneBy(['username' => $user['username']])
+        ;
+        $this->assertNotEmpty($userEntity->getId());
+
+        // Disable
+        $disablePayload = json_encode(false);
+        $this->client->request('PUT', '/api/admin/user/' . $userEntity->getId() . '/set-enable', [], [], [], $disablePayload);
+
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $disableContent = $this->client->getResponse()->getContent();
+        $disableResponse = json_decode($disableContent, true);
+        $this->assertEmpty($disableResponse);
+
+        // Enable
+        $enablePayload = json_encode(true);
+        $this->client->request('PUT', '/api/admin/user/' . $userEntity->getId() . '/set-enable', [], [], [], $enablePayload);
+
+        $this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $enableContent = $this->client->getResponse()->getContent();
+        $enableResponse = json_decode($enableContent, true);
+        $this->assertEmpty($enableResponse);
 
         // TODO Update
         /*

@@ -7,7 +7,10 @@
     </div>
 
     <div class="card">
-      <div class="card-content">
+      <div
+        v-if="authUser"
+        class="card-content"
+      >
         <strong>{{ $t("common.username.label") }}:</strong>
         <span>{{ authUser.username }}</span>
         <hr>
@@ -47,17 +50,20 @@
       </div>
     </div>
 
-    <section class="section">
-      <b-modal
-        :active.sync="showPasswordChangeModal"
-        has-modal-card
-        trap-focus
-        aria-role="dialog"
-        aria-modal
-      >
-        <app-password-change-modal />
-      </b-modal>
-    </section>
+    <b-modal
+      :active.sync="showPasswordChangeModal"
+      has-modal-card
+      trap-focus
+      aria-role="dialog"
+      aria-modal
+    >
+      <app-password-change-modal
+        :has-error="hasError"
+        :error="error"
+        :loading="isLoading"
+        @submit="onChangePassword"
+      />
+    </b-modal>
 
     <b-modal
       :active.sync="showAccountDeleteModal"
@@ -93,12 +99,17 @@
         </div>
       </form>
     </b-modal>
-    <section />
   </section>
 </template>
 
 <script lang="ts">
 import { mapGetters } from "vuex";
+import { AxiosError } from "axios";
+
+import { IError } from '../../../interfaces/error';
+
+import { IUserPasswordChange } from "../interfaces";
+
 import AppPasswordChangeModal from "../components/AppPasswordChangeModal/AppPasswordChangeModal.vue";
 
 export default {
@@ -109,13 +120,23 @@ export default {
   data() {
     return {
       showPasswordChangeModal: false,
-      showAccountDeleteModal: false
+      showAccountDeleteModal: false,
+      source: null as String,
+      fullDn: null as String,
     };
   },
   computed: {
     ...mapGetters("auth", ["authUser"]),
+    ...mapGetters("user", ["isLoading", "hasError", "error"]),
     titleLabel() {
       return this.$t("profile.welcome");
+    },
+  },
+  async created() {
+    this.source = this.authUser?.metadata?.auth?.source ?? "unknown";
+
+    if (this.source === 'ldap') {
+      this.fullDn = this.authUser.metadata.ldap.fullDn;
     }
   },
   metaInfo() {
@@ -124,12 +145,55 @@ export default {
   methods: {
     async disableAccount() {
       this.$store.dispatch("user/disableAccount").then(() => {
-        if (!this.hasError) {
+        if (this.hasError === true) {
+          this.handleSuccess();
           this.$store.dispatch("auth/logout");
           this.$router.push({ name: "Login" });
+        } else {
+          this.handleError(this.error);
         }
       });
-    }
+    },
+    async onChangePassword(data: IUserPasswordChange) {
+      this.$store.dispatch("user/passwordChange", data).then(() => {
+        if (!this.hasError === true) {
+          this.handleSuccess();
+          this.$store.dispatch("auth/logout");
+          this.$router.push({ name: "Login" });
+        } else {
+          this.handleError(this.error);
+        }
+      });
+    },
+    handleError(error: AxiosError<IError>) {
+      var message = null;
+      const serverError = error?.response?.data;
+      if (!!serverError && !!serverError.message) {
+        message = serverError.message;
+      } else {
+        message = error.message;
+      }
+      if (!!!message) {
+        message = this.$t("common.fatal.unexpected");
+      }
+
+      this.$buefy.snackbar.open(
+        {
+          message: message,
+          type: "is-danger",
+          indefinite: true,
+        }
+      );
+    },
+    handleSuccess() {
+      this.$buefy.toast.open(
+        {
+          duration: 2500,
+          message: this.$t("common.success"),
+          type: "is-success"
+        }
+      );
+    },
   }
 };
 </script>

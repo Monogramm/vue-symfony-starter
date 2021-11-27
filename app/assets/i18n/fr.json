@@ -33,25 +33,36 @@
     "buy": "Commander",
     "declare": "Déclarer",
     "create": "Créer",
+    "created": "Création réussie",
+    "created-at": "Créé à",
     "edit": "Editer",
     "update": "Mettre à jour",
+    "updated": "Mise à jour réussie",
+    "updated-at": "Mis à jour à",
     "delete": "Supprimer",
     "manage": "Gérer",
     "view": "Voir",
+    "refresh": "Rafraîchir",
     "details": "Détails",
+    "success": "Succès",
     "username": {
       "label": "Nom d'utilisateur",
-      "placeholder": "Entrer un nom d'utilisateur"
+      "placeholder": "Entrer un nom d'utilisateur",
+      "format": "des lettres, des chiffres et les caractères -."
     },
     "email": {
       "label": "Adresse email",
-      "placeholder": "Entrer une adresse email"
+      "placeholder": "Entrer une adresse email",
+      "format": "adresse e-mail valide, comme utilisateur@mail.com"
     },
     "password": {
       "label": "Mot de passe",
       "placeholder": "Entrer un mot de passe",
       "empty": "Le mot de passe ne peut pas être vide",
-      "confirm": "Confirmer mot de passe"
+      "confirm": "Confirmer mot de passe",
+      "format": "au moins 6 caractères",
+      "not-username": "Le mot de passe ne doit pas être le nom d'utilisateur !",
+      "not-email": "Le mot de passe ne doit pas être l'e-mail !"
     },
     "confirmation": {
       "create": "Confirmer création ?",
@@ -64,8 +75,16 @@
       "info": "Info"
     },
     "error": {
-      "required-field-emmpty": "Veuillez renseigner ce champ",
-      "field-not-valid": "Veuillez respecter le format demandé"
+      "required-field-empty": "Veuillez renseigner ce champ",
+      "field-not-valid": "Veuillez respecter le format demandé : {format}",
+      "upload-failure": "Une erreur s'est produite lors du téléchargement du fichier ! {error}",
+      "already-exists": "Existe déjà",
+      "invalid-request": "Requête non valide",
+      "forbidden-request": "Requête interdite",
+      "ad-request": "Mauvaise requête"
+    },
+    "fatal": {
+      "unexpected": "Une erreur innatendue c'est produite. Reéssayez dans quelques instants ou contactez le support."
     },
     "send": "Envoyer",
     "user": "Utilisateur",
@@ -154,6 +173,10 @@
     "success": "Le mot de passe a été réinitialisé avec succès"
   },
   "logout.title": "Déconnexion",
+  "impersonation": {
+    "start": "Se faire passer pour",
+    "stop": "Arrêter de se faire passer pour"
+  },
   "home": {
     "title": "Accueil",
     "welcome": "Bienvenue chez Vue Symfony Starter",
@@ -178,7 +201,7 @@
     "password-change": "Changer votre mot de passe",
     "account-delete": {
       "label": "Supprimer le compte",
-      "confirm": "Voulez-vous vraiment supprimer définitivement votre compte?"
+      "confirm": "Voulez-vous vraiment fermer votre compte ?"
     },
     "verification": {
       "title": "Сode de vérification",
@@ -193,7 +216,7 @@
       "link": "CGU"
     },
     "register": "S'inscrire",
-    "success": "Inscription réussie! Vous pouvez maintenant vous connecter."
+    "success": "Inscription réussie ! Vous pouvez maintenant vous connecter et valider votre compte."
   },
   "payment": {
     "title": "Vérification du paiement",
@@ -220,10 +243,27 @@
   "users": {
     "admin": "Utilisateurs",
     "list": "Liste des utilisateurs",
+    "edit": "Modification d'un utilisateur",
+    "create": "Création d'un utilisateur",
     "username": "Nom d'utilisateur",
     "email": "Email",
     "language": "Langue",
-    "verified": "Vérification"
+    "roles": "Roles",
+    "roles-placeholder": "Ajouter un rôle à l'utilisateur",
+    "verified": "Vérifié",
+    "enabled": "Actif",
+    "role": {
+      "super-admin": "Super Administrateur",
+      "admin": "Administrateur",
+      "monitoring": "Supervision",
+      "verified-user": "Utilisateur vérifié",
+      "user": "Utilisateur",
+      "unknown": "Rôle inconnu"
+    },
+    "enable": " Activer",
+    "enable-message": " Confirmez-vous l'activation de l'utilisateur sélectionné ?",
+    "disable": "Désactiver",
+    "disable-message": "Confirmez-vous la désactivation l'utilisateur sélectionné ?"
   },
   "parameters": {
     "admin": "Paramètres",

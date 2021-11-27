@@ -97,13 +97,15 @@ class LdapLoginCommand extends Command
     /**
      * Returns the option value for a given option name or returns the value of an environment variable.
      *
-     * @param string $input The command input
+     * @param InputInterface $input
      * @param string $name The option name
      * @param string $env The environment variable name
      *
-     * @return string|string[]|bool|null The option value
+     * @return bool|string|string[]
      *
      * @throws InvalidArgumentException When option given doesn't exist
+     *
+     * @psalm-return array<array-key, string>|bool|string
      */
     private function getOptionOrEnvVar(InputInterface $input, $name, $env)
     {
@@ -114,6 +116,11 @@ class LdapLoginCommand extends Command
         return $option;
     }
 
+    /**
+     * @return int
+     *
+     * @psalm-return 0|1|2|4
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

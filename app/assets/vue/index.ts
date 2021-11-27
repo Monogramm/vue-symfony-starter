@@ -10,7 +10,25 @@ import store from "./store/index";
 axios.interceptors.request.use(function(config) {
   const token = localStorage.getItem("token");
   if (token) {
+    if (!!!config.headers) {
+      config.headers = {};
+    }
     config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  const impersonate = localStorage.getItem("impersonate");
+  if (!!impersonate) {
+    if (!!!config.headers) {
+      config.headers = {};
+    }
+    // WARN When building production, axios sends header in lowercase
+    // https://github.com/axios/axios/issues/413
+    config.headers.HTTP_X_SWITCH_USER = impersonate;
+
+    if (!!!config.params) {
+      config.params = {};
+    }
+    config.params._switch_user = impersonate;
   }
 
   return config;
@@ -18,7 +36,7 @@ axios.interceptors.request.use(function(config) {
 
 router.beforeEach(async (to: Route, from: Route, next: any) => {
   const token = localStorage.getItem("token");
-  if (token) {
+  if (token && !store.state.auth.isLoggedIn()) {
     await store.dispatch("auth/getAuthUser");
   }
 
@@ -95,6 +113,8 @@ import {
   faEllipsisH,
   faBan,
   faInfoCircle,
+  faQuestion,
+  faQuestionCircle,
   faExclamationTriangle,
   faExclamationCircle,
   faArrowUp,
@@ -109,10 +129,19 @@ import {
   faPlus,
   faCaretDown,
   faCaretUp,
+  faRedo,
+  faUndo,
+  faSync,
   faUser,
+  faUserCheck,
+  faUserTie,
+  faUserClock,
+  faUserSecret,
   faMagic,
   faEdit,
   faCopy,
+  faSave,
+  faTrash,
   faFilter,
   faSignInAlt,
   faSignOutAlt,
@@ -142,6 +171,8 @@ library.add(
   faEllipsisH,
   faBan,
   faInfoCircle,
+  faQuestion,
+  faQuestionCircle,
   faExclamationTriangle,
   faExclamationCircle,
   faArrowUp,
@@ -156,11 +187,20 @@ library.add(
   faPlus,
   faCaretDown,
   faCaretUp,
+  faRedo,
+  faUndo,
+  faSync,
   faUser,
+  faUserCheck,
+  faUserTie,
+  faUserClock,
+  faUserSecret,
   faMagic,
   faEdit,
   faCopy,
   faFilter,
+  faSave,
+  faTrash,
   faSignInAlt,
   faSignOutAlt,
   faUpload,

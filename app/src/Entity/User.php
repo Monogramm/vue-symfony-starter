@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,20 +14,23 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="`user`")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity("username")
+ * @UniqueEntity("email")
  */
 class User implements UserInterface
 {
     use EntityTrait;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, unique=true)
      * @Assert\NotBlank
+     * @Assert\Length(min=3)
      * @Groups("admin")
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank
      * @Assert\Email
      * @Groups("admin")
@@ -55,7 +59,7 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      * @Groups("admin")
      */
-    private $isVerified;
+    private $enabled;
 
     /**
      * @ORM\OneToMany(targetEntity="ApiToken", mappedBy="user", cascade={"REMOVE"})
@@ -63,22 +67,31 @@ class User implements UserInterface
     private $tokens;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @Groups("admin")
+     */
+    private $isVerified;
+
+    /**
+     * @var VerificationCode
      * @ORM\OneToOne(targetEntity="VerificationCode", mappedBy="user", cascade={"remove"})
      */
     private $verificationCode;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var array $metadata Metadata only used by frontend client(s).
+     * @ORM\Column(type="json")
+     * @Groups("default")
      */
-    private $enabled;
+    private $metadata = [];
 
     public function __construct(string $username = null, string $email = null, $verified = false, $enabled = true)
     {
-        $this->tokens = new ArrayCollection();
         $this->username = $username;
         $this->email = $email;
-        $this->isVerified = $verified;
         $this->enabled = $enabled;
+        $this->tokens = new ArrayCollection();
+        $this->isVerified = $verified;
     }
 
     public function getUsername(): ?string
@@ -86,6 +99,9 @@ class User implements UserInterface
         return $this->username;
     }
 
+    /**
+     * @return static
+     */
     public function setUsername(string $username): self
     {
         $this->username = $username;
@@ -98,6 +114,9 @@ class User implements UserInterface
         return $this->email;
     }
 
+    /**
+     * @return static
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -110,6 +129,9 @@ class User implements UserInterface
         return $this->password;
     }
 
+    /**
+     * @return static
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -117,6 +139,9 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return null
+     */
     public function getSalt()
     {
         return null;
@@ -129,6 +154,24 @@ class User implements UserInterface
     {
     }
 
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    /**
+     * @return static
+     */
+    public function setLanguage(string $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -139,23 +182,75 @@ class User implements UserInterface
     public function getRoles()
     {
         // Ensure there are no duplicates AND no holes in array keys
-        $roles = [];
+        $tempRoles = [];
         foreach ($this->roles as $role) {
-            if (!in_array($role, $roles)) {
-                $roles[] = $role;
+            if (!in_array($role, $tempRoles)) {
+                $tempRoles[] = $role;
             }
         }
 
-        // guarantee every enabled user at least has ROLE_USER
-        if ($this->isEnabled() && !in_array('ROLE_USER', $roles)) {
-            $roles[] = 'ROLE_USER';
+        return $tempRoles;
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->roles, true);
+    }
+
+    public function addRole(string $role): void
+    {
+        array_push($this->roles, $role);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('ROLE_ADMIN');
+    }
+
+    /**
+     * @return string[]
+     *
+     * @psalm-return array{0: string, 1?: string}
+     */
+    public function getAllowedGroups(): array
+    {
+        $groups = ['default'];
+
+        if ($this->isAdmin()) {
+            $groups[] = 'admin';
         }
 
-        if ($this->isVerified() && !in_array('ROLE_VERIFIED_USER', $roles)) {
-            $roles[] = 'ROLE_VERIFIED_USER';
-        }
+        return $groups;
+    }
 
-        return $roles;
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return static
+     */
+    private function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function enable(): self
+    {
+        return $this->setEnabled(true);
+    }
+
+    /**
+     * @return static
+     */
+    public function disable(): self
+    {
+        return $this->setEnabled(false);
     }
 
     public function getTokens()
@@ -169,58 +264,114 @@ class User implements UserInterface
         $token->setUser($this);
     }
 
-    public function getLanguage(): ?string
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(string $language): self
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
     public function isVerified()
     {
         return $this->isVerified;
     }
 
+    /**
+     * @return static
+     */
+    private function setVerified(bool $verified): self
+    {
+        $this->isVerified = $verified;
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
     public function verify(): self
     {
-        $this->isVerified = true;
+        $this->setVerified(true);
+
+        if (!$this->hasRole('ROLE_VERIFIED_USER')) {
+            $this->roles[] = 'ROLE_VERIFIED_USER';
+        }
 
         return $this;
     }
 
-    public function getVerificationCode()
+    /**
+     * @return static
+     */
+    public function unverify(): self
+    {
+        $this->setVerified(false);
+
+        if ($this->hasRole('ROLE_VERIFIED_USER')) {
+            // Ensure there are no duplicates AND no holes in array keys
+            $tempRoles = [];
+            foreach ($this->roles as $role) {
+                if ($role !== 'ROLE_VERIFIED_USER' && !in_array($role, $tempRoles)) {
+                    $tempRoles[] = $role;
+                }
+            }
+            $this->roles[] = $tempRoles;
+        }
+
+        return $this;
+    }
+
+    public function getVerificationCode(): ?VerificationCode
     {
         return $this->verificationCode;
     }
 
-    public function getAllowedGroups(): array
+    /**
+     * Get user metadata.
+     * @return array the metadata only used by frontend client(s).
+     */
+    public function getMetadata()
     {
-        $groups = ['default'];
-
-        if (in_array('ROLE_ADMIN', $this->getRoles(), true)) {
-            $groups[] = 'admin';
-        }
-
-        return $groups;
+        return $this->metadata;
     }
 
-    public function isEnabled(): bool
+    /**
+     * Set the user metadata.
+     * @param array $metadata the new user metadata
+     * @return static
+     */
+    public function setMetadata(array $metadata): self
     {
-        return $this->enabled;
+        $this->metadata = $metadata;
+
+        return $this;
     }
 
-    public function disable(): void
+    /**
+     * Get a specific field from the user metadata.
+     * @param string $meta the user metadata to retrieve
+     * @param mixed $default the default value if not present
+     * @return mixed
+     */
+    public function getMeta(string $meta, $default = null)
     {
-        $this->enabled = false;
+        return $this->metadata[$meta] ?? $default;
     }
 
-    public function isAdmin(): bool
+    /**
+     * Set a specific field in the user metadata.
+     * @param string $meta the user metadata field to set
+     * @param mixed $data the new user metadata
+     * @return static
+     */
+    public function setMeta(string $meta, $data): self
     {
-        return in_array('ROLE_ADMIN', $this->getRoles(), true);
+        $this->metadata[$meta] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Unset a specific field in the user metadata.
+     * @param string $meta the user metadata field to unset
+     * @return static
+     */
+    public function unsetMeta(string $meta): self
+    {
+        unset($this->metadata[$meta]);
+
+        return $this;
     }
 }

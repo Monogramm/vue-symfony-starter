@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Media;
+use App\Exception\EntityValidationException;
 use App\Repository\MediaRepository;
 use App\Service\Encryptor;
 use App\Service\FileUploader;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Provides REST API for Media.
@@ -85,7 +87,8 @@ class MediaController extends AbstractController
     public function createMedia(
         Request $request,
         SerializerInterface $serializer,
-        EntityManagerInterface $em,
+        ValidatorInterface $validator,
+        EntityManagerInterface $emi,
         FileUploader $fileUploader,
         string $publicUploadsPath
     ): JsonResponse {
@@ -110,8 +113,14 @@ class MediaController extends AbstractController
             ''
         );
 
-        $em->persist($dto);
-        $em->flush();
+        $errors = $validator->validate($dto);
+
+        if (count($errors) > 0) {
+            throw new EntityValidationException($errors);
+        }
+
+        $emi->persist($dto);
+        $emi->flush();
 
         $dto->setFilename('/'.$publicUploadsPath.'/'.$dto->getFilename());
 
@@ -127,9 +136,10 @@ class MediaController extends AbstractController
      */
     public function editMediaById(
         Media $media,
-        EntityManagerInterface $em,
         Request $request,
         SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        EntityManagerInterface $emi,
         FileUploader $fileUploader,
         Filesystem $filesystem,
         string $publicUploadsDir
@@ -158,8 +168,14 @@ class MediaController extends AbstractController
             [ AbstractNormalizer::OBJECT_TO_POPULATE => $media ]
         );
 
-        $em->persist($dto);
-        $em->flush();
+        $errors = $validator->validate($dto);
+
+        if (count($errors) > 0) {
+            throw new EntityValidationException($errors);
+        }
+
+        $emi->persist($dto);
+        $emi->flush();
 
         if ($file) {
             // Delete previous file if new file sent
@@ -178,14 +194,14 @@ class MediaController extends AbstractController
      */
     public function deleteMedia(
         Media $media,
-        EntityManagerInterface $em,
+        EntityManagerInterface $emi,
         Filesystem $filesystem,
         string $publicUploadsDir
     ): JsonResponse {
         $previousFilename = $media->getFilename();
 
-        $em->remove($media);
-        $em->flush();
+        $emi->remove($media);
+        $emi->flush();
 
         if ($previousFilename) {
             $filesystem->remove($publicUploadsDir . '/' . $previousFilename);

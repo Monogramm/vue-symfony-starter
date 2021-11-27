@@ -9,7 +9,6 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/c05dda5cb328428aad5f3b8224a8f55b)](https://www.codacy.com/gh/Monogramm/vue-symfony-starter/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Monogramm/vue-symfony-starter&amp;utm_campaign=Badge_Coverage)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Monogramm/vue-symfony-starter/Docker%20Image%20CI)](https://github.com/Monogramm/vue-symfony-starter/actions)
 
-[![Docker Automated buid](https://img.shields.io/docker/cloud/build/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/monogramm/vue-symfony-starter.svg)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/monogramm/vue-symfony-starter/latest)](https://hub.docker.com/r/monogramm/vue-symfony-starter/)
 

@@ -2,7 +2,7 @@
   "name": "vue-symfony-starter",
   "version": "0.1.0",
   "description": "A 'simple' starter project using Vue.js and Symfony.",
-  "license": "proprietary",
+  "license": "AGPL v3",
   "private": true,
   "repository": {
     "type": "git",
@@ -37,7 +37,7 @@
     "buefy": "^0.9.7",
     "dotenv-webpack": "^2.0.0",
     "vue": "^2.6.14",
-    "vue-i18n": "^8.24.3",
+    "vue-i18n": "^8.24.5",
     "vue-meta": "^2.3.3",
     "vue-router": "^3.1.6",
     "vuex": "^3.1.2"
