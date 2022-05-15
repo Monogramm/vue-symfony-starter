@@ -14,12 +14,52 @@ RUN set -ex; \
         rabbitmq \
     ;
 
+RUN set -ex; \
+    sudo apt-get install -y --no-install-recommends \
+        cron \
+        netcat \
+        openssl \
+        rsync \
+        unzip \
+        wget \
+        zip \
+    ; \
+    sudo apt-get install -y --no-install-recommends \
+        g++ \
+        libcurl4-openssl-dev \
+        libfreetype6-dev \
+        libicu-dev \
+        libjpeg-dev \
+        libldap2-dev \
+        libonig-dev \
+        libpng-dev \
+        libpq-dev \
+        librabbitmq-dev \
+        libsodium-dev \
+        libxml2-dev \
+        libzip-dev \
+        make \
+        zlib1g-dev \
+    ;
+
 ARG XDEBUG_VERSION=2.9.8
 
 RUN set -ex; \
     sudo apt-get install -y --no-install-recommends \
+        php-apcu \
+        php-amqp \
+        php-gd \
+        php-intl \
         php-ldap \
+        php-mbstring \
+        php-opcache \
+        php-pear \
+        php-redis \
+        php-zip \
     ; \
+    echo "[apc]" >> /etc/php/7.4/cli/conf.d/20-apcu.ini; \
+    echo "apc.enable_cli=1" >> /etc/php/7.4/cli/conf.d/20-apcu.ini; \
+    pecl install libsodium; \
     wget "http://xdebug.org/files/xdebug-${XDEBUG_VERSION}.tgz"; \
     tar -xvzf "xdebug-${XDEBUG_VERSION}.tgz"; \
     cd "xdebug-${XDEBUG_VERSION}"; \

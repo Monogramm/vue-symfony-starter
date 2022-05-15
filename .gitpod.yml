@@ -37,15 +37,17 @@ tasks:
 
 vscode:
   extensions:
-    - felixfbecker.php-debug@1.13.0:WX8Y3EpQk3zgahy41yJtNQ==
+    - felixfbecker.php-debug
 
-    - felixfbecker.php-pack@1.0.2:2V0NCoZNF9GELURKXgdHeQ==
+    - felixfbecker.php-pack
 
-    - syler.sass-indented@1.8.15:OWaLl5oCHRK7fCfvhwK3og==
+    - syler.sass-indented
 
-    - dbaeumer.vscode-eslint@2.1.8:02aHhbJ0Q4aGdjHXlTdVKg==
+    - dbaeumer.vscode-eslint
 
-    - octref.vetur@0.32.0:03mwRhlVpWDul4qBChcVUA==
+    - octref.vetur
+
+    - Vtrois.gitmoji-vscode
 
 github:
   prebuilds:
