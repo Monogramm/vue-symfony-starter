@@ -12,7 +12,7 @@ This project uses the following technologies:
     -   [Twig](https://twig.symfony.com/) templates with full [translation support](https://symfony.com/doc/4.4/translation/templates.html)
     -   [Messenger component](https://symfony.com/doc/4.4/components/messenger.html) to send messages to background workers
     -   Custom [Console Commands](https://symfony.com/doc/current/console.html) for support and cron jobs automation
-    -   Code quality tools: [PHPUnit](https://phpunit.de/), [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer), [Psalm](https://psalm.dev/)
+    -   Code quality tools: [PHPUnit](https://phpunit.de/), [PHPCS](https://github.com/PHPCSStandards/PHP_CodeSniffer), [Psalm](https://psalm.dev/)
 
 -   [Vue.js](https://vuejs.org/) frontend with:
     -   full [TypeScript](https://www.typescriptlang.org/) support
